@@ -1,16 +1,19 @@
-import './index.css'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
-import Sidebar from './components/Sidebar/Sidebar'
-import Todolist from './components/Todolist/Todolist'
 import Header from './components/Header/Header'
 import Login from './components/Login/Login'
 
 function App() {
   return (
-    <div className="App">
-      <Header />
-      <Login />
-    </div>
+    <Router>
+      <div className="App">
+        <Header />
+
+        <Switch>
+          <Route component={Login} path="/login" />
+        </Switch>
+      </div>
+    </Router >
   )
 }
 

@@ -37,12 +37,26 @@ app.use(passport.session())
 require("./passportConfig")(passport)
 
 // Routes
-app.post("/login", (req, res) => {
+app.post("/register", async (req, res) => {
+  const encryptedPassword = await bcrypt.hash(req.body.password, 10)
 
+  db.get(`SELECT * FROM users WHERE username = ?`, [req.body.username], (err, row) => {
+    if (row) {
+      console.log("User exists")
+      res.send({ message: "User exists" })
+    } else {
+      db.run("Insert INTO users (username, password) values (?, ?)", [req.body.username, encryptedPassword], (err) => {
+        if (err) { console.log(err) }
+
+        console.log("User added")
+        res.send({ message: "User added" })
+      })
+    }
+  })
 })
 
-app.post("/register", async (req, res) => {
-
+app.post("/login", (req, res) => {
+  console.log("Logged in")
 })
 
 app.get("/getUser", (req, res) => {

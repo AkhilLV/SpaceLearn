@@ -19,6 +19,8 @@ const Login = () => {
         password: passwordInput
       },
       url: `http://localhost:4000/${route}`
+    }).then(res => {
+      console.log(res.data.message)
     })
   }
 
