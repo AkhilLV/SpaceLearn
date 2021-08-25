@@ -1,9 +1,11 @@
 import { useState } from "react"
+import { useHistory } from "react-router-dom"
 import axios from "axios"
 
 const Login = () => {
   const [usernameInput, setUsernameInput] = useState("")
   const [passwordInput, setPasswordInput] = useState("")
+  const history = useHistory()
 
   const [login, setLogin] = useState(true)
 
@@ -18,9 +20,13 @@ const Login = () => {
         username: usernameInput,
         password: passwordInput
       },
-      url: `http://localhost:4000/${route}`
+      url: `http://localhost:4000/${route}`,
+      withCredentials: true,
     }).then(res => {
       console.log(res.data.message)
+      if (res.data === "Logged in") {
+        history.push("/tasks")
+      }
     })
   }
 
@@ -40,7 +46,7 @@ const Login = () => {
 
       </form>
 
-      <p onClick={() => setLogin(!login)}>{login ? "Sign up instead" : "Log in instead"}</p>
+      <a href="#" onClick={() => setLogin(!login)}>{login ? "Sign up instead" : "Log in instead"}</a>
     </div>
   )
 }

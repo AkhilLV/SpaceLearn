@@ -23,15 +23,14 @@ module.exports = (passport) => {
   )
 
   passport.serializeUser((user, cb) => {
-    cb(null, user.id) // serialize stores a cookie with user.id inside of it
+    console.log("From serialize", user)
+    cb(null, user.id)
   })
 
   passport.deserializeUser((id, cb) => {
     db.get("SELECT * FROM users WHERE id = ?", [id], (err, user) => {
-      const userInformation = {
-        data: "This is accesible only to logged in users",
-      }
-      cb(err, userInformation)
+      console.log("Dese", user)
+      cb(err, user)
     })
   })
 }

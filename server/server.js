@@ -1,5 +1,5 @@
-const express = require("express")
 const cors = require("cors")
+const express = require("express")
 const passport = require("passport")
 const passportLocal = require("passport-local").Strategy
 const cookieParser = require("cookie-parser")
@@ -12,12 +12,12 @@ const db = database.db
 const app = express()
 
 // Middleware
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 app.use(
   cors({
-    origin: "http://localhost:3000", // location of the react app were connecting to
+    origin: "http://localhost:3000",
     credentials: true,
   })
 )
@@ -37,6 +37,12 @@ app.use(passport.session())
 require("./passportConfig")(passport)
 
 // Routes
+app.post("/login", passport.authenticate('local'), (req, res) => {
+  console.log("/login: ", req.user)
+
+  res.send("Logged in")
+})
+
 app.post("/register", async (req, res) => {
   const encryptedPassword = await bcrypt.hash(req.body.password, 10)
 
@@ -55,12 +61,9 @@ app.post("/register", async (req, res) => {
   })
 })
 
-app.post("/login", (req, res) => {
-  console.log("Logged in")
-})
-
-app.get("/getUser", (req, res) => {
-
+app.get("/tasks", (req, res) => {
+  console.log("Tasks", req.user)
+  res.send(req.user)
 })
 
 // Start Server
