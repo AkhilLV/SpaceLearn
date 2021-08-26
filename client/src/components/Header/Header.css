@@ -1,0 +1,26 @@
+header {
+  background: #222;
+  padding: 10px 100px;
+  display: flex;
+  align-items: center;
+}
+
+header ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 75px;
+  gap: 30px;
+}
+
+header ul li a {
+  text-decoration: none;
+  color: #fff;
+}
+
+header ul li.cta {
+  background: crimson;
+  padding: 5px 15px;
+  border-radius: 3px;
+}

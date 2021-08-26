@@ -1,5 +1,5 @@
-const cors = require("cors")
 const express = require("express")
+const cors = require("cors")
 const passport = require("passport")
 const passportLocal = require("passport-local").Strategy
 const cookieParser = require("cookie-parser")
@@ -38,8 +38,7 @@ require("./passportConfig")(passport)
 
 // Routes
 app.post("/login", passport.authenticate('local'), (req, res) => {
-  console.log("/login: ", req.user)
-
+  console.log("/login: ", req.user) // req.user is defined here
   res.send("Logged in")
 })
 
@@ -62,7 +61,7 @@ app.post("/register", async (req, res) => {
 })
 
 app.get("/tasks", (req, res) => {
-  console.log("Tasks", req.user)
+  console.log("Tasks", req.user) // req.user is undefined here
   res.send(req.user)
 })
 

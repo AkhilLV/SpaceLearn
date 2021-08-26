@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
+import './index.css'
+
 import Header from './components/Header/Header'
 import Login from './components/Login/Login'
 import Tasks from './components/Tasks/Tasks'

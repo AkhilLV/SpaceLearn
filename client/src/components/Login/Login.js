@@ -2,6 +2,8 @@ import { useState } from "react"
 import { useHistory } from "react-router-dom"
 import axios from "axios"
 
+import './Login.css'
+
 const Login = () => {
   const [usernameInput, setUsernameInput] = useState("")
   const [passwordInput, setPasswordInput] = useState("")
@@ -32,9 +34,9 @@ const Login = () => {
 
   return (
     <div className="login-form">
-      <h1>{login ? "Login" : "Register"}</h1>
-
       <form>
+
+        <h2>{login ? "Login" : "Register"}</h2>
 
         <label>Username:</label>
         <input onChange={(e) => setUsernameInput(e.target.value)} value={usernameInput} type="text" placeholder="Ex: John Doe" />
@@ -44,9 +46,11 @@ const Login = () => {
 
         <button onClick={handleSubmit}>{login ? "Login" : "Register"}</button>
 
+        <a href="#" onClick={() => setLogin(!login)}>{login ? "Sign up instead" : "Log in instead"}</a>
+
       </form>
 
-      <a href="#" onClick={() => setLogin(!login)}>{login ? "Sign up instead" : "Log in instead"}</a>
+
     </div>
   )
 }
