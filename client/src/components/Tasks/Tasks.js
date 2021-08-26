@@ -13,10 +13,22 @@ const Todolist = () => {
     })
   }, [])
 
+  const getTasks = () => {
+    axios(
+      {
+        method: "GET",
+        url: "http://localhost:4000/tasks"
+      }
+    ).then(res => {
+      console.log(res)
+    })
+  }
+
   return (
     <div>
       <h1>Tasks</h1>
       <ul>
+        <button>Get tasks</button>
         <li>Walk cat</li>
         <li>Clean cat</li>
         <li>Kill cat</li>

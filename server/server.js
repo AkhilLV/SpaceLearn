@@ -13,11 +13,11 @@ const app = express()
 
 // Middleware
 app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
+app.use(express.json()) // To parse the incoming requests with JSON payloads
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "http://localhost:3000", // <-- location of the react app were connecting to
     credentials: true,
   })
 )
@@ -37,9 +37,22 @@ app.use(passport.session())
 require("./passportConfig")(passport)
 
 // Routes
-app.post("/login", passport.authenticate('local'), (req, res) => {
-  console.log("/login: ", req.user) // req.user is defined here
-  res.send("Logged in")
+app.post("/login", (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) throw err
+    if (!user) {
+      res.status(400)
+      res.send("No User Exists")
+    }
+    else {
+      req.logIn(user, (err) => {
+        if (err) throw err
+        console.log("User logged in")
+        res.send("Logged in")
+      })
+    }
+  })
+    (req, res, next)
 })
 
 app.post("/register", async (req, res) => {
@@ -47,21 +60,21 @@ app.post("/register", async (req, res) => {
 
   db.get(`SELECT * FROM users WHERE username = ?`, [req.body.username], (err, row) => {
     if (row) {
-      console.log("User exists")
-      res.send({ message: "User exists" })
+      console.log("User Exists")
     } else {
-      db.run("Insert INTO users (username, password) values (?, ?)", [req.body.username, encryptedPassword], (err) => {
-        if (err) { console.log(err) }
-
-        console.log("User added")
-        res.send({ message: "User added" })
+      db.run("Insert INTO users (username, password) values (?, ?)", [req.body.username, encryptedPassword], (err, res) => {
+        if (err) {
+          console.log(err)
+        }
+        console.log("User Added")
       })
     }
   })
 })
 
 app.get("/tasks", (req, res) => {
-  console.log("Tasks", req.user) // req.user is undefined here
+  console.log("tasks")
+  console.log(req.user)
   res.send(req.user)
 })
 
