@@ -4,7 +4,7 @@ import axios from "axios"
 
 import './Login.css'
 
-const Login = () => {
+const Login = (props) => {
   const [usernameInput, setUsernameInput] = useState("")
   const [passwordInput, setPasswordInput] = useState("")
   const history = useHistory()
@@ -13,6 +13,8 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    if (!usernameInput || !passwordInput) return alert("Invalid input")
 
     const route = login ? "login" : "register"
 
@@ -24,10 +26,20 @@ const Login = () => {
       },
       url: `http://localhost:4000/${route}`,
       withCredentials: true,
-    }).then(res => {
-      console.log(res.data.message)
-      if (res.data === "Logged in") {
-        history.push("/tasks")
+    }).then((res) => {
+      switch (res.data.message) {
+        case ("Logged in"):
+          props.setIsLoggedIn(true)
+          history.push("/tasks")
+          break
+        case ("No user"):
+          alert("User does not exist")
+          break
+        case ("Exists"):
+          alert("User Exists")
+          break
+        case ("Added"):
+          alert("User added")
       }
     })
   }
@@ -50,7 +62,9 @@ const Login = () => {
 
       </form>
 
+      <div className="image">
 
+      </div>
     </div>
   )
 }

@@ -1,26 +1,25 @@
 header {
-  background: #222;
   padding: 10px 100px;
-  display: flex;
-  align-items: center;
 }
 
-header ul {
-  list-style: none;
+header img {
+  width: 120px;
+  height: 100%;
+  object-fit: cover;
+  transform: translateY(2px);
+}
+
+header nav {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
-  margin-left: 75px;
-  gap: 30px;
 }
 
-header ul li a {
+header nav .link {
   text-decoration: none;
   color: #fff;
-}
-
-header ul li.cta {
-  background: crimson;
-  padding: 5px 15px;
-  border-radius: 3px;
+  padding: 10px 25px;
+  background: #555;
+  border-radius: 5px;
+  font-size: 14px;
 }

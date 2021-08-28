@@ -28,10 +28,7 @@ module.exports = (passport) => {
 
   passport.deserializeUser((id, cb) => {
     db.get("SELECT * FROM users WHERE id = ?", [id], (err, user) => {
-      const userInformation = {
-        data: user,
-      }
-      cb(err, userInformation)
+      cb(err, user)
     })
   })
 }
