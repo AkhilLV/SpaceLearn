@@ -70,11 +70,45 @@ app.post("/register", async (req, res) => {
   })
 })
 
-app.get("/tasks", (req, res) => {
+app.post("/addCard", (req, res) => {
+  if (!req.user) return res.send("Please log in")
+  db.run("INSERT INTO cards (user_id, date) values(?, ?)", [req.user.id, req.body.date], (err) => {
+    if (err) console.log(err)
 
+    db.all(`SELECT date, tasks FROM cards WHERE user_id = ?`, [req.user.id], (err, result) => {
+      if (err) console.log(err)
+      console.log(result)
+    })
+
+    res.send([
+      {
+        card_id: 1,
+        date: "12-12-2012",
+        tasks: [["Walk cat", false], ["Do Laundry", false]],
+      },
+      {
+        card_id: 2,
+        date: "13-12-2012",
+        tasks: [["Study Chemistry", true], ["Vist Rome", false]],
+      }
+    ])
+  })
+})
+
+app.post("/addTask", (req, res) => {
+  if (!req.user) return res.send("Please log in")
+
+})
+
+app.get("/getCards", (req, res) => {
+  console.log(req.user)
+  if (req.user) {
+    res.send("Hello")
+  }
 })
 
 // Start Server
 app.listen(4000, () => {
   console.log("Server is running at PORT: 4000")
 })
+

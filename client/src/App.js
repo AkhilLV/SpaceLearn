@@ -13,14 +13,20 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Header />
 
         <Switch>
 
+          <Route path="/" exact>
+            <Header route="home" />
+          </Route>
+
           <Route path="/login"  >
+            <Header route="login" />
             <Login setIsLoggedIn={setIsLoggedIn} />
           </Route>
+
           <Route path="/tasks"  >
+            <Header route="tasks" />
             <Cards isLoggedIn={isLoggedIn} />
           </Route>
 

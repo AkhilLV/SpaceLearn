@@ -1,0 +1,34 @@
+{
+  "username": "John",
+  "password": "12345",
+
+  "cards": [
+    {
+      "date": "29-01-2021",
+      "card_id": 1,
+      "tasks": [
+        {
+          "text": "Walk cat",
+          "done": false
+        },
+        {
+          "text": "Laundry",
+          "done": false
+        }
+      ]
+    },
+    {
+      "date": "30-01-2021",
+      "tasks": [
+        {
+          "text": "Learn regex",
+          "done": false
+        },
+        {
+          "text": "Walk cat",
+          "done": false
+        }
+      ]
+    }
+  ] 
+}

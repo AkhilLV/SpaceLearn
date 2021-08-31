@@ -17,4 +17,21 @@ db.run(`
   )
 `)
 
+db.run(`
+  CREATE TABLE IF NOT EXISTS cards (
+    card_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER,
+    date DATE
+  )
+`)
+
+db.run(`
+  CREATE TABLE IF NOT EXISTS tasks (
+    task_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    card_id INTEGER,
+    text TEXT,
+    done BOOLEAN
+  )
+`)
+
 module.exports = { db }

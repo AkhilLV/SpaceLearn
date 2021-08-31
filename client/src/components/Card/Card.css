@@ -2,6 +2,8 @@
   border: 1px solid #444;
   padding: 30px 30px;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .card h2 {
@@ -28,6 +30,19 @@
 .card ul li:hover {
   background: #222;
   text-decoration-color: rgba(255, 255, 255, 1);
+}
+
+.card input {
+  background: #444;
+  border-radius: 3px;
+  padding: 5px 10px;
+  list-style: none;
+  margin-bottom: 10px;
+  width: 200px;
+  font-size: 14px;
+  font-weight: 100;
+  transition: 250ms;
+  border: none;
 }
 
 .card button {
