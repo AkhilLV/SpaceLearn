@@ -2,43 +2,39 @@ import axios from 'axios'
 import { useState } from 'react'
 import './Card.css'
 
+import Task from '../Task/Task'
+import DateSelector from '../DateSelector/DateSelector'
+
 const Card = (props) => {
-  const [taskInput, setTaskInput] = useState("")
-  const [isInputVisible, setIsInputVisible] = useState(false)
-  const toggleInput = () => {
-    setIsInputVisible(!isInputVisible)
-  }
-
-  const addTask = () => {
-    axios({
-      method: "POST",
-      data: {
-        card_id: props.card_id,
-        task: taskInput
-      },
-      url: "http://localhost:3000/addTask",
-      withCredentials: true
-    }).then((res) => {
-      console.log(props.setCardData(res.data))
-    })
-    setIsInputVisible(false)
-  }
-
   return (
     <div className="card">
-      <h2>{props.date}</h2>
-      <ul>
-        {
-          props.tasks.map((task) => <li>{task[0]}</li>)
-        }
-      </ul>
-      {
-        isInputVisible
-          ? <input type="text" value={taskInput} onChange={(e) => setTaskInput(e.target.value)} onblur={() => addTask()} autoFocus />
-          : null
-      }
-      <button onClick={toggleInput}>+</button>
-    </div>
+      <div className="top-bar">
+        <h2>{props.card_name}</h2>
+        <div className="card-menu-icon"></div>
+      </div>
+
+      <DateSelector card_date={props.card_date} />
+
+      <div className="task-input">
+        <input type="text" />
+        <button className="circle">+</button>
+      </div>
+      <div className="tasks">
+        <ul>
+          <li><span className="circle"></span>Walk Cat</li>
+          <li><span className="circle"></span>Do Laundry</li>
+          <li><span className="circle"></span>Make bed</li>
+          <li><span className="circle"></span>Go out</li>
+          <li><span className="circle"></span>Jog 6 miles</li>
+        </ul>
+      </div>
+      <div className="tasks completed-tasks">
+        <ul>
+          <li><span className="circle"></span>Walk Cat</li>
+          <li><span className="circle"></span>Do Laundry</li>
+        </ul>
+      </div>
+    </div >
   )
 }
 

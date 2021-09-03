@@ -1,62 +1,104 @@
 .card {
-  border: 1px solid #444;
-  padding: 30px 30px;
+  border: 3px solid #444;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+  width: 400px;
 }
 
-.card h2 {
-  font-weight: 600;
+.card .top-bar {
+  border-bottom: 1px solid #444;
+  padding: 20px 30px;
+}
+
+.card .top-bar h2 {
   font-size: 20px;
-  margin-bottom: 20px;
+  font-weight: 400;
 }
 
-.card ul li {
-  background: #333;
-  border-radius: 3px;
-  padding: 5px 10px;
-  list-style: none;
-  margin-bottom: 10px;
-  width: 200px;
+.card .task-input {
+  padding: 20px 30px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.card .task-input input {
+  font-family: "Poppins";
   font-size: 14px;
-  cursor: pointer;
-  font-weight: 100;
-  transition: 250ms;
-  text-decoration: line-through;
-  text-decoration-color: rgba(255, 255, 255, 0);
-}
-
-.card ul li:hover {
-  background: #222;
-  text-decoration-color: rgba(255, 255, 255, 1);
-}
-
-.card input {
-  background: #444;
-  border-radius: 3px;
-  padding: 5px 10px;
-  list-style: none;
-  margin-bottom: 10px;
-  width: 200px;
-  font-size: 14px;
-  font-weight: 100;
-  transition: 250ms;
+  padding: 10px 18px;
   border: none;
-}
-
-.card button {
-  background: crimson;
   border-radius: 3px;
-  padding: 5px 10px;
-  list-style: none;
-  margin-top: 10px;
-  width: 200px;
-  font-size: 14px;
-  cursor: pointer;
-  font-weight: 1000;
-  transition: 250ms;
+  padding: 10px 18px;
   outline: none;
-  border: none;
+  width: 100%;
+  background-color: #3a3a3a;
   color: #fff;
+  transition: 250ms;
+}
+
+.card .task-input input:focus {
+  background-color: #444;
+}
+
+.card .task-input button.circle {
+  min-width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 50%;
+  color: #fff;
+  text-align: center;
+  font-weight: 1000;
+  font-size: 20px;
+  background: #02c39a;
+  border: none;
+  cursor: pointer;
+}
+
+.card .tasks {
+  padding: 20px 30px;
+  font-size: 14px;
+}
+
+.card .tasks ul {
+  list-style: none;
+}
+
+.card .tasks ul li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 7px;
+  padding: 7px 10px;
+  border-radius: 5px;
+  transition: 250ms;
+}
+
+.card .tasks ul li:hover {
+  text-decoration: line-through;
+  cursor: pointer;
+  background: #555;
+}
+
+.card .tasks ul .circle {
+  display: inline-block;
+  border-radius: 50%;
+  margin-right: 15px;
+  width: 15px;
+  height: 15px;
+  background-color: #02c39a;
+}
+
+.card .completed-tasks {
+  border-top: 1px solid #444;
+  padding-top: 30px;
+}
+
+.card .completed-tasks ul .circle {
+  background-color: #555;
+}
+
+.card .completed-tasks ul li {
+  color: #555;
+  text-decoration: line-through;
 }

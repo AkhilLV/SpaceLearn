@@ -30,6 +30,7 @@ const Login = (props) => {
       switch (res.data.message) {
         case ("Logged in"):
           props.setIsLoggedIn(true)
+          props.setUserInfo({ username: usernameInput })
           history.push("/tasks")
           break
         case ("No user"):
@@ -62,9 +63,7 @@ const Login = (props) => {
 
       </form>
 
-      <div className="image">
-
-      </div>
+      <div className="image"></div>
     </div>
   )
 }

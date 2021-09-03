@@ -5,6 +5,7 @@ const passportLocal = require("passport-local").Strategy
 const cookieParser = require("cookie-parser")
 const bcrypt = require("bcryptjs")
 const session = require("express-session")
+const SQLiteStore = require('connect-sqlite3')(session)
 
 const database = require("./db/db.js")
 const db = database.db
@@ -24,6 +25,7 @@ app.use(
 
 app.use(
   session({
+    store: new SQLiteStore,
     secret: "secretcode",
     resave: true,
     saveUninitialized: true,
@@ -72,39 +74,28 @@ app.post("/register", async (req, res) => {
 
 app.post("/addCard", (req, res) => {
   if (!req.user) return res.send("Please log in")
-  db.run("INSERT INTO cards (user_id, date) values(?, ?)", [req.user.id, req.body.date], (err) => {
+
+  db.run("INSERT INTO cards (user_id, card_name, card_date) VALUES (?, ?, ?)", [req.user.id, req.body.cardName, req.body.cardDate], (err) => {
     if (err) console.log(err)
-
-    db.all(`SELECT date, tasks FROM cards WHERE user_id = ?`, [req.user.id], (err, result) => {
+    console.log("Card added")
+    db.all("SELECT card_id, card_name, card_date FROM cards WHERE user_id = ?", [req.user.id], (err, result) => {
       if (err) console.log(err)
-      console.log(result)
+      res.send(result)
     })
-
-    res.send([
-      {
-        card_id: 1,
-        date: "12-12-2012",
-        tasks: [["Walk cat", false], ["Do Laundry", false]],
-      },
-      {
-        card_id: 2,
-        date: "13-12-2012",
-        tasks: [["Study Chemistry", true], ["Vist Rome", false]],
-      }
-    ])
   })
 })
 
 app.post("/addTask", (req, res) => {
   if (!req.user) return res.send("Please log in")
-
 })
 
 app.get("/getCards", (req, res) => {
-  console.log(req.user)
-  if (req.user) {
-    res.send("Hello")
-  }
+  if (!req.user) return res.send("Please log in")
+
+  db.all("SELECT card_id, card_name, card_date FROM cards WHERE user_id = ?", [req.user.id], (err, result) => {
+    if (err) console.log(err)
+    res.send(result)
+  })
 })
 
 // Start Server

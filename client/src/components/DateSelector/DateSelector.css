@@ -1,0 +1,23 @@
+.card .date-selector {
+  display: flex;
+  border-bottom: 1px solid #444;
+  font-size: 14px;
+}
+
+.card .date-selector .date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: 1px solid #444;
+  font-size: 14px;
+  text-align: center;
+  white-space: nowrap;
+  width: calc(400px / 4);
+  padding: 15px 10px;
+  cursor: pointer;
+  transition: 250ms;
+}
+
+.card .date-selector .date:hover {
+  background: #444;
+}

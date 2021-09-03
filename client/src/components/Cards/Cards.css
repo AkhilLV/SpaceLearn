@@ -2,7 +2,21 @@
   padding: 10px 100px;
 }
 
-.container button.circle {
+.container .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+}
+
+.container .control-bar {
+  margin-top: 30px;
+}
+
+.container .control-bar button.circle {
   width: 40px;
   height: 40px;
   line-height: 40px;
@@ -14,57 +28,15 @@
   background: crimson;
   border: none;
   cursor: pointer;
+  margin-bottom: 25px;
 }
 
-.cards {
+.container .control-bar p {
+  font-weight: 1000;
+}
+
+.container .cards {
   display: flex;
   gap: 30px;
   margin-top: 50px;
 }
-
-.add-card-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #444;
-  border-radius: 5px;
-  padding: 20px 0;
-}
-
-input[type="date"] {
-  background-color: #222;
-  border: none;
-  margin-right: 20px;
-  padding: 5px 15px;
-  color: #fff;
-  font-family: "Poppins";
-  border-radius: 3px;
-}
-input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(100%);
-}
-/* ::-webkit-datetime-edit {
-  padding: 1em;
-}
-::-webkit-datetime-edit-fields-wrapper {
-  background: silver;
-}
-::-webkit-datetime-edit-text {
-  color: red;
-  padding: 0 0.3em;
-}
-::-webkit-datetime-edit-month-field {
-  color: blue;
-}
-::-webkit-datetime-edit-day-field {
-  color: green;
-}
-::-webkit-datetime-edit-year-field {
-  color: purple;
-}
-::-webkit-inner-spin-button {
-  display: none;
-}
-::-webkit-calendar-picker-indicator {
-  background: orange;
-} */

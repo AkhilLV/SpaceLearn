@@ -4,50 +4,44 @@ import { useHistory } from "react-router"
 
 import './Cards.css'
 
-import Card from '../Card/Card'
+import InputModal from "../InputModal/InputModal"
+import Card from "../Card/Card"
 
 const Cards = (props) => {
   const [cardsData, setCardsData] = useState("")
 
   const history = useHistory()
-  useEffect(() => {
-    if (!props.isLoggedIn) return history.push("/login")
 
-    axios(
-      {
-        method: "GET",
-        url: "http://localhost:4000/getCards",
-        withCredentials: true
-      }
-    ).then(res => {
+  useEffect(() => {
+    // if (!props.isLoggedIn) return history.push("/login")
+
+    axios({
+      method: "GET",
+      url: "http://localhost:4000/getCards",
+      withCredentials: true
+    }).then(res => {
+      setCardsData(res.data)
     })
   }, [])
 
-  const [dateInput, setDateInput] = useState("")
-  const addCard = () => {
-    axios({
-      method: "POST",
-      data: {
-        date: dateInput
-      },
-      url: `http://localhost:4000/addCard`,
-      withCredentials: true,
-    }).then(res => {
-      console.log(res)
-      setCardsData(res.data)
-    })
-  }
+  const [showInputModal, setShowInputModal] = useState(false)
 
   return (
     <div className="container">
-      <div className="add-card-bar">
-        <input type="date" value={dateInput} onChange={(e) => setDateInput(e.target.value)} />
-        <button title="Add new card" className="circle" onClick={addCard}>+</button>
+      <div className={showInputModal ? "overlay" : null}></div>
+      {showInputModal ? <InputModal setShowInputModal={setShowInputModal} setCardsData={setCardsData} /> : null}
+
+      <div className="control-bar">
+
+        <button title="Add new card" className="circle" onClick={() => setShowInputModal(true)}>+</button>
+
+        <p>Welcome, {props.userInfo.username}!</p>
+
       </div>
 
       <div className="cards">
         {
-          cardsData ? cardsData.map((card) => <Card date={card.date} tasks={card.tasks} card_id={card.card_id} setCardsData={setCardsData} />) : "Nothing to see here!"
+          cardsData ? cardsData.map((card) => <Card card_name={card.card_name} card_date={card.card_date} card_id={card.card_id} />) : "Nothing to see here!"
         }
       </div>
     </div>

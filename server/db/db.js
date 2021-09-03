@@ -21,7 +21,8 @@ db.run(`
   CREATE TABLE IF NOT EXISTS cards (
     card_id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER,
-    date DATE
+    card_name TEXT,
+    card_date DATE
   )
 `)
 
@@ -30,7 +31,10 @@ db.run(`
     task_id INTEGER PRIMARY KEY AUTOINCREMENT,
     card_id INTEGER,
     text TEXT,
-    done BOOLEAN
+    done_day_one BOOLEAN,
+    done_day_two BOOLEAN,
+    done_day_three BOOLEAN,
+    done_day_four BOOLEAN
   )
 `)
 

@@ -1,53 +1,23 @@
-Routes
-/login -> Login and resiter
-/tasks -> Only to logged in users
-/
+User Stories
 
-Login should be a route
+# /tasks
 
-Logged in -> Take user to /tasks
+If new user:
+User sees a modal asking user to create their first task-card
 
-Ignore the existance of a landing page for now
+If old User:
+User sees there existing cards.
 
-State or database calls?
+# What is a card: A card can be created, edited, deleted. A modal pops up asking the user the name of the card and a start date. One card is created for four days. The card shows the dates of the said four days.The current day is highlighted. A days task cannot be crosses over if current day < said date. A cards name and date can be edited. On updating the staring date, new spaced learning dates are generated. Each card can have tasks associated with it. When a user clicks on a button to add a task, an input field shows up. Unfocusing/pressing return creates a task. A card is marked completed when all tasks are done. A card can be reset if the user needs to study again.
 
-Do you really need a sidebar?
+# User Input required for a card: A date and a card name; so that a user can have multiple cards for the same day if he chooses to.
 
-What functionality does it provide that the main part does not?
+What is a task: A task can be created, edited, deleted. A Task can marked completed on cliking the circle to the left of it. A crossed card is pushed down to the bottom of a card. It can be edited by clicking on it. It can be deleted by clicking on the trash button. The tasks are independent for each day. A task is edited and deleted for all four days.
 
-Yeah we dont need a sidebar for now
+Data Structure:
+...
 
-So login -> /tasks -> User can use the app
+Components: Data required
 
-Wait
-
-How do you go about making the main app
-
-A database call for each action? Or a button to save
-
-A button to save it is
-
-Wait we also need to add the spaced learning feature
-
-Data:
-
-How will the database look like?
-
-id, username, password, tasks -> [
-{'Date': [tasks for the day]},
-{'Date': [tasks for the day]}
-]
-
-How will react state look like?
-We can set state at the task-card container
-state = [
-{'Date': [tasks for the day]},
-{'Date': [tasks for the day]}
-]
-The state should update whenever a new task card is created
-The state shoull update whenever a new task is created
-
-When should the database update?
-Not every keystroke
-On save yes
-When user clicks on save send the current client side state to database
+1. Card: card_id, card_date,
+2. Task: task_id, task_text, task_completed

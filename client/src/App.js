@@ -9,6 +9,7 @@ import Cards from './components/Cards/Cards'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [userInfo, setUserInfo] = useState({ username: "" })
 
   return (
     <Router>
@@ -22,12 +23,11 @@ function App() {
 
           <Route path="/login"  >
             <Header route="login" />
-            <Login setIsLoggedIn={setIsLoggedIn} />
+            <Login setIsLoggedIn={setIsLoggedIn} setUserInfo={setUserInfo} />
           </Route>
 
           <Route path="/tasks"  >
-            <Header route="tasks" />
-            <Cards isLoggedIn={isLoggedIn} />
+            <Cards isLoggedIn={isLoggedIn} userInfo={userInfo} />
           </Route>
 
         </Switch>
