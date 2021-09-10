@@ -14,7 +14,6 @@ const Cards = (props) => {
 
   useEffect(() => {
     // if (!props.isLoggedIn) return history.push("/login")
-
     axios({
       method: "GET",
       url: "http://localhost:4000/getCards",
@@ -27,24 +26,25 @@ const Cards = (props) => {
   const [showInputModal, setShowInputModal] = useState(false)
 
   return (
-    <div className="container">
+    <>
       <div className={showInputModal ? "overlay" : null}></div>
       {showInputModal ? <InputModal setShowInputModal={setShowInputModal} setCardsData={setCardsData} /> : null}
 
-      <div className="control-bar">
+      <div className="container">
+        <div className="control-bar">
+          <button title="Add new card" className="circle" onClick={() => setShowInputModal(true)}>+</button>
+        </div>
 
-        <button title="Add new card" className="circle" onClick={() => setShowInputModal(true)}>+</button>
-
-        <p>Welcome, {props.userInfo.username}!</p>
-
+        <div className="cards">
+          <div className="column"></div>
+          <div className="column"></div>
+          <div className="column"></div>
+          {
+            cardsData ? cardsData.map((card) => <Card key={card.card_id} card_name={card.card_name} card_date={card.card_date} card_id={card.card_id} setCardsData={setCardsData} />) : "Nothing to see here!"
+          }
+        </div>
       </div>
-
-      <div className="cards">
-        {
-          cardsData ? cardsData.map((card) => <Card card_name={card.card_name} card_date={card.card_date} card_id={card.card_id} />) : "Nothing to see here!"
-        }
-      </div>
-    </div>
+    </>
   )
 }
 

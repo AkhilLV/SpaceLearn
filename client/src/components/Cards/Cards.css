@@ -1,8 +1,4 @@
-.container {
-  padding: 10px 100px;
-}
-
-.container .overlay {
+.overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -13,7 +9,13 @@
 }
 
 .container .control-bar {
-  margin-top: 30px;
+  background-color: rgb(43, 43, 43);
+  padding: 10px;
+  padding-top: 15px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
 }
 
 .container .control-bar button.circle {
@@ -36,7 +38,13 @@
 }
 
 .container .cards {
-  display: flex;
-  gap: 30px;
+  display: column;
+  columns: 3;
   margin-top: 50px;
+  margin-left: 100px;
+  gap: 20px;
+}
+
+.container .cards * {
+  break-inside: avoid;
 }

@@ -87,6 +87,16 @@ app.post("/addCard", (req, res) => {
 
 app.post("/addTask", (req, res) => {
   if (!req.user) return res.send("Please log in")
+
+  db.run("INSERT INTO tasks (card_id, task_text) VALUES (?, ?)", [req.body.cardId, req.body.taskText], (err) => {
+    if (err) console.log(err)
+    console.log("Task added")
+
+    db.all("SELECT task_id, task_text, done_day_one, done_day_two, done_day_three, done_day_four FROM tasks WHERE card_id = ?", [req.body.cardId], (err, result) => {
+      if (err) console.log(err)
+      res.send(result)
+    })
+  })
 })
 
 app.get("/getCards", (req, res) => {
@@ -98,8 +108,28 @@ app.get("/getCards", (req, res) => {
   })
 })
 
+app.post("/getTasks", (req, res) => {
+  if (!req.user) return res.send("Please log in")
+
+  db.all("SELECT task_id, task_text, done_day_one, done_day_two, done_day_three, done_day_four FROM tasks WHERE card_id = ?", [req.body.cardId], (err, result) => {
+    if (err) console.log(err)
+    res.send(result)
+  })
+})
+
+app.post("/crossTask", (req, res) => {
+  if (!req.user) return res.send("Please log in")
+
+  db.run(`UPDATE tasks SET ${req.body.task_day} = ${req.body.set_to} WHERE task_id = ?`, [req.body.task_id], (err) => {
+    if (err) console.log(err)
+    db.all("SELECT task_id, task_text, done_day_one, done_day_two, done_day_three, done_day_four FROM tasks WHERE card_id = ?", [req.body.card_id], (err, result) => {
+      if (err) console.log(err)
+      res.send(result)
+    })
+  })
+})
+
 // Start Server
 app.listen(4000, () => {
   console.log("Server is running at PORT: 4000")
 })
-

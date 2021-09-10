@@ -2,20 +2,26 @@
   display: flex;
   border-bottom: 1px solid #444;
   font-size: 14px;
+  justify-content: space-around;
 }
 
 .card .date-selector .date {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   border-right: 1px solid #444;
   font-size: 14px;
   text-align: center;
   white-space: nowrap;
-  width: calc(400px / 4);
   padding: 15px 10px;
   cursor: pointer;
   transition: 250ms;
+  flex: 1;
+}
+
+.card .date-selector .date.active {
+  background: #444;
+}
+
+.card .date-selector .date:last-child {
+  border-right: none;
 }
 
 .card .date-selector .date:hover {

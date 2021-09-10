@@ -30,11 +30,11 @@ db.run(`
   CREATE TABLE IF NOT EXISTS tasks (
     task_id INTEGER PRIMARY KEY AUTOINCREMENT,
     card_id INTEGER,
-    text TEXT,
-    done_day_one BOOLEAN,
-    done_day_two BOOLEAN,
-    done_day_three BOOLEAN,
-    done_day_four BOOLEAN
+    task_text TEXT,
+    done_day_one BOOLEAN DEFAULT FALSE,
+    done_day_two BOOLEAN DEFAULT FALSE,
+    done_day_three BOOLEAN DEFAULT FALSE,
+    done_day_four BOOLEAN DEFAULT FALSE
   )
 `)
 

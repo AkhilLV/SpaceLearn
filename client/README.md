@@ -21,3 +21,12 @@ Components: Data required
 
 1. Card: card_id, card_date,
 2. Task: task_id, task_text, task_completed
+
+Plan -\_-
+
+: Mark a task as complete for a particular date only
+:: So use Array.filter() to display complete and incomplete tasks separately, depending on the day. So is complete or not depends on the day selected. A <Task> does have access to isCompleteOrNot data for all four days.
+
+Implement DateSelector first,
+store the current date in a state variable in <Card>
+if (done.date\_(any) === ...)
