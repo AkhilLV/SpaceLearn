@@ -1,0 +1,18 @@
+{
+  "cards": [
+    {
+      "card_id": 1,
+      "start_date": ["29-01-2021"],
+      "tasks": [
+        {
+          "text": "Walk cat",
+          "done": [true, false, false, false]
+        },
+        {
+          "text": "Laundry",
+          "done.day_(one,two,three,four)": [true, false, false, false]
+        }
+      ]
+    }
+  ] 
+}

@@ -2,7 +2,9 @@ import { useState } from "react"
 import { useHistory } from "react-router-dom"
 import axios from "axios"
 
-const Login = () => {
+import './Login.css'
+
+const Login = (props) => {
   const [usernameInput, setUsernameInput] = useState("")
   const [passwordInput, setPasswordInput] = useState("")
   const history = useHistory()
@@ -11,6 +13,8 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    if (!usernameInput || !passwordInput) return alert("Invalid input")
 
     const route = login ? "login" : "register"
 
@@ -22,19 +26,30 @@ const Login = () => {
       },
       url: `http://localhost:4000/${route}`,
       withCredentials: true,
-    }).then(res => {
-      console.log(res.data.message)
-      if (res.data === "Logged in") {
-        history.push("/tasks")
+    }).then((res) => {
+      switch (res.data.message) {
+        case ("Logged in"):
+          props.setIsLoggedIn(true)
+          props.setUserInfo({ username: usernameInput })
+          history.push("/tasks")
+          break
+        case ("No user"):
+          alert("User does not exist")
+          break
+        case ("Exists"):
+          alert("User Exists")
+          break
+        case ("Added"):
+          alert("User added")
       }
     })
   }
 
   return (
     <div className="login-form">
-      <h1>{login ? "Login" : "Register"}</h1>
-
       <form>
+
+        <h2>{login ? "Login" : "Register"}</h2>
 
         <label>Username:</label>
         <input onChange={(e) => setUsernameInput(e.target.value)} value={usernameInput} type="text" placeholder="Ex: John Doe" />
@@ -44,9 +59,11 @@ const Login = () => {
 
         <button onClick={handleSubmit}>{login ? "Login" : "Register"}</button>
 
+        <a href="#" onClick={() => setLogin(!login)}>{login ? "Sign up instead" : "Log in instead"}</a>
+
       </form>
 
-      <a href="#" onClick={() => setLogin(!login)}>{login ? "Sign up instead" : "Log in instead"}</a>
+      <div className="image"></div>
     </div>
   )
 }

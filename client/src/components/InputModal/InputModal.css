@@ -1,0 +1,70 @@
+.input-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  background-color: #222;
+  padding: 60px 60px;
+  border-radius: 15px;
+  width: 500px;
+  z-index: 1000;
+}
+
+.input-modal label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 100;
+}
+
+.input-modal input {
+  display: block;
+  width: 100%;
+  margin-bottom: 30px;
+  font-family: "Poppins";
+  font-size: 14px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 18px;
+  outline: none;
+  background-color: #333;
+  color: #fff;
+  transition: 250ms;
+}
+
+.input-modal input:focus {
+  background-color: #444;
+}
+
+.input-modal button {
+  background-color: #444;
+  border: none;
+  outline: none;
+  background: crimson;
+  color: #fff;
+  padding: 10px 20px;
+  display: inline-block;
+  width: 100%;
+  border-radius: 3px;
+  font-family: "Poppins";
+  font-size: 14px;
+  cursor: pointer;
+  transition: 250ms;
+}
+
+.input-modal button:hover {
+  background: rgb(194, 35, 67);
+  transform: translateY(-2px);
+}
+
+.input-modal .close {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  font-weight: 1000;
+  text-decoration: none;
+  color: #fff;
+}

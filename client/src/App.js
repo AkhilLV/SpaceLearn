@@ -1,19 +1,34 @@
+import { useState } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+
+import './index.css'
 
 import Header from './components/Header/Header'
 import Login from './components/Login/Login'
-import Tasks from './components/Tasks/Tasks'
+import Cards from './components/Cards/Cards'
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [userInfo, setUserInfo] = useState({ username: "" })
+
   return (
     <Router>
       <div className="App">
-        <Header />
 
         <Switch>
 
-          <Route component={Login} path="/login" />
-          <Route component={Tasks} path="/tasks" />
+          <Route path="/" exact>
+            <Header route="home" />
+          </Route>
+
+          <Route path="/login"  >
+            <Header route="login" />
+            <Login setIsLoggedIn={setIsLoggedIn} setUserInfo={setUserInfo} />
+          </Route>
+
+          <Route path="/tasks"  >
+            <Cards isLoggedIn={isLoggedIn} userInfo={userInfo} />
+          </Route>
 
         </Switch>
 
@@ -23,3 +38,4 @@ function App() {
 }
 
 export default App
+

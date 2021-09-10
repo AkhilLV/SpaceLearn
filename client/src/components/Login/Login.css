@@ -1,0 +1,88 @@
+.login-form {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  margin-top: 50px;
+  border-radius: 30px;
+}
+
+.login-form form {
+  background: #222;
+  width: 500px;
+  padding: 60px 60px;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.login-form form h2 {
+  margin-bottom: 24px;
+  font-weight: 600;
+  font-size: 20px;
+  align-self: flex-start;
+}
+
+.login-form form label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 100;
+}
+
+.login-form form input {
+  display: block;
+  width: 100%;
+  margin-bottom: 30px;
+  font-family: "Poppins";
+  font-size: 14px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 18px;
+  outline: none;
+  background-color: #333;
+  color: #fff;
+  transition: 250ms;
+}
+
+.login-form form input:focus {
+  background-color: #444;
+}
+
+.login-form form button {
+  background-color: #444;
+  border: none;
+  outline: none;
+  background: crimson;
+  color: #fff;
+  padding: 10px 20px;
+  display: inline-block;
+  width: 100%;
+  border-radius: 3px;
+  font-family: "Poppins";
+  font-size: 14px;
+  cursor: pointer;
+  transition: 250ms;
+  margin-bottom: 15px;
+}
+
+.login-form form button:hover {
+  background: rgb(194, 35, 67);
+  transform: translateY(-2px);
+}
+
+.login-form form a {
+  color: #fff;
+  font-size: 13px;
+}
+
+.login-form .image {
+  display: block;
+  width: 300px;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  background: #444;
+  background-image: url("https://images.pexels.com/photos/2693208/pexels-photo-2693208.png?cs=srgb&dl=pexels-anni-roenkae-2693208.jpg&fm=jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

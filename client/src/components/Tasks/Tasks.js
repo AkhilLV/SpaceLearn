@@ -1,28 +1,11 @@
-import axios from "axios"
-import { useEffect } from "react"
+import "./Tasks.css"
 
-const Todolist = () => {
-  useEffect(() => {
-    axios(
-      {
-        method: "GET",
-        url: "http://localhost:4000/tasks"
-      }
-    ).then(res => {
-      console.log(res)
-    })
-  }, [])
-
+const Tasks = () => {
   return (
-    <div>
-      <h1>Tasks</h1>
-      <ul>
-        <li>Walk cat</li>
-        <li>Clean cat</li>
-        <li>Kill cat</li>
-      </ul>
+    <div className="task">
+      H1llo
     </div>
   )
 }
 
-export default Todolist
+export default Tasks
