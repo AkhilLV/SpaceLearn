@@ -30,3 +30,9 @@ Plan -\_-
 Implement DateSelector first,
 store the current date in a state variable in <Card>
 if (done.date\_(any) === ...)
+
+Note:
+
+1. Complete the landing page and push to github, heroku
+2. Work on Basic features first (CRUD)
+3. Redesign front-end

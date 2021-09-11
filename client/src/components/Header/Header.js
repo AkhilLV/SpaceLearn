@@ -4,28 +4,11 @@ import './Header.css'
 import logo from '../../assets/logo.svg'
 
 const Header = (props) => {
-  let value = "center"
-  if (props.route === "home") { value = "space-between" }
-
-  const navStyle = {
-    "justify-content": value
-  }
-
   return (
     <header>
-      <nav style={navStyle}>
-        <Link to="/">
-          <img src={logo} alt="logo" />
-        </Link>
-        {
-          props.route === "home"
-            ?
-            <Link to="/login" className="link">
-              <a>Login</a>
-            </Link>
-            : null
-        }
-      </nav>
+      <Link to="/">
+        <img src={logo} alt="logo" />
+      </Link>
     </header >
   )
 }

@@ -1,5 +1,10 @@
 header {
-  padding: 20px 100px 10px 100px;
+  padding: 30px 100px 10px 100px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
 }
 
 header img {
@@ -7,19 +12,4 @@ header img {
   height: 100%;
   object-fit: cover;
   transform: translateY(2px);
-}
-
-header nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-header nav .link {
-  text-decoration: none;
-  color: #fff;
-  padding: 10px 25px;
-  background: #555;
-  border-radius: 5px;
-  font-size: 14px;
 }
