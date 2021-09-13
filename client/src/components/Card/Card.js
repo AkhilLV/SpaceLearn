@@ -13,7 +13,7 @@ const Card = (props) => {
   useEffect(() => {
     axios({
       method: "POST",
-      url: "http://localhost:4000/getTasks",
+      url: "https://space-learn.herokuapp.com/getTasks",
       data: {
         cardId: props.card_id,
       },
@@ -34,7 +34,7 @@ const Card = (props) => {
         cardId: props.card_id,
         taskText: taskInput
       },
-      url: "http://localhost:4000/addTask",
+      url: "https://space-learn.herokuapp.com/addTask",
       withCredentials: true
     }).then((res) => {
       console.log(res.data)

@@ -14,7 +14,7 @@ const InputModal = (props) => {
         cardName: cardNameInput,
         cardDate: cardDateInput
       },
-      url: "http://localhost:4000/addCard",
+      url: "https://space-learn.herokuapp.com/addCard",
       withCredentials: true
     }).then((res) => {
       props.setCardsData(res.data)

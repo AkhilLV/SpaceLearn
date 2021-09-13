@@ -16,7 +16,7 @@ const Cards = (props) => {
     // if (!props.isLoggedIn) return history.push("/login")
     axios({
       method: "GET",
-      url: "http://localhost:4000/getCards",
+      url: "https://space-learn.herokuapp.com/getCards",
       withCredentials: true
     }).then(res => {
       setCardsData(res.data)

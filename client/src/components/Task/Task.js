@@ -10,7 +10,7 @@ const Task = (props) => {
         task_day: props.selectedDate,
         set_to: !props.isTaskDone
       },
-      url: "http://localhost:4000/crossTask",
+      url: "https://space-learn.herokuapp.com/crossTask",
       withCredentials: true
     }).then((res) => {
       props.setTasksData(res.data)
@@ -23,10 +23,3 @@ const Task = (props) => {
 }
 
 export default Task
-
-// Todo
-// 1. Cross out tasks
-// 2. Delete Cards: Drop down menu
-// 3. Edit Cards: Drop down menu
-// 4. Delete Tasks: 3 dots on hover
-// 5. Edit Tasks: 3 dots on hover
