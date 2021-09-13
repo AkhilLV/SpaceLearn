@@ -11,6 +11,7 @@ const database = require("./db/db.js")
 const db = database.db
 
 const app = express()
+const PORT = process.env.PORT || 4000
 
 // Middleware
 app.use(express.urlencoded({ extended: true }))
@@ -130,6 +131,6 @@ app.post("/crossTask", (req, res) => {
 })
 
 // Start Server
-app.listen(4000, () => {
+app.listen(PORT, () => {
   console.log("Server is running at PORT: 4000")
 })
