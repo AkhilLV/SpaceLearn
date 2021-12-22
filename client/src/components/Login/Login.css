@@ -4,6 +4,7 @@
   justify-content: center;
   margin-top: 50px;
   border-radius: 30px;
+  padding: 20px;
 }
 
 .login-form form {
@@ -62,12 +63,34 @@
   font-size: 14px;
   cursor: pointer;
   transition: 250ms;
+  text-align: center;
   margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .login-form form button:hover {
   background: rgb(194, 35, 67);
   transform: translateY(-2px);
+}
+
+.loader {
+  border: 3px solid rgb(194, 35, 67); /* Light grey */
+  border-top: 3px solid #fff; /* Blue */
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .login-form form a {
@@ -85,4 +108,23 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+@media (max-width: 650px) {
+  .login-form {
+    flex-direction: column;
+  }
+
+  .login-form form {
+    background: #111;
+    width: auto;
+    padding: 60px 60px;
+    border-radius: 15px;
+  }
+}
+
+@media (max-width: 375px) {
+  .login-form form {
+    padding: 50px 20px;
+  }
 }

@@ -8,12 +8,13 @@ import InputModal from "../InputModal/InputModal"
 import Card from "../Card/Card"
 
 const Cards = (props) => {
-  const [cardsData, setCardsData] = useState("")
+  const [cardsData, setCardsData] = useState(false)
 
   const history = useHistory()
 
   useEffect(() => {
-    // if (!props.isLoggedIn) return history.push("/login")
+    if (!props.isLoggedIn) return history.push("/login")
+
     axios({
       method: "GET",
       url: "https://space-learn.herokuapp.com/getCards",
@@ -36,9 +37,6 @@ const Cards = (props) => {
         </div>
 
         <div className="cards">
-          <div className="column"></div>
-          <div className="column"></div>
-          <div className="column"></div>
           {
             cardsData ? cardsData.map((card) => <Card key={card.card_id} card_name={card.card_name} card_date={card.card_date} card_id={card.card_id} setCardsData={setCardsData} />) : "Nothing to see here!"
           }

@@ -7,6 +7,7 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+  padding: 20px;
   padding-bottom: 50px;
 }
 
@@ -46,4 +47,24 @@
 .hero button:hover {
   background: rgb(194, 35, 67);
   transform: translateY(-2px);
+}
+
+@media (max-width: 840px) {
+  .hero h1 {
+    width: 80%;
+  }
+
+  .hero p {
+    width: 80%;
+  }
+}
+
+@media (max-width: 375px) {
+  .hero h1 {
+    width: 100%;
+  }
+
+  .hero p {
+    width: 100%;
+  }
 }

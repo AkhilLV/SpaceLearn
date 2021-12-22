@@ -125,6 +125,7 @@ app.post("/crossTask", (req, res) => {
     if (err) console.log(err)
     db.all("SELECT task_id, task_text, done_day_one, done_day_two, done_day_three, done_day_four FROM tasks WHERE card_id = ?", [req.body.card_id], (err, result) => {
       if (err) console.log(err)
+      console.log(result)
       res.send(result)
     })
   })

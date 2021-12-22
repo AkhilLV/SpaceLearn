@@ -9,7 +9,7 @@
   padding: 60px 60px;
   border-radius: 15px;
   width: 500px;
-  z-index: 1000;
+  z-index: 100000;
 }
 
 .input-modal label {
@@ -67,4 +67,5 @@
   font-weight: 1000;
   text-decoration: none;
   color: #fff;
+  cursor: pointer;
 }

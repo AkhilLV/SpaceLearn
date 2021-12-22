@@ -8,6 +8,8 @@ const InputModal = (props) => {
   const [cardDateInput, setCardDateInput] = useState("")
 
   const addCard = () => {
+    if (!cardNameInput || !cardDateInput) return alert("Invalid input")
+
     axios({
       method: "POST",
       data: {
@@ -25,14 +27,14 @@ const InputModal = (props) => {
   return (
     <div className="input-modal">
       <label>Card Name</label>
-      <input type="text" value={cardNameInput} onChange={(e) => setCardNameInput(e.target.value)} />
+      <input type="text" value={cardNameInput} onChange={(e) => setCardNameInput(e.target.value)} placeholder="Ex: Chemistry" />
 
       <label>Start Date</label>
       <input type="date" value={cardDateInput} onChange={(e) => setCardDateInput(e.target.value)} />
 
       <button onClick={addCard}>Create Card</button>
 
-      <a href="#" className="close" onClick={() => props.setShowInputModal(false)}>x</a>
+      <span className="close" onClick={() => props.setShowInputModal(false)}>x</span>
     </div>
   )
 }

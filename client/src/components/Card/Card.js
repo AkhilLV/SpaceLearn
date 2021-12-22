@@ -20,7 +20,6 @@ const Card = (props) => {
       withCredentials: true
     }).then(res => {
       setTasksData(res.data)
-      console.log(res.data)
     })
   }, [])
 

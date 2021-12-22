@@ -7,16 +7,30 @@ import './Login.css'
 const Login = (props) => {
   const [usernameInput, setUsernameInput] = useState("")
   const [passwordInput, setPasswordInput] = useState("")
+
+  const [isLoading, setIsLoading] = useState(false)
+
+  const [currentChoice, setCurrentChoice] = useState("login")
+  const [choices, setChoices] = useState({
+    "login": {
+      title: "Login",
+      text: "Sign up instead",
+      route: "login"
+    },
+    "register": {
+      title: "Sign up",
+      text: "Log in instead",
+      route: "register"
+    }
+  })
+
   const history = useHistory()
-
-  const [login, setLogin] = useState(true)
-
   const handleSubmit = (e) => {
     e.preventDefault()
 
     if (!usernameInput || !passwordInput) return alert("Invalid input")
 
-    const route = login ? "login" : "register"
+    setIsLoading(true)
 
     axios({
       method: "POST",
@@ -24,13 +38,13 @@ const Login = (props) => {
         username: usernameInput,
         password: passwordInput
       },
-      url: `https://space-learn.herokuapp.com/${route}`,
+      url: `https://space-learn.herokuapp.com/${choices[currentChoice].route}`,
       withCredentials: true,
     }).then((res) => {
+      setIsLoading(false)
       switch (res.data.message) {
         case ("Logged in"):
           props.setIsLoggedIn(true)
-          props.setUserInfo({ username: usernameInput })
           history.push("/tasks")
           break
         case ("No user"):
@@ -45,11 +59,19 @@ const Login = (props) => {
     })
   }
 
+  const changeChoice = () => {
+    if (currentChoice === "login") {
+      setCurrentChoice("register")
+    } else {
+      setCurrentChoice("login")
+    }
+  }
+
   return (
     <div className="login-form">
       <form>
 
-        <h2>{login ? "Login" : "Register"}</h2>
+        <h2>{choices[currentChoice].title}</h2>
 
         <label>Username:</label>
         <input onChange={(e) => setUsernameInput(e.target.value)} value={usernameInput} type="text" placeholder="Ex: John Doe" />
@@ -57,9 +79,9 @@ const Login = (props) => {
         <label>Password:</label>
         <input onChange={(e) => setPasswordInput(e.target.value)} value={passwordInput} type="text" placeholder="Ex: 12345" />
 
-        <button onClick={handleSubmit}>{login ? "Login" : "Register"}</button>
+        <button onClick={handleSubmit}>{isLoading ? <div className="loader"></div> : choices[currentChoice].title}</button>
 
-        <a href="#" onClick={() => setLogin(!login)}>{login ? "Sign up instead" : "Log in instead"}</a>
+        <a href="#" onClick={changeChoice}>{choices[currentChoice].text}</a>
 
       </form>
 

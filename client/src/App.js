@@ -11,7 +11,6 @@ import Cards from './components/Cards/Cards'
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [userInfo, setUserInfo] = useState({ username: "" })
 
   return (
     <Router>
@@ -20,17 +19,17 @@ function App() {
         <Switch>
 
           <Route path="/" exact>
-            <Header route="home" />
+            <Header />
             <Hero />
           </Route>
 
           <Route path="/login"  >
-            <Header route="login" />
-            <Login setIsLoggedIn={setIsLoggedIn} setUserInfo={setUserInfo} />
+            <Header />
+            <Login setIsLoggedIn={setIsLoggedIn} />
           </Route>
 
           <Route path="/tasks"  >
-            <Cards isLoggedIn={isLoggedIn} userInfo={userInfo} />
+            <Cards isLoggedIn={isLoggedIn} />
           </Route>
 
         </Switch>
