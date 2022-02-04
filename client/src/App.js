@@ -1,18 +1,19 @@
-import { useState } from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+/* eslint-disable react/react-in-jsx-scope */
+import { useState } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import './index.css'
+import './index.css';
 
-
-import Hero from './components/Hero/Hero'
-import Header from './components/Header/Header'
-import Login from './components/Login/Login'
-import Cards from './components/Cards/Cards'
+import Hero from './components/Hero/Hero';
+import Header from './components/Header/Header';
+import Login from './components/Login/Login';
+import Cards from './components/Cards/Cards';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
+    // eslint-disable-next-line react/jsx-filename-extension
     <Router>
       <div className="App">
 
@@ -23,21 +24,20 @@ function App() {
             <Hero />
           </Route>
 
-          <Route path="/login"  >
+          <Route path="/login">
             <Header />
             <Login setIsLoggedIn={setIsLoggedIn} />
           </Route>
 
-          <Route path="/tasks"  >
+          <Route path="/tasks">
             <Cards isLoggedIn={isLoggedIn} />
           </Route>
 
         </Switch>
 
       </div>
-    </Router >
-  )
+    </Router>
+  );
 }
 
-export default App
-
+export default App;
