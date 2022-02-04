@@ -21,6 +21,9 @@
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
+    "eslint": "^8.8.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
     "nodemon": "^2.0.12"
   }
 }

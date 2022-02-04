@@ -1,28 +1,29 @@
-const express = require("express")
-const cors = require("cors")
-const passport = require("passport")
-const passportLocal = require("passport-local").Strategy
-const cookieParser = require("cookie-parser")
-const bcrypt = require("bcryptjs")
-const session = require("express-session")
-const SQLiteStore = require('connect-sqlite3')(session)
+const express = require("express");
+const cors = require("cors");
+const passport = require("passport");
+const passportLocal = require("passport-local").Strategy;
+const cookieParser = require("cookie-parser");
+const bcrypt = require("bcryptjs");
+const session = require("express-session");
+const SQLiteStore = require("connect-sqlite3")(session);
 
-const database = require("./db/db.js")
-const db = database.db
+const database = require("./db/db");
 
-const app = express()
-const PORT = process.env.PORT || 4000
+const { db } = database;
+
+const app = express();
+const PORT = process.env.PORT || 4000;
 
 // Middleware
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.use(
   cors({
     origin: "http://localhost:3000",
     credentials: true,
-  })
-)
+  }),
+);
 
 app.use(
   session({
@@ -30,18 +31,18 @@ app.use(
     secret: "secretcode",
     resave: true,
     saveUninitialized: true,
-  })
-)
+  }),
+);
 
-app.use(cookieParser("secretcode"))
+app.use(cookieParser("secretcode"));
 
-app.use(passport.initialize())
-app.use(passport.session())
-require("./passportConfig")(passport)
+app.use(passport.initialize());
+app.use(passport.session());
+require("./passportConfig")(passport);
 
 // Routes
 app.post("/login", (req, res, next) => {
-  passport.authenticate("local", (err, user, info) => {
+  passport.authenticate("local", (err, user) => {
     if (err) throw err
     if (!user) {
       res.send({ message: "No user", status: 406 }) // 406 = unacceptable information
@@ -131,7 +132,13 @@ app.post("/crossTask", (req, res) => {
   })
 })
 
-// Start Server
 app.listen(PORT, () => {
-  console.log("Server is running at PORT: 4000")
-})
+  console.log("Server is running at PORT: 4000");
+});
+
+// Todo:
+// 1. Routes get their own files
+// 2. Catch up on Node.js Architecture
+// 3. Switch database to postgres hosted somewhere
+// 4. Consider using an ORM
+// 5. Learn to actually create a proper API
