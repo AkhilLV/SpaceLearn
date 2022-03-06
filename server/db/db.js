@@ -1,13 +1,13 @@
-const sqlite3 = require("sqlite3")
+const sqlite3 = require("sqlite3");
 
-const dbFilePath = __dirname + "/users.db"
+const dbFilePath = `${__dirname}/users.db`;
 const db = new sqlite3.Database(dbFilePath, (err) => {
   if (err) {
-    console.log("Could not connect to database", err)
+    console.log("Could not connect to database", err);
   } else {
-    console.log("Connected to database")
+    console.log("Connected to database");
   }
-})
+});
 
 db.run(`
   CREATE TABLE IF NOT EXISTS users (
@@ -15,7 +15,7 @@ db.run(`
     username TEXT,
     password TEXT
   )
-`)
+`);
 
 db.run(`
   CREATE TABLE IF NOT EXISTS cards (
@@ -24,7 +24,7 @@ db.run(`
     card_name TEXT,
     card_date DATE
   )
-`)
+`);
 
 db.run(`
   CREATE TABLE IF NOT EXISTS tasks (
@@ -36,6 +36,6 @@ db.run(`
     done_day_three BOOLEAN DEFAULT FALSE,
     done_day_four BOOLEAN DEFAULT FALSE
   )
-`)
+`);
 
-module.exports = { db }
+module.exports = { db };
