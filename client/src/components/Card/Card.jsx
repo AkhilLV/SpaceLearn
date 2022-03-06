@@ -5,6 +5,8 @@ import "./Card.css";
 import Task from "../Task/Task";
 import DateSelector from "../DateSelector/DateSelector";
 
+import baseUrl from "../../url/baseUrl";
+
 function Card(props) {
   const [taskInput, setTaskInput] = useState("");
   const [tasksData, setTasksData] = useState("");
@@ -13,7 +15,7 @@ function Card(props) {
   useEffect(() => {
     axios({
       method: "POST",
-      url: "https://space-learn.herokuapp.com/getTasks",
+      url: `${baseUrl}/getTasks`,
       data: {
         cardId: props.card_id,
       },
@@ -33,7 +35,7 @@ function Card(props) {
         cardId: props.card_id,
         taskText: taskInput,
       },
-      url: "https://space-learn.herokuapp.com/addTask",
+      url: `${baseUrl}/addTask`,
       withCredentials: true,
     }).then((res) => {
       console.log(res.data);

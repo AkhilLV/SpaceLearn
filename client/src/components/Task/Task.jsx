@@ -1,5 +1,7 @@
 import axios from "axios";
 
+import baseUrl from "../../url/baseUrl";
+
 function Task(props) {
   const crossTask = () => {
     axios({
@@ -10,7 +12,7 @@ function Task(props) {
         task_day: props.selectedDate,
         set_to: !props.isTaskDone,
       },
-      url: "https://space-learn.herokuapp.com/crossTask",
+      url: `${baseUrl}/crossTask`,
       withCredentials: true,
     }).then((res) => {
       console.log(res.data);

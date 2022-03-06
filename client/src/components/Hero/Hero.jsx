@@ -12,7 +12,7 @@ function Hero() {
       </h1>
       <p>
         After seven days of leaning something new, you forget
-        almost 90% of it. Let’s fix that!
+        almost 90% of it. Let's fix that!
       </p>
       <Link to="/login">
         <button>Get started!</button>

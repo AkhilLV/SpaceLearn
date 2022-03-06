@@ -7,6 +7,8 @@ import "./Cards.css";
 import InputModal from "../InputModal/InputModal";
 import Card from "../Card/Card";
 
+import baseUrl from "../../url/baseUrl";
+
 function Cards(props) {
   const [cardsData, setCardsData] = useState(false);
 
@@ -17,7 +19,7 @@ function Cards(props) {
 
     axios({
       method: "GET",
-      url: "https://space-learn.herokuapp.com/getCards",
+      url: `${baseUrl}/getCards`,
       withCredentials: true,
     }).then((res) => {
       setCardsData(res.data);

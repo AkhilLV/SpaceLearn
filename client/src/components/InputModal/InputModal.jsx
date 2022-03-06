@@ -3,6 +3,8 @@ import "./InputModal.css";
 
 import axios from "axios";
 
+import baseUrl from "../../url/baseUrl";
+
 function InputModal(props) {
   const [cardNameInput, setCardNameInput] = useState("");
   const [cardDateInput, setCardDateInput] = useState("");
@@ -16,7 +18,7 @@ function InputModal(props) {
         cardName: cardNameInput,
         cardDate: cardDateInput,
       },
-      url: "https://space-learn.herokuapp.com/addCard",
+      url: `${baseUrl}/addCard`,
       withCredentials: true,
     }).then((res) => {
       props.setCardsData(res.data);

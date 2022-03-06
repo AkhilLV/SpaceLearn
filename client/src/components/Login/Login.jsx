@@ -4,6 +4,8 @@ import axios from "axios";
 
 import "./Login.css";
 
+import baseUrl from "../../url/baseUrl";
+
 function Login(props) {
   const [usernameInput, setUsernameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
@@ -38,7 +40,7 @@ function Login(props) {
         username: usernameInput,
         password: passwordInput,
       },
-      url: `https://space-learn.herokuapp.com/${choices[currentChoice].route}`,
+      url: `${baseUrl}/${choices[currentChoice].route}`,
       withCredentials: true,
     }).then((res) => {
       setIsLoading(false);
