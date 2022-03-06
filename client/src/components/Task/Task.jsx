@@ -1,6 +1,6 @@
-import axios from "axios"
+import axios from "axios";
 
-const Task = (props) => {
+function Task(props) {
   const crossTask = () => {
     axios({
       method: "POST",
@@ -8,22 +8,25 @@ const Task = (props) => {
         card_id: props.card_id,
         task_id: props.task_id,
         task_day: props.selectedDate,
-        set_to: !props.isTaskDone
+        set_to: !props.isTaskDone,
       },
       url: "https://space-learn.herokuapp.com/crossTask",
-      withCredentials: true
+      withCredentials: true,
     }).then((res) => {
-      console.log(res.data)
-      props.setTasksData(res.data)
-    })
-  }
+      console.log(res.data);
+      props.setTasksData(res.data);
+    });
+  };
 
   return (
-    <li onClick={crossTask}><span className="circle"></span>{props.task_text}</li>
-  )
+    <li onClick={crossTask}>
+      <span className="circle" />
+      {props.task_text}
+    </li>
+  );
 }
 
-export default Task
+export default Task;
 
 // [
 //   {

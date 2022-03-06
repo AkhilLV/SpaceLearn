@@ -1,28 +1,28 @@
-import { useState } from "react"
-import "./InputModal.css"
+import { useState } from "react";
+import "./InputModal.css";
 
-import axios from "axios"
+import axios from "axios";
 
-const InputModal = (props) => {
-  const [cardNameInput, setCardNameInput] = useState("")
-  const [cardDateInput, setCardDateInput] = useState("")
+function InputModal(props) {
+  const [cardNameInput, setCardNameInput] = useState("");
+  const [cardDateInput, setCardDateInput] = useState("");
 
   const addCard = () => {
-    if (!cardNameInput || !cardDateInput) return alert("Invalid input")
+    if (!cardNameInput || !cardDateInput) return alert("Invalid input");
 
     axios({
       method: "POST",
       data: {
         cardName: cardNameInput,
-        cardDate: cardDateInput
+        cardDate: cardDateInput,
       },
       url: "https://space-learn.herokuapp.com/addCard",
-      withCredentials: true
+      withCredentials: true,
     }).then((res) => {
-      props.setCardsData(res.data)
-      props.setShowInputModal(false)
-    })
-  }
+      props.setCardsData(res.data);
+      props.setShowInputModal(false);
+    });
+  };
 
   return (
     <div className="input-modal">
@@ -36,7 +36,7 @@ const InputModal = (props) => {
 
       <span className="close" onClick={() => props.setShowInputModal(false)}>x</span>
     </div>
-  )
+  );
 }
 
-export default InputModal
+export default InputModal;

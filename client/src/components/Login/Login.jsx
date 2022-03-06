@@ -1,71 +1,71 @@
-import { useState } from "react"
-import { useHistory } from "react-router-dom"
-import axios from "axios"
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
 
-import './Login.css'
+import "./Login.css";
 
-const Login = (props) => {
-  const [usernameInput, setUsernameInput] = useState("")
-  const [passwordInput, setPasswordInput] = useState("")
+function Login(props) {
+  const [usernameInput, setUsernameInput] = useState("");
+  const [passwordInput, setPasswordInput] = useState("");
 
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
-  const [currentChoice, setCurrentChoice] = useState("login")
+  const [currentChoice, setCurrentChoice] = useState("login");
   const [choices, setChoices] = useState({
-    "login": {
+    login: {
       title: "Login",
       text: "Sign up instead",
-      route: "login"
+      route: "login",
     },
-    "register": {
+    register: {
       title: "Sign up",
       text: "Log in instead",
-      route: "register"
-    }
-  })
+      route: "register",
+    },
+  });
 
-  const history = useHistory()
+  const history = useHistory();
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    if (!usernameInput || !passwordInput) return alert("Invalid input")
+    if (!usernameInput || !passwordInput) return alert("Invalid input");
 
-    setIsLoading(true)
+    setIsLoading(true);
 
     axios({
       method: "POST",
       data: {
         username: usernameInput,
-        password: passwordInput
+        password: passwordInput,
       },
       url: `https://space-learn.herokuapp.com/${choices[currentChoice].route}`,
       withCredentials: true,
     }).then((res) => {
-      setIsLoading(false)
+      setIsLoading(false);
       switch (res.data.message) {
         case ("Logged in"):
-          props.setIsLoggedIn(true)
-          history.push("/tasks")
-          break
+          props.setIsLoggedIn(true);
+          history.push("/tasks");
+          break;
         case ("No user"):
-          alert("User does not exist")
-          break
+          alert("User does not exist");
+          break;
         case ("Exists"):
-          alert("User Exists")
-          break
+          alert("User Exists");
+          break;
         case ("Added"):
-          alert("User added")
+          alert("User added");
       }
-    })
-  }
+    });
+  };
 
   const changeChoice = () => {
     if (currentChoice === "login") {
-      setCurrentChoice("register")
+      setCurrentChoice("register");
     } else {
-      setCurrentChoice("login")
+      setCurrentChoice("login");
     }
-  }
+  };
 
   return (
     <div className="login-form">
@@ -79,15 +79,15 @@ const Login = (props) => {
         <label>Password:</label>
         <input onChange={(e) => setPasswordInput(e.target.value)} value={passwordInput} type="text" placeholder="Ex: 12345" />
 
-        <button onClick={handleSubmit}>{isLoading ? <div className="loader"></div> : choices[currentChoice].title}</button>
+        <button onClick={handleSubmit}>{isLoading ? <div className="loader" /> : choices[currentChoice].title}</button>
 
         <a href="#" onClick={changeChoice}>{choices[currentChoice].text}</a>
 
       </form>
 
-      <div className="image"></div>
+      <div className="image" />
     </div>
-  )
+  );
 }
 
-export default Login
+export default Login;

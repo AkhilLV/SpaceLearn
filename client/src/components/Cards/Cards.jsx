@@ -1,34 +1,34 @@
-import axios from "axios"
-import { useState, useEffect } from "react"
-import { useHistory } from "react-router"
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { useHistory } from "react-router";
 
-import './Cards.css'
+import "./Cards.css";
 
-import InputModal from "../InputModal/InputModal"
-import Card from "../Card/Card"
+import InputModal from "../InputModal/InputModal";
+import Card from "../Card/Card";
 
-const Cards = (props) => {
-  const [cardsData, setCardsData] = useState(false)
+function Cards(props) {
+  const [cardsData, setCardsData] = useState(false);
 
-  const history = useHistory()
+  const history = useHistory();
 
   useEffect(() => {
-    if (!props.isLoggedIn) return history.push("/login")
+    if (!props.isLoggedIn) return history.push("/login");
 
     axios({
       method: "GET",
       url: "https://space-learn.herokuapp.com/getCards",
-      withCredentials: true
-    }).then(res => {
-      setCardsData(res.data)
-    })
-  }, [])
+      withCredentials: true,
+    }).then((res) => {
+      setCardsData(res.data);
+    });
+  }, []);
 
-  const [showInputModal, setShowInputModal] = useState(false)
+  const [showInputModal, setShowInputModal] = useState(false);
 
   return (
     <>
-      <div className={showInputModal ? "overlay" : null}></div>
+      <div className={showInputModal ? "overlay" : null} />
       {showInputModal ? <InputModal setShowInputModal={setShowInputModal} setCardsData={setCardsData} /> : null}
 
       <div className="container">
@@ -43,7 +43,7 @@ const Cards = (props) => {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default Cards
+export default Cards;
