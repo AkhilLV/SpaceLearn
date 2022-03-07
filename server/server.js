@@ -140,9 +140,7 @@ app.listen(PORT, () => {
 // Todo:
 // 1. MVC
 // 2. Switch to postgres
-// 4. Consider using an ORM
 // 5. Learn to actually create a proper API
 
 // To learn:
 // 1. Node.js architecture for rest apis
-// 2. an orm
