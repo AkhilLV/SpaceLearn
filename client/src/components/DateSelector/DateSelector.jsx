@@ -2,6 +2,7 @@ import "./DateSelector.css";
 
 import getSiblingElements from "../../helpers/getSiblingElements";
 
+// don't add to prototype. even better, store the dates in database
 Date.prototype.addDays = function (days) {
   const date = new Date(this.valueOf());
   date.setDate(date.getDate() + days);
@@ -18,11 +19,10 @@ function DateSelector(props) {
 
   const getDDMMYY = (date) => `${date.getDate()} ${toWords(date.getMonth())}`;
 
-  const selectDate = (e) => {
-    getSiblingElements(e.target).forEach((el) => el.classList.remove("active"));
-    e.target.classList.add("active");
-    props.setSelectedDate(e.target.dataset.value);
-    console.log(e.target.dataset.value);
+  const selectDate = (event) => {
+    getSiblingElements(event.target).forEach((element) => element.classList.remove("active"));
+    event.target.classList.add("active");
+    props.setSelectedDate(event.target.dataset.value);
   };
 
   return (

@@ -26,6 +26,7 @@ db.run(`
   )
 `);
 
+// tasks get their own table. include date IN task. do away with day_one, day_two ...
 db.run(`
   CREATE TABLE IF NOT EXISTS tasks (
     task_id INTEGER PRIMARY KEY AUTOINCREMENT,
