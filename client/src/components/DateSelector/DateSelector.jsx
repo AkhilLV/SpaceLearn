@@ -1,5 +1,7 @@
 import "./DateSelector.css";
 
+import getSiblingElements from "../../helpers/getSiblingElements";
+
 Date.prototype.addDays = function (days) {
   const date = new Date(this.valueOf());
   date.setDate(date.getDate() + days);
@@ -16,22 +18,8 @@ function DateSelector(props) {
 
   const getDDMMYY = (date) => `${date.getDate()} ${toWords(date.getMonth())}`;
 
-  const getSiblings = (elem) => {
-    const siblings = [];
-    let sibling = elem.parentNode.firstChild;
-
-    while (sibling) {
-      if (sibling.nodeType === 1 && sibling !== elem) {
-        siblings.push(sibling);
-      }
-      sibling = sibling.nextSibling;
-    }
-
-    return siblings;
-  };
-
   const selectDate = (e) => {
-    getSiblings(e.target).forEach((el) => el.classList.remove("active"));
+    getSiblingElements(e.target).forEach((el) => el.classList.remove("active"));
     e.target.classList.add("active");
     props.setSelectedDate(e.target.dataset.value);
     console.log(e.target.dataset.value);
