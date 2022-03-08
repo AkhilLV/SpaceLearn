@@ -1,3 +1,3 @@
-const baseUrl = "https://space-learn.herokuapp.com";
+const baseUrl = "http://localhost:4000";
 
 export default baseUrl;

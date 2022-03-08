@@ -8,11 +8,13 @@ module.exports = {
     "airbnb",
   ],
   parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
+    parserOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
+      ecmaFeatures: {
+        jsx: true,
+      },
     },
-    ecmaVersion: "latest",
-    sourceType: "module",
   },
   plugins: [
     "react",
