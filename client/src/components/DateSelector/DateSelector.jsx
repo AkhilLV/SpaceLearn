@@ -1,13 +1,7 @@
 import "./DateSelector.css";
 
 import getSiblingElements from "../../helpers/getSiblingElements";
-
-// don't add to prototype. even better, store the dates in database
-Date.prototype.addDays = function (days) {
-  const date = new Date(this.valueOf());
-  date.setDate(date.getDate() + days);
-  return date;
-};
+import addDaysToDate from "../../helpers/addDaysToDate";
 
 function DateSelector(props) {
   const startDate = new Date(props.card_date);
@@ -28,9 +22,9 @@ function DateSelector(props) {
   return (
     <div className="date-selector" onClick={selectDate}>
       <div className="date active" data-value="done_day_one">{getDDMMYY(startDate)}</div>
-      <div className="date" data-value="done_day_two">{getDDMMYY(startDate.addDays(1))}</div>
-      <div className="date" data-value="done_day_three">{getDDMMYY(startDate.addDays(4))}</div>
-      <div className="date" data-value="done_day_four">{getDDMMYY(startDate.addDays(7))}</div>
+      <div className="date" data-value="done_day_two">{getDDMMYY(addDaysToDate(startDate, 1))}</div>
+      <div className="date" data-value="done_day_three">{getDDMMYY(addDaysToDate(startDate, 4))}</div>
+      <div className="date" data-value="done_day_four">{getDDMMYY(addDaysToDate(startDate, 7))}</div>
     </div>
   );
 }
