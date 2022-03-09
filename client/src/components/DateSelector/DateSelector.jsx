@@ -1,30 +1,30 @@
 import "./DateSelector.css";
 
-import getSiblingElements from "../../helpers/getSiblingElements";
 import addDaysToDate from "../../helpers/addDaysToDate";
+import getSiblingElements from "../../helpers/getSiblingElements";
 
-function DateSelector(props) {
-  const startDate = new Date(props.card_date);
+function DateSelector({ card_date, setSelectedDate }) {
+  const startDate = new Date(card_date);
 
-  const toWords = (i) => {
-    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    return months[i];
+  const dateToWords = (dateObject) => {
+    const monthsInWords = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+    return `${dateObject.getDate()} ${monthsInWords[dateObject.getMonth()]}`;
   };
 
-  const getDDMMYY = (date) => `${date.getDate()} ${toWords(date.getMonth())}`;
-
-  const selectDate = (event) => {
+  const handleDateSelectorClick = (event) => {
     getSiblingElements(event.target).forEach((element) => element.classList.remove("active"));
     event.target.classList.add("active");
-    props.setSelectedDate(event.target.dataset.value);
+
+    setSelectedDate(event.target.dataset.value);
   };
 
   return (
-    <div className="date-selector" onClick={selectDate}>
-      <div className="date active" data-value="done_day_one">{getDDMMYY(startDate)}</div>
-      <div className="date" data-value="done_day_two">{getDDMMYY(addDaysToDate(startDate, 1))}</div>
-      <div className="date" data-value="done_day_three">{getDDMMYY(addDaysToDate(startDate, 4))}</div>
-      <div className="date" data-value="done_day_four">{getDDMMYY(addDaysToDate(startDate, 7))}</div>
+    <div className="date-selector" onClick={handleDateSelectorClick}>
+      <div className="date active" data-value="done_day_one">{dateToWords(startDate)}</div>
+      <div className="date" data-value="done_day_two">{dateToWords(addDaysToDate(startDate, 1))}</div>
+      <div className="date" data-value="done_day_three">{dateToWords(addDaysToDate(startDate, 4))}</div>
+      <div className="date" data-value="done_day_four">{dateToWords(addDaysToDate(startDate, 7))}</div>
     </div>
   );
 }
