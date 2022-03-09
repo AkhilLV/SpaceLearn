@@ -1,8 +1,8 @@
-import { useState } from "react";
 import "./InputModal.css";
 
-import axios from "axios";
+import { useState } from "react";
 
+import axios from "axios";
 import baseUrl from "../../url/baseUrl";
 
 function InputModal(props) {

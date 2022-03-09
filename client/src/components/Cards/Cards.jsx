@@ -1,13 +1,13 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
-import { useHistory } from "react-router";
-
 import "./Cards.css";
 
-import InputModal from "../InputModal/InputModal";
-import Card from "../Card/Card";
+import { useHistory } from "react-router";
+import { useState, useEffect } from "react";
 
+import axios from "axios";
 import baseUrl from "../../url/baseUrl";
+
+import Card from "../Card/Card";
+import InputModal from "../InputModal/InputModal";
 
 function Cards(props) {
   const [cardsData, setCardsData] = useState(false);

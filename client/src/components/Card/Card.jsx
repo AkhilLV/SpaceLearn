@@ -1,11 +1,12 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import "./Card.css";
 
-import Task from "../Task/Task";
-import DateSelector from "../DateSelector/DateSelector";
+import { useEffect, useState } from "react";
 
+import axios from "axios";
 import baseUrl from "../../url/baseUrl";
+
+import DateSelector from "../DateSelector/DateSelector";
+import Task from "../Task/Task";
 
 function Card(props) {
   const [taskInput, setTaskInput] = useState("");
