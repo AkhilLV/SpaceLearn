@@ -11,7 +11,7 @@ import Task from "../Task/Task";
 function Card(props) {
   const [taskInput, setTaskInput] = useState("");
   const [tasksData, setTasksData] = useState("");
-  const [selectedDate, setSelectedDate] = useState("done_day_one");
+  const [selectedDate, setSelectedDate] = useState("done_day_one"); // bad variable name. use actual dates. do away with done_day_one ...
 
   useEffect(() => {
     axios({

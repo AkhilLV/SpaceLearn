@@ -16,7 +16,7 @@ function DateSelector({ card_date, setSelectedDate }) {
     getSiblingElements(event.target).forEach((element) => element.classList.remove("active"));
     event.target.classList.add("active");
 
-    setSelectedDate(event.target.dataset.value);
+    setSelectedDate(event.target.dataset.value); // this function lies
   };
 
   return (

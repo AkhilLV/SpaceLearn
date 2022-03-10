@@ -1,4 +1,4 @@
-const getSiblingElements = (element) => {
+const getSiblingElements = (element) => { // HTML element
   const siblings = [];
   let sibling = element.parentNode.firstChild;
 
