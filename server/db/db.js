@@ -40,3 +40,7 @@ db.run(`
 `);
 
 module.exports = { db };
+
+// Todo:
+// Switch to postgres
+// Add foreign key constraints
