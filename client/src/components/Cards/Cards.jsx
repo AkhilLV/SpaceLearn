@@ -1,7 +1,6 @@
 import "./Cards.css";
 
-import { useHistory } from "react-router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useHistory } from "react";
 
 import axios from "axios";
 import baseUrl from "../../url/baseUrl";

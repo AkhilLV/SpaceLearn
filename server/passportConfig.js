@@ -1,19 +1,18 @@
 const bcrypt = require("bcryptjs");
 const LocalStrategy = require("passport-local").Strategy;
 
-const database = require("./db/db");
-
-const { db } = database;
+const db = require("./db/db");
 
 module.exports = (passport) => {
   passport.use(
     new LocalStrategy((username, password, done) => {
-      db.get("SELECT * FROM users WHERE username = ?", [username], (error, user) => {
+      console.log(username);
+      db.query("SELECT * FROM users WHERE username = $1", [username], (error, user) => {
         if (error) throw error;
-        if (!user) return done(null, false); // -> no erroror, no user
+        if (!user.rowCount) return done(null, false); // -> no error, no user
 
-        // eslint-disable-next-line no-shadow
-        bcrypt.compare(password, user.password, (error, result) => {
+        const correctPassword = user.rows[0].password;
+        bcrypt.compare(password, correctPassword, (error, result) => {
           if (error) throw error;
           if (result === true) {
             return done(null, user);
@@ -25,12 +24,12 @@ module.exports = (passport) => {
   );
 
   passport.serializeUser((user, cb) => {
-    cb(null, user.id); // serialize stores a cookie with user.id inside of it
+    cb(null, user.rows[0].user_id); // serialize stores a cookie with user.id inside of it
   });
 
   passport.deserializeUser((id, cb) => {
-    db.get("SELECT * FROM users WHERE id = ?", [id], (error, user) => {
-      cb(error, user);
+    db.query("SELECT * FROM users WHERE user_id = $1", [id], (error, user) => {
+      cb(error, user.rows[0]);
     });
   });
 };

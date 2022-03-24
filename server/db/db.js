@@ -17,8 +17,8 @@ const handleError = (error) => {
 db.query(`
   CREATE TABLE IF NOT EXISTS users (
     user_id BIGSERIAL NOT NULL PRIMARY KEY,
-    username TEXT,
-    password TEXT
+    username VARCHAR(50) UNIQUE,
+    password VARCHAR(50)
   )
 `, handleError);
 
@@ -26,17 +26,16 @@ db.query(`
   CREATE TABLE IF NOT EXISTS cards (
     card_id BIGSERIAL NOT NULL PRIMARY KEY,
     user_id INTEGER REFERENCES users (user_id),
-    card_name TEXT,
+    card_name VARCHAR(100),
     card_date DATE
   )
 `, handleError);
 
-// tasks get their own table. include date IN task. do away with day_one, day_two ...
 db.query(`
   CREATE TABLE IF NOT EXISTS tasks (
     task_id BIGSERIAL NOT NULL PRIMARY KEY,
     card_id INTEGER REFERENCES cards (card_id),
-    task_text TEXT
+    task_text VARCHAR(250)
   )
 `, handleError);
 
@@ -49,7 +48,7 @@ db.query(`
   )
 `, handleError);
 
-module.exports = { db };
+module.exports = db;
 
 // Todo:
 // Switch to postgres
