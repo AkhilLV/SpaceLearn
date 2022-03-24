@@ -81,7 +81,8 @@ app.post("/addCard", (req, res) => {
     console.log("Card added");
     db.query("SELECT card_id, card_name, card_date FROM cards WHERE user_id = $1", [req.user.id], (error, result) => {
       if (error) console.log(error);
-      res.send(result);
+      console.log(result.rows);
+      res.send(result.rows);
     });
   });
 });
@@ -95,7 +96,7 @@ app.post("/addTask", (req, res) => {
 
     db.query("SELECT task_id, task_text, done_day_one, done_day_two, done_day_three, done_day_four FROM tasks WHERE card_id = $1", [req.body.cardId], (error, result) => {
       if (error) console.log(error);
-      res.send(result);
+      res.send(result.rows);
     });
   });
 });
@@ -105,7 +106,7 @@ app.get("/getCards", (req, res) => {
 
   db.query("SELECT card_id, card_name, card_date FROM cards WHERE user_id = $1", [req.user.id], (error, result) => {
     if (error) console.log(error);
-    res.send(result);
+    res.send(result.rows);
   });
 });
 
@@ -114,7 +115,7 @@ app.post("/getTasks", (req, res) => {
 
   db.query("SELECT task_id, task_text, done_day_one, done_day_two, done_day_three, done_day_four FROM tasks WHERE card_id = $1", [req.body.cardId], (error, result) => {
     if (error) console.log(error);
-    res.send(result);
+    res.send(result.rows);
   });
 });
 
@@ -125,7 +126,7 @@ app.post("/crossTask", (req, res) => {
     if (error) console.log(error);
     db.query("SELECT task_id, task_text, done_day_one, done_day_two, done_day_three, done_day_four FROM tasks WHERE card_id = $1", [req.body.card_id], (error, result) => {
       if (error) console.log(error);
-      res.send(result);
+      res.send(result.rows);
     });
   });
 });

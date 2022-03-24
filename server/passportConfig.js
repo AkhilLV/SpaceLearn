@@ -6,10 +6,10 @@ const db = require("./db/db");
 module.exports = (passport) => {
   passport.use(
     new LocalStrategy((username, password, done) => {
-      console.log(username);
       db.query("SELECT * FROM users WHERE username = $1", [username], (error, user) => {
         if (error) throw error;
-        if (!user.rowCount) return done(null, false); // -> no error, no user
+        console.log(user);
+        if (user.rowCount === 0) return done(null, false); // -> no error, no user
 
         const correctPassword = user.rows[0].password;
         bcrypt.compare(password, correctPassword, (error, result) => {

@@ -1,6 +1,7 @@
 import "./Cards.css";
 
-import { useState, useEffect, useHistory } from "react";
+import { useHistory } from "react-router-dom"
+import { useState, useEffect } from "react";
 
 import axios from "axios";
 import baseUrl from "../../url/baseUrl";
@@ -8,13 +9,13 @@ import baseUrl from "../../url/baseUrl";
 import Card from "../Card/Card";
 import InputModal from "../InputModal/InputModal";
 
-function Cards(props) {
-  const [cardsData, setCardsData] = useState(false);
+function Cards({ isLoggedIn }) {
+  const [cardsData, setCardsData] = useState([]);
 
   const history = useHistory();
 
   useEffect(() => {
-    if (!props.isLoggedIn) return history.push("/login");
+    if (!isLoggedIn) return history.push("/login");
 
     axios({
       method: "GET",
@@ -34,7 +35,7 @@ function Cards(props) {
 
       <div className="container">
         <div className="control-bar">
-          <button title="Add new card" className="circle" onClick={() => setShowInputModal(true)}>+</button>
+          <button type="button" title="Add new card" className="circle" onClick={() => setShowInputModal(true)}>+</button>
         </div>
 
         <div className="cards">
