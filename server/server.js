@@ -58,13 +58,12 @@ app.post("/register", async (req, res) => {
   const encryptedPassword = await bcrypt.hash(req.body.password, 10);
 
   db.query("SELECT username FROM users WHERE username = $1", [req.body.username], (error, result) => {
+    if (error) throw error;
     if (result.rows.length) {
       res.send({ message: "Exists", status: 409 }); // conflict with current state since user exists
     } else {
       db.query("INSERT INTO users (username, password) VALUES ($1, $2)", [req.body.username, encryptedPassword], (error) => {
-        if (error) {
-          console.log(error);
-        }
+        if (error) throw error;
         res.send({ message: "Added", status: 200 });
       });
     }
@@ -77,10 +76,10 @@ app.post("/addCard", (req, res) => {
   if (!req.user) return res.send("Please log in");
 
   db.query("INSERT INTO cards (user_id, card_name, card_date) VALUES ($1, $2, $3)", [req.user.id, req.body.cardName, req.body.cardDate], (error) => {
-    if (error) console.log(error);
+    if (error) throw error;
     console.log("Card added");
     db.query("SELECT card_id, card_name, card_date FROM cards WHERE user_id = $1", [req.user.id], (error, result) => {
-      if (error) console.log(error);
+      if (error) throw error;
       console.log(result.rows);
       res.send(result.rows);
     });
@@ -91,11 +90,11 @@ app.post("/addTask", (req, res) => {
   if (!req.user) return res.send("Please log in");
 
   db.query("INSERT INTO tasks (card_id, task_text) VALUES ($1, $2)", [req.body.cardId, req.body.taskText], (error) => {
-    if (error) console.log(error);
+    if (error) throw error;
     console.log("Task added");
 
     db.query("SELECT task_id, task_text, done_day_one, done_day_two, done_day_three, done_day_four FROM tasks WHERE card_id = $1", [req.body.cardId], (error, result) => {
-      if (error) console.log(error);
+      if (error) throw error;
       res.send(result.rows);
     });
   });
@@ -105,7 +104,7 @@ app.get("/getCards", (req, res) => {
   if (!req.user) return res.send("Please log in");
 
   db.query("SELECT card_id, card_name, card_date FROM cards WHERE user_id = $1", [req.user.id], (error, result) => {
-    if (error) console.log(error);
+    if (error) throw error;
     res.send(result.rows);
   });
 });
@@ -114,7 +113,7 @@ app.post("/getTasks", (req, res) => {
   if (!req.user) return res.send("Please log in");
 
   db.query("SELECT task_id, task_text, done_day_one, done_day_two, done_day_three, done_day_four FROM tasks WHERE card_id = $1", [req.body.cardId], (error, result) => {
-    if (error) console.log(error);
+    if (error) throw error;
     res.send(result.rows);
   });
 });
@@ -123,9 +122,9 @@ app.post("/crossTask", (req, res) => {
   if (!req.user) return res.send("Please log in");
 
   db.query(`UPDATE tasks SET ${req.body.task_day} = ${req.body.set_to} WHERE task_id = $1`, [req.body.task_id], (error) => {
-    if (error) console.log(error);
+    if (error) throw error;
     db.query("SELECT task_id, task_text, done_day_one, done_day_two, done_day_three, done_day_four FROM tasks WHERE card_id = $1", [req.body.card_id], (error, result) => {
-      if (error) console.log(error);
+      if (error) throw error;
       res.send(result.rows);
     });
   });
