@@ -5,10 +5,8 @@ const passportLocal = require("passport-local").Strategy;
 const cookieParser = require("cookie-parser");
 const bcrypt = require("bcryptjs");
 const session = require("express-session");
-const SQLiteStore = require("connect-sqlite3")(session);
+const PgSession = require("connect-pg-simple")(session);
 const db = require("./db/db");
-
-const router = express.Router();
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -26,7 +24,9 @@ app.use(
 
 app.use(
   session({
-    store: new SQLiteStore(),
+    store: new PgSession({
+      pool: db,
+    }),
     secret: "secretcode",
     resave: true,
     saveUninitialized: true,

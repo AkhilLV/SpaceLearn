@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "connect-pg-simple": "^7.0.0",
     "connect-sqlite3": "^0.9.12",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
