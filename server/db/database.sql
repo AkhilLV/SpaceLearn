@@ -22,8 +22,8 @@ CREATE TABLE IF NOT EXISTS tasks (
 );
 
 CREATE TABLE IF NOT EXISTS task_status (
-  task_status BIGSERIAL NOT NULL PRIMARY KEY,
+  task_status_id BIGSERIAL NOT NULL PRIMARY KEY,
   task_id INTEGER NOT NULL REFERENCES tasks (task_id),
-  date DATE NOT NULL,
-  done BOOLEAN NOT NULL
+  task_date DATE NOT NULL,
+  task_done BOOLEAN NOT NULL
 );

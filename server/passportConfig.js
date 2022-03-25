@@ -28,7 +28,7 @@ module.exports = (passport) => {
   });
 
   passport.deserializeUser((id, cb) => {
-    db.query("SELECT username FROM users WHERE user_id = $1", [id], (error, user) => {
+    db.query("SELECT user_id, username FROM users WHERE user_id = $1", [id], (error, user) => {
       cb(error, user.rows[0]);
     });
   });
