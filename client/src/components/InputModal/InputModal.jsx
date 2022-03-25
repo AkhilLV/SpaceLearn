@@ -18,7 +18,7 @@ function InputModal(props) {
         cardName: cardNameInput,
         cardDate: cardDateInput,
       },
-      url: `${baseUrl}/addCard`,
+      url: `${baseUrl}/cards`,
       withCredentials: true,
     }).then((res) => {
       props.setCardsData(res.data);

@@ -40,7 +40,7 @@ function Login(props) {
         username: usernameInput,
         password: passwordInput,
       },
-      url: `${baseUrl}/${choices[currentChoice].route}`,
+      url: `${baseUrl}/auth/${choices[currentChoice].route}`,
       withCredentials: true,
     }).then((res) => {
       setIsLoading(false);

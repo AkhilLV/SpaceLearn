@@ -3,11 +3,13 @@ const cors = require("cors");
 const passport = require("passport");
 const passportLocal = require("passport-local").Strategy;
 const cookieParser = require("cookie-parser");
-const bcrypt = require("bcryptjs");
 const session = require("express-session");
 const PgSession = require("connect-pg-simple")(session);
 const db = require("./db/db");
-const router = express.Router();
+
+const AuthRoute = require("./routes/Auth");
+const CardRoute = require("./routes/Card");
+const TaskRoute = require("./routes/Task");
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -41,51 +43,8 @@ app.use(passport.session());
 require("./passportConfig")(passport);
 
 app.use("/auth", AuthRoute);
-
-// Login and register -> authentication
-app.post("/login", (req, res, next) => {
-  passport.authenticate("local", (error, user) => {
-    if (error) throw error;
-    if (!user) {
-      res.send({ message: "No user", status: 406 }); // 406 = unacceptable information
-    } else {
-      req.logIn(user, (error) => {
-        if (error) throw error;
-        res.send({ message: "Logged in", status: 200 });
-      });
-    }
-  })(req, res, next);
-});
-
-app.post("/register", async (req, res) => {
-  const encryptedPassword = await bcrypt.hash(req.body.password, 10);
-
-  db.query("SELECT username FROM users WHERE username = $1", [req.body.username], (error, result) => {
-    if (error) throw error;
-    if (result.rows.length) {
-      res.send({ message: "Exists", status: 409 }); // conflict with current state since user exists
-    } else {
-      db.query("INSERT INTO users (username, password) VALUES ($1, $2)", [req.body.username, encryptedPassword], (error) => {
-        if (error) throw error;
-        res.send({ message: "Added", status: 200 });
-      });
-    }
-  });
-});
-
-// Cards get their own route
-
-app.post("/addCard", (req, res) => {
-  if (!req.user) return res.send("Please log in");
-
-  db.query("INSERT INTO cards (user_id, card_name, card_date) VALUES ($1, $2, $3)", [req.user.user_id, req.body.cardName, req.body.cardDate], (error) => {
-    if (error) throw error;
-    db.query("SELECT card_id, card_name, card_date FROM cards WHERE user_id = $1", [req.user.user_id], (error, result) => {
-      if (error) throw error;
-      res.send(result.rows);
-    });
-  });
-});
+app.use("/cards", CardRoute);
+CardRoute.use("/tasks", TaskRoute);
 
 app.post("/addTask", (req, res) => {
   if (!req.user) return res.send("Please log in");
@@ -97,15 +56,6 @@ app.post("/addTask", (req, res) => {
       if (error) throw error;
       res.send(result.rows);
     });
-  });
-});
-
-app.get("/getCards", (req, res) => {
-  if (!req.user) return res.send("Please log in");
-
-  db.query("SELECT card_id, card_name, card_date FROM cards WHERE user_id = $1", [req.user.user_id], (error, result) => {
-    if (error) throw error;
-    res.send(result.rows);
   });
 });
 

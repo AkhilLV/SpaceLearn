@@ -19,7 +19,7 @@ function Cards({ isLoggedIn }) {
 
     axios({
       method: "GET",
-      url: `${baseUrl}/getCards`,
+      url: `${baseUrl}/cards`,
       withCredentials: true,
     }).then((res) => {
       setCardsData(res.data);
