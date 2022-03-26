@@ -16,7 +16,7 @@ function Card(props) {
   useEffect(() => {
     axios({
       method: "GET",
-      url: `${baseUrl}/tasks/${props.card_id}`,
+      url: `${baseUrl}/cards/${props.card_id}/tasks`,
       withCredentials: true,
     }).then((res) => {
       setTasksData(res.data);
@@ -30,10 +30,9 @@ function Card(props) {
     axios({
       method: "POST",
       data: {
-        cardId: props.card_id,
         taskText: taskInput,
       },
-      url: `${baseUrl}/addTask`,
+      url: `${baseUrl}/cards/${props.card_id}/tasks`,
       withCredentials: true,
     }).then((res) => {
       console.log(res.data);

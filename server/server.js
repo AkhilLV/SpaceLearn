@@ -44,7 +44,7 @@ require("./passportConfig")(passport);
 
 app.use("/auth", AuthRoute);
 app.use("/cards", CardRoute);
-CardRoute.use("/tasks", TaskRoute);
+CardRoute.use("/:cardId/tasks", TaskRoute);
 
 app.post("/addTask", (req, res) => {
   if (!req.user) return res.send("Please log in");
