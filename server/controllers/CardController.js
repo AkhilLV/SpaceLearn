@@ -1,7 +1,7 @@
 const db = require("../db/db");
 
 module.exports = {
-  get: (req, res) => {
+  getAll: (req, res) => {
     if (!req.user) return res.send("Please log in");
 
     db.query("SELECT card_id, card_name, card_date FROM cards WHERE user_id = $1", [req.user.user_id], (error, result) => {
@@ -19,5 +19,15 @@ module.exports = {
         res.send(result.rows);
       });
     });
+  },
+
+  get: (req, res) => {
+    if (!req.user) return res.send("Please log in");
+  },
+  put: (req, res) => {
+    if (!req.user) return res.send("Please log in");
+  },
+  delete: (req, res) => {
+    if (!req.user) return res.send("Please log in");
   },
 };

@@ -46,28 +46,6 @@ app.use("/auth", AuthRoute);
 app.use("/cards", CardRoute);
 CardRoute.use("/:cardId/tasks", TaskRoute);
 
-app.post("/addTask", (req, res) => {
-  if (!req.user) return res.send("Please log in");
-
-  db.query("INSERT INTO tasks (card_id, task_text) VALUES ($1, $2)", [req.body.cardId, req.body.taskText], (error) => {
-    if (error) throw error;
-
-    db.query("SELECT task_id, task_text FROM tasks WHERE card_id = $1", [req.body.cardId], (error, result) => {
-      if (error) throw error;
-      res.send(result.rows);
-    });
-  });
-});
-
-app.post("/getTasks", (req, res) => {
-  if (!req.user) return res.send("Please log in");
-
-  db.query("SELECT task_id, task_text FROM tasks WHERE card_id = $1", [req.body.cardId], (error, result) => {
-    if (error) throw error;
-    res.send(result.rows);
-  });
-});
-
 app.post("/crossTask", (req, res) => {
   if (!req.user) return res.send("Please log in");
 
@@ -80,14 +58,6 @@ app.post("/crossTask", (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log("Server is running at PORT: 4000");
-});
+app.listen(PORT, () => console.log("Server is running at PORT: 4000"));
 
-// Todo:
-// 1. MVC
-// 2. Switch to postgres
-// 5. Learn to actually create a proper API
-
-// To learn:
-// 1. Node.js architecture for rest apis
+// /cards/2/tasks/3
