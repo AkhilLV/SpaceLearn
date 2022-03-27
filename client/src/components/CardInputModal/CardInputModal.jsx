@@ -7,7 +7,7 @@ import baseUrl from "../../url/baseUrl";
 
 import addDaysToDate from "../../helpers/addDaysToDate";
 
-function InputModal(props) {
+function InputModal({ setCardsData, setShowInputModal }) {
   const [cardNameInput, setCardNameInput] = useState("");
   const [cardDateInput, setCardDateInput] = useState("");
 
@@ -30,23 +30,26 @@ function InputModal(props) {
       url: `${baseUrl}/cards`,
       withCredentials: true,
     }).then((res) => {
-      props.setCardsData(res.data);
-      props.setShowInputModal(false);
+      setCardsData(res.data);
+      setShowInputModal(false);
     });
   };
 
   return (
-    <div className="input-modal">
-      <label>Card Name</label>
-      <input type="text" value={cardNameInput} onChange={(e) => setCardNameInput(e.target.value)} placeholder="Ex: Chemistry" />
+    <>
+      <div className="overlay" />
+      <div className="input-modal">
+        <label>Card Name</label>
+        <input type="text" value={cardNameInput} onChange={(e) => setCardNameInput(e.target.value)} placeholder="Ex: Chemistry" />
 
-      <label>Start Date</label>
-      <input type="date" value={cardDateInput} onChange={(e) => setCardDateInput(new Date(e.target.value))} />
+        <label>Start Date</label>
+        <input type="date" value={cardDateInput} onChange={(e) => setCardDateInput(new Date(e.target.value))} />
 
-      <button onClick={addCard}>Create Card</button>
+        <button type="button" onClick={addCard}>Create Card</button>
 
-      <span className="close" onClick={() => props.setShowInputModal(false)}>x</span>
-    </div>
+        <span className="close" onClick={() => setShowInputModal(false)}>x</span>
+      </div>
+    </>
   );
 }
 
