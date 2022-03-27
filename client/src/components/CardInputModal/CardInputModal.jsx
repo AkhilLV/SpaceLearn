@@ -1,13 +1,22 @@
-import "./InputModal.css";
+import "./CardInputModal.css";
 
 import { useState } from "react";
 
 import axios from "axios";
 import baseUrl from "../../url/baseUrl";
 
+import addDaysToDate from "../../helpers/addDaysToDate";
+
 function InputModal(props) {
   const [cardNameInput, setCardNameInput] = useState("");
   const [cardDateInput, setCardDateInput] = useState("");
+
+  const cardDates = [
+    cardDateInput,
+    addDaysToDate(cardDateInput, 1),
+    addDaysToDate(cardDateInput, 4),
+    addDaysToDate(cardDateInput, 7),
+  ];
 
   const addCard = () => {
     if (!cardNameInput || !cardDateInput) return alert("Invalid input");
@@ -16,7 +25,7 @@ function InputModal(props) {
       method: "POST",
       data: {
         cardName: cardNameInput,
-        cardDate: cardDateInput,
+        cardDates,
       },
       url: `${baseUrl}/cards`,
       withCredentials: true,
@@ -32,7 +41,7 @@ function InputModal(props) {
       <input type="text" value={cardNameInput} onChange={(e) => setCardNameInput(e.target.value)} placeholder="Ex: Chemistry" />
 
       <label>Start Date</label>
-      <input type="date" value={cardDateInput} onChange={(e) => setCardDateInput(e.target.value)} />
+      <input type="date" value={cardDateInput} onChange={(e) => setCardDateInput(new Date(e.target.value))} />
 
       <button onClick={addCard}>Create Card</button>
 
@@ -42,3 +51,6 @@ function InputModal(props) {
 }
 
 export default InputModal;
+
+// Exported To:
+// 

@@ -3,14 +3,14 @@ import "./DateSelector.css";
 import addDaysToDate from "../../helpers/addDaysToDate";
 import getSiblingElements from "../../helpers/getSiblingElements";
 
+const dateToWords = (dateObject) => {
+  const monthsInWords = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+  return `${dateObject.getDate()} ${monthsInWords[dateObject.getMonth()]}`;
+};
+
 function DateSelector({ card_date, setSelectedDate }) {
   const startDate = new Date(card_date);
-
-  const dateToWords = (dateObject) => {
-    const monthsInWords = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-    return `${dateObject.getDate()} ${monthsInWords[dateObject.getMonth()]}`;
-  };
 
   const handleDateSelectorClick = (event) => {
     getSiblingElements(event.target).forEach((element) => element.classList.remove("active"));
