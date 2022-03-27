@@ -8,9 +8,8 @@ import "./index.css";
 
 import LandingPage from "./pages/LandingPage";
 import AuthPage from "./pages/AuthPage";
+import DashboardPage from "./pages/DashboardPage";
 
-import Header from "./components/Header/Header";
-import Login from "./components/Login/Login";
 import Cards from "./components/Cards/Cards";
 
 function App() {
@@ -27,11 +26,11 @@ function App() {
           </Route>
 
           <Route path="/auth">
-            <AuthPage />
+            <AuthPage setIsLoggedIn={setIsLoggedIn} />
           </Route>
 
           <Route path="/dashboard">
-            <Cards isLoggedIn={isLoggedIn} />
+            <DashboardPage isLoggedIn={isLoggedIn} />
           </Route>
 
         </Switch>

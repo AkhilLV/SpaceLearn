@@ -1,11 +1,7 @@
-import { useState } from "react";
-
 import Header from "../components/Header/Header";
 import Login from "../components/Login/Login";
 
-function AuthPage() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+function AuthPage({ setIsLoggedIn }) {
   return (
     <>
       <Header />

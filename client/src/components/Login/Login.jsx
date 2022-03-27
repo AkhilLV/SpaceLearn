@@ -6,7 +6,7 @@ import { useState } from "react";
 import axios from "axios";
 import baseUrl from "../../url/baseUrl";
 
-function Login(props) {
+function Login({ setIsLoggedIn }) {
   const [usernameInput, setUsernameInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
 
@@ -34,7 +34,7 @@ function Login(props) {
       setIsLoading(false);
       switch (res.data.message) {
         case ("Logged in"):
-          props.setIsLoggedIn(true);
+          setIsLoggedIn(true);
           history.push("/dashboard");
           break;
         case ("No user"):
@@ -45,6 +45,9 @@ function Login(props) {
           break;
         case ("Added"):
           alert("User added");
+          break;
+        default:
+          console.log("Login failed");
       }
     });
   };

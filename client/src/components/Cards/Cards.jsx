@@ -7,7 +7,7 @@ import axios from "axios";
 import baseUrl from "../../url/baseUrl";
 
 import Card from "../Card/Card";
-import InputModal from "../InputModal/InputModal";
+import CardInputModal from "../CardInputModal/CardInputModal";
 
 function Cards({ isLoggedIn }) {
   const [cardsData, setCardsData] = useState([]);
@@ -15,7 +15,7 @@ function Cards({ isLoggedIn }) {
   const history = useHistory();
 
   useEffect(() => {
-    if (!isLoggedIn) return history.push("/login");
+    if (!isLoggedIn) return history.push("/auth");
 
     axios({
       method: "GET",
