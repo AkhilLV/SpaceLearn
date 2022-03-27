@@ -6,7 +6,9 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "./index.css";
 
-import Hero from "./components/Hero/Hero";
+import LandingPage from "./pages/LandingPage";
+import AuthPage from "./pages/AuthPage";
+
 import Header from "./components/Header/Header";
 import Login from "./components/Login/Login";
 import Cards from "./components/Cards/Cards";
@@ -21,16 +23,14 @@ function App() {
         <Switch>
 
           <Route path="/" exact>
-            <Header />
-            <Hero />
+            <LandingPage />
           </Route>
 
-          <Route path="/login">
-            <Header />
-            <Login setIsLoggedIn={setIsLoggedIn} />
+          <Route path="/auth">
+            <AuthPage />
           </Route>
 
-          <Route path="/tasks">
+          <Route path="/dashboard">
             <Cards isLoggedIn={isLoggedIn} />
           </Route>
 
