@@ -1,0 +1,26 @@
+Auth
+
+POST => /auth/login
+POST => /auth/register
+
+Cards
+
+GET => /cards
+POST => /cards
+GET => /cards/:cardId
+PUT => /cards/:cardId
+DELETE => /cards/:cardId
+
+Tasks
+
+GET => /cards/:cardId/tasks
+POST => /cards/:cardId/tasks
+PUT => /cards/:cardId/tasks/:taskId
+DELETE => /cards/:cardId/tasks/:taskId
+
+Task Status
+
+GET => /cards/:cardId/tasks/:taskId/taskStatus
+POST => /cards/:cardId/tasks/:taskId/taskStatus
+PUT => /cards/:cardId/tasks/:taskId/taskStatus?date&action
+

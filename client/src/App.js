@@ -6,10 +6,9 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "./index.css";
 
-import Hero from "./components/Hero/Hero";
-import Header from "./components/Header/Header";
-import Login from "./components/Login/Login";
-import Cards from "./components/Cards/Cards";
+import LandingPage from "./pages/LandingPage";
+import AuthPage from "./pages/AuthPage";
+import DashboardPage from "./pages/DashboardPage";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -21,17 +20,15 @@ function App() {
         <Switch>
 
           <Route path="/" exact>
-            <Header />
-            <Hero />
+            <LandingPage />
           </Route>
 
-          <Route path="/login">
-            <Header />
-            <Login setIsLoggedIn={setIsLoggedIn} />
+          <Route path="/auth">
+            <AuthPage setIsLoggedIn={setIsLoggedIn} />
           </Route>
 
-          <Route path="/tasks">
-            <Cards isLoggedIn={isLoggedIn} />
+          <Route path="/dashboard">
+            <DashboardPage isLoggedIn={isLoggedIn} />
           </Route>
 
         </Switch>
