@@ -42,10 +42,6 @@ function DashboardPage({ isLoggedIn }) {
 
 export default DashboardPage;
 
-// [sidebar task-set task-set]
-// [sidebar task-set task-set]
-// [sidebar task-set task-set]
-
 // {
 //   cardsData ? cardsData.map((card) => <Card key={card.cardId} cardName={card.card_name} cardId={card.cardId} setCardsData={setCardsData} />) : "Nothing to see here!"
 // }

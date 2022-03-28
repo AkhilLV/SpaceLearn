@@ -10,8 +10,6 @@ import LandingPage from "./pages/LandingPage";
 import AuthPage from "./pages/AuthPage";
 import DashboardPage from "./pages/DashboardPage";
 
-import Cards from "./components/Cards/Cards";
-
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
