@@ -74,7 +74,7 @@ function Login({ setIsLoggedIn }) {
 
         <button type="button" onClick={handleSubmit}>{isLoading ? <div className="loader" /> : action}</button>
 
-        <button type="button" onClick={changeChoice}>{action === "login" ? "Sign up instead" : "Sign in instead"}</button>
+        <a href="#" type="button" onClick={changeChoice}>{action === "login" ? "Sign up instead" : "Sign in instead"}</a>
 
       </form>
 
