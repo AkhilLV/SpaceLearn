@@ -16,8 +16,6 @@ module.exports = {
       if (error) throw error;
       console.log();
 
-      
-
       db.query("SELECT card_id, card_name FROM cards WHERE user_id = $1", [req.user.user_id], (error, result) => {
         if (error) throw error;
         res.send(result.rows);
@@ -27,6 +25,18 @@ module.exports = {
 
   get: (req, res) => {
     if (!req.user) return res.send("Please log in");
+
+    const resObj = {
+      cardName,
+      tasks: [
+        {
+          taskName,
+          taskDates: {
+            date: true,
+          }
+        }
+      ],
+    };
   },
   put: (req, res) => {
     if (!req.user) return res.send("Please log in");

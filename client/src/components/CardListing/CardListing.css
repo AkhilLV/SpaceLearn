@@ -1,5 +1,5 @@
 .card-listing {
-
+  overflow: auto;
 }
 
 .card-listing li {

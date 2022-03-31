@@ -70,7 +70,7 @@ function Login({ setIsLoggedIn }) {
         <input onChange={(e) => setUsernameInput(e.target.value)} value={usernameInput} type="text" placeholder="Ex: John Doe" />
 
         <label>Password:</label>
-        <input onChange={(e) => setPasswordInput(e.target.value)} value={passwordInput} type="text" placeholder="Ex: 12345" />
+        <input onChange={(e) => setPasswordInput(e.target.value)} value={passwordInput} type="password" placeholder="Ex: 12345" />
 
         <button type="button" onClick={handleSubmit}>{isLoading ? <div className="loader" /> : action}</button>
 

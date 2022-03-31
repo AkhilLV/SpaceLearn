@@ -21,10 +21,10 @@ function DateSelector({ card_date, setSelectedDate }) {
 
   return (
     <div className="date-selector" onClick={handleDateSelectorClick}>
-      <div className="date active" data-value="done_day_one">{dateToWords(startDate)}</div>
-      <div className="date" data-value="done_day_two">{dateToWords(addDaysToDate(startDate, 1))}</div>
-      <div className="date" data-value="done_day_three">{dateToWords(addDaysToDate(startDate, 4))}</div>
-      <div className="date" data-value="done_day_four">{dateToWords(addDaysToDate(startDate, 7))}</div>
+      <div className="date active"></div>
+      <div className="date"></div>
+      <div className="date"></div>
+      <div className="date"></div>
     </div>
   );
 }
