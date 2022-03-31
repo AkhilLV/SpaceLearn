@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
+import "./CardListing.css";
 import axios from "axios";
 import baseUrl from "../../url/baseUrl";
 
@@ -22,9 +23,12 @@ function CardListing({ cards, setCards, setSelectedCardId }) {
   };
 
   return (
-    <ul className="card-listing">
-      {cards.map((card) => <li onClick={handleClick} data-id={card.card_id}>{card.card_name}</li>)}
-    </ul>
+    <>
+      <p>All Cards</p>
+      <ul className="card-listing">
+        {cards.map((card) => <li onClick={handleClick} data-id={card.card_id}>{card.card_name}</li>)}
+      </ul>
+    </>
   );
 }
 

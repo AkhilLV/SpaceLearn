@@ -20,7 +20,7 @@ function DashboardPage({ isLoggedIn }) {
     <>
       {showInputModal ? <CardInputModal setCards={setCards} setShowInputModal={setShowInputModal} /> : null}
 
-      <div className="container">
+      <div>
         <Sidebar cards={cards} setCards={setCards} setShowInputModal={setShowInputModal} setSelectedCardId={setSelectedCardId} />
         <CardSection selectedCardId={selectedCardId} />
       </div>
