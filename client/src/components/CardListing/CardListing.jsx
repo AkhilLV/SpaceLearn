@@ -3,9 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import baseUrl from "../../url/baseUrl";
 
-function CardListing() {
-  const [cards, setCards] = useState([]);
-
+function CardListing({ cards, setCards, setSelectedCardId }) {
   useEffect(() => {
     axios({
       method: "GET",
@@ -17,13 +15,17 @@ function CardListing() {
     });
   }, []);
 
+  const handleClick = (e) => {
+    const cardId = e.target.dataset.id;
+    console.log(cardId);
+    setSelectedCardId(cardId);
+  };
+
   return (
-    <div className="card-listing">
-      {cards.map((card) => <div className="card-preview">{card.cardName}</div>)}
-    </div>
+    <ul className="card-listing">
+      {cards.map((card) => <li onClick={handleClick} data-id={card.card_id}>{card.card_name}</li>)}
+    </ul>
   );
 }
 
 export default CardListing;
-
-// a -> id // custom route

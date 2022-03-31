@@ -7,16 +7,9 @@ import baseUrl from "../../url/baseUrl";
 
 import addDaysToDate from "../../helpers/addDaysToDate";
 
-function InputModal({ setCardsData, setShowInputModal }) {
+function InputModal({ setCards, setShowInputModal }) {
   const [cardNameInput, setCardNameInput] = useState("");
   const [cardDateInput, setCardDateInput] = useState("");
-
-  const cardDates = [
-    cardDateInput,
-    addDaysToDate(cardDateInput, 1),
-    addDaysToDate(cardDateInput, 4),
-    addDaysToDate(cardDateInput, 7),
-  ];
 
   const addCard = () => {
     if (!cardNameInput || !cardDateInput) return alert("Invalid input");
@@ -25,12 +18,12 @@ function InputModal({ setCardsData, setShowInputModal }) {
       method: "POST",
       data: {
         cardName: cardNameInput,
-        cardDates,
       },
       url: `${baseUrl}/cards`,
       withCredentials: true,
     }).then((res) => {
-      setCardsData(res.data);
+      console.log(res);
+      setCards(res.data);
       setShowInputModal(false);
     });
   };
@@ -43,7 +36,7 @@ function InputModal({ setCardsData, setShowInputModal }) {
         <input type="text" value={cardNameInput} onChange={(e) => setCardNameInput(e.target.value)} placeholder="Ex: Chemistry" />
 
         <label>Start Date</label>
-        <input type="date" value={cardDateInput} onChange={(e) => setCardDateInput(new Date(e.target.value))} />
+        <input type="date" value={cardDateInput} onChange={(e) => setCardDateInput(e.target.value)} />
 
         <button type="button" onClick={addCard}>Create Card</button>
 
@@ -54,6 +47,3 @@ function InputModal({ setCardsData, setShowInputModal }) {
 }
 
 export default InputModal;
-
-// Exported To:
-// 
