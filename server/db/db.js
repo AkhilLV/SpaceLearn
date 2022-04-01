@@ -1,6 +1,6 @@
 const { Pool } = require("pg");
 
-const db = new Pool({
+const pool = new Pool({
   user: "akhil",
   password: "password",
   database: "space_learn",
@@ -8,6 +8,4 @@ const db = new Pool({
   port: 5432,
 });
 
-module.exports = db;
-
-// design problem: card table date
+module.exports = pool;
