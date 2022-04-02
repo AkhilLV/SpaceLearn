@@ -1,26 +1,36 @@
-const db = require("../db/db");
+const pool = require("../db/db");
 
 module.exports = {
   getAll: (req, res) => {
     if (!req.user) return res.send("Please log in");
 
-    db.query("SELECT card_id, card_name FROM cards WHERE user_id = $1", [req.user.user_id], (error, result) => {
+    pool.query("SELECT card_id, card_name FROM cards WHERE user_id = $1", [req.user.user_id], (error, result) => {
       if (error) throw error;
       res.send(result.rows);
     });
   },
-  post: (req, res) => {
+  post: async (req, res) => {
     if (!req.user) return res.send("Please log in");
 
-    db.query("INSERT INTO cards (user_id, card_name) VALUES ($1, $2) RETURNING card_id", [req.user.user_id, req.body.cardName], (error, cardId) => {
-      if (error) throw error;
-      console.log();
+    console.log(req.body);
 
-      db.query("SELECT card_id, card_name FROM cards WHERE user_id = $1", [req.user.user_id], (error, result) => {
-        if (error) throw error;
-        res.send(result.rows);
+    const client = await pool.connect();
+    try {
+      await client.query("BEGIN");
+      const cardId = await client.query("INSERT INTO cards (user_id, card_name) VALUES ($1, $2) RETURNING card_id", [req.user.user_id, req.body.cardName]);
+
+      req.body.cardDates.forEach(async (cardDate) => {
+        await client.query("INSERT INTO card_dates (card_id, card_date) VALUES ($1, $2)", [cardId.rows[0], cardDate]);
       });
-    });
+
+      await client.query("COMMIT");
+      res.status(200).send({ message: "Success" });
+    } catch (error) {
+      await client.query("ROLLBACK");
+      throw error;
+    } finally {
+      client.release();
+    }
   },
 
   get: (req, res) => {
@@ -33,8 +43,8 @@ module.exports = {
           taskName,
           taskDates: {
             date: true,
-          }
-        }
+          },
+        },
       ],
     };
   },

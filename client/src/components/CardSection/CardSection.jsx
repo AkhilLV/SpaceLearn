@@ -3,15 +3,15 @@ import axios from "axios";
 import baseUrl from "../../url/baseUrl";
 
 function CardSection({ selectedCardId }) {
-  useEffect(() => {
-    axios({
-      method: "GET",
-      url: `${baseUrl}/card/${selectedCardId}`,
-      withCredentials: true,
-    }).then((res) => {
-      console.log(res.data);
-    });
-  }, [selectedCardId]);
+  // useEffect(() => {
+  //   axios({
+  //     method: "GET",
+  //     url: `${baseUrl}/card/${selectedCardId}`,
+  //     withCredentials: true,
+  //   }).then((res) => {
+  //     console.log(res.data);
+  //   });
+  // }, [selectedCardId]);
 
   return (
     <div>

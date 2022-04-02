@@ -1,6 +1,6 @@
 import "./CardInputModal.css";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import axios from "axios";
 import baseUrl from "../../url/baseUrl";
@@ -10,6 +10,7 @@ import addDaysToDate from "../../helpers/addDaysToDate";
 function InputModal({ setCards, setShowInputModal }) {
   const [cardNameInput, setCardNameInput] = useState("");
   const [cardDateInput, setCardDateInput] = useState("");
+  const [cardDates, setCardDates] = useState([]);
 
   const addCard = () => {
     if (!cardNameInput || !cardDateInput) return alert("Invalid input");
@@ -18,6 +19,7 @@ function InputModal({ setCards, setShowInputModal }) {
       method: "POST",
       data: {
         cardName: cardNameInput,
+        cardDates,
       },
       url: `${baseUrl}/cards`,
       withCredentials: true,
@@ -28,6 +30,20 @@ function InputModal({ setCards, setShowInputModal }) {
     });
   };
 
+  useEffect(() => {
+    const startDate = new Date(cardDateInput);
+    setCardDates([
+      startDate,
+      addDaysToDate(startDate, 1),
+      addDaysToDate(startDate, 4),
+      addDaysToDate(startDate, 9),
+    ]);
+  }, [cardDateInput]);
+
+  const handleDateSelect = (e) => {
+    setCardDateInput(e.target.value);
+  };
+
   return (
     <>
       <div className="overlay" />
@@ -36,7 +52,7 @@ function InputModal({ setCards, setShowInputModal }) {
         <input type="text" value={cardNameInput} onChange={(e) => setCardNameInput(e.target.value)} placeholder="Ex: Chemistry" />
 
         <label>Start Date</label>
-        <input type="date" value={cardDateInput} onChange={(e) => setCardDateInput(e.target.value)} />
+        <input type="date" value={cardDateInput} onChange={handleDateSelect} />
 
         <button type="button" onClick={addCard}>Create Card</button>
 

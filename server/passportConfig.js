@@ -1,12 +1,12 @@
 const bcrypt = require("bcryptjs");
 const LocalStrategy = require("passport-local").Strategy;
 
-const db = require("./db/db");
+const pool = require("./db/db");
 
 module.exports = (passport) => {
   passport.use(
     new LocalStrategy((username, password, done) => {
-      db.query("SELECT * FROM users WHERE username = $1", [username], (error, user) => {
+      pool.query("SELECT * FROM users WHERE username = $1", [username], (error, user) => {
         if (error) throw error;
         if (user.rowCount === 0) return done(null, false); // -> no error, no user
 
@@ -28,7 +28,7 @@ module.exports = (passport) => {
   });
 
   passport.deserializeUser((id, cb) => {
-    db.query("SELECT user_id, username FROM users WHERE user_id = $1", [id], (error, user) => {
+    pool.query("SELECT user_id, username FROM users WHERE user_id = $1", [id], (error, user) => {
       cb(error, user.rows[0]);
     });
   });

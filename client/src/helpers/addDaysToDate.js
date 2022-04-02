@@ -1,5 +1,5 @@
 const addDaysToDate = (dateObject, daysToAdd) => { // Date Object, number
-  const date = dateObject;
+  const date = new Date(dateObject);
   date.setDate(date.getDate() + daysToAdd);
 
   return date;
