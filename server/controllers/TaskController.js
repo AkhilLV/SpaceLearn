@@ -13,12 +13,16 @@ module.exports = {
     await pool.query("INSERT INTO tasks (card_id, task_text) VALUES ($1, $2)", [req.params.cardId, req.body.taskText]);
     res.send({ message: "Success" });
   },
-  put: (req, res) => {
+  put: async (req, res) => {
     if (!req.user) return res.status(400).send({ message: "not_logged_in" });
 
-    console.log(req);
+    await pool.query("UPDATE tasks SET task_text = $1 WHERE task_id = $2", [req.body.taskText, req.params.taskId]);
+    res.send({ message: "Success" });
   },
-  delete: (req, res) => {
+  delete: async (req, res) => {
     if (!req.user) return res.status(400).send({ message: "not_logged_in" });
+
+    await pool.query("DELETE FROM tasks WHERE task_id = $1", [req.params.taskId]);
+    res.send({ message: "Success" });
   },
 };
