@@ -47,7 +47,7 @@ app.use("/cards", CardRoute);
 CardRoute.use("/:cardId/tasks", TaskRoute);
 
 app.post("/crossTask", (req, res) => {
-  if (!req.user) return res.send("Please log in");
+  if (!req.user) return res.status(400).send({ message: "not_logged_in" });
 
   pool.query(`UPDATE tasks SET ${req.body.task_day} = ${req.body.set_to} WHERE task_id = $1`, [req.body.task_id], (error) => {
     if (error) throw error;
@@ -60,4 +60,6 @@ app.post("/crossTask", (req, res) => {
 
 app.listen(PORT, () => console.log("Server is running at PORT: 4000"));
 
-// /cards/2/tasks/3
+// Todo
+// Seed database
+// Test APIs
