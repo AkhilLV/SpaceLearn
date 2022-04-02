@@ -2,7 +2,7 @@ const pool = require("../db/db");
 
 module.exports = {
   getAll: (req, res) => {
-    if (!req.user) return res.status(400).send({ message: "not_logged_in" });
+    if (!req.user) return res.status(404).send({ message: "not_logged_in" });
 
     pool.query("SELECT card_id, card_name FROM cards WHERE user_id = $1", [req.user.user_id], (error, result) => {
       if (error) throw error;
@@ -10,7 +10,7 @@ module.exports = {
     });
   },
   post: async (req, res) => {
-    if (!req.user) return res.status(400).send({ message: "not_logged_in" });
+    if (!req.user) return res.status(404).send({ message: "not_logged_in" });
 
     const client = await pool.connect();
     try {
@@ -32,7 +32,7 @@ module.exports = {
   },
 
   get: (req, res) => {
-    if (!req.user) return res.status(400).send({ message: "not_logged_in" });
+    if (!req.user) return res.status(404).send({ message: "not_logged_in" });
 
     const resObj = {
       cardName,
@@ -47,10 +47,10 @@ module.exports = {
     };
   },
   put: (req, res) => {
-    if (!req.user) return res.status(400).send({ message: "not_logged_in" });
+    if (!req.user) return res.status(404).send({ message: "not_logged_in" });
   },
   delete: (req, res) => {
-    if (!req.user) return res.status(400).send({ message: "not_logged_in" });
+    if (!req.user) return res.status(404).send({ message: "not_logged_in" });
   },
 };
 
