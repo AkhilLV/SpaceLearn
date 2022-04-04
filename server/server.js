@@ -42,24 +42,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 require("./passportConfig")(passport);
 
+const isLoggedIn = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.send({ message: "not_logged_in" });
+};
+
 app.use("/auth", AuthRoute);
-app.use("/cards", CardRoute);
-CardRoute.use("/:cardId/tasks", TaskRoute);
-
-app.post("/crossTask", (req, res) => {
-  if (!req.user) return res.status(404).send({ message: "not_logged_in" });
-
-  pool.query(`UPDATE tasks SET ${req.body.task_day} = ${req.body.set_to} WHERE task_id = $1`, [req.body.task_id], (error) => {
-    if (error) throw error;
-    pool.query("SELECT task_id, task_text, done_day_one, done_day_two, done_day_three, done_day_four FROM tasks WHERE card_id = $1", [req.body.card_id], (error, result) => {
-      if (error) throw error;
-      res.send(result.rows);
-    });
-  });
-});
+app.use("/cards", isLoggedIn, CardRoute);
+CardRoute.use("/:cardId/tasks", isLoggedIn, TaskRoute);
 
 app.listen(PORT, () => console.log("Server is running at PORT: 4000"));
-
-// Todo
-// Seed database
-// Test APIs

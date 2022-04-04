@@ -1,3 +1,5 @@
+DROP DATABASE IF EXISTS space_learn;
+
 CREATE DATABASE space_learn;
 
 \c space_learn
@@ -30,7 +32,7 @@ CREATE TABLE IF NOT EXISTS task_status (
   task_status_id BIGSERIAL NOT NULL PRIMARY KEY,
   task_id INTEGER NOT NULL REFERENCES tasks (task_id),
   card_date_id INTEGER NOT NULL REFERENCES card_dates (card_date_id),
-  task_done BOOLEAN NOT NULL
+  task_done BOOLEAN DEFAULT FALSE NOT NULL
 );
 
 -- Creates a session store for passport.js/express sessions
