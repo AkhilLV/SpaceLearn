@@ -42,6 +42,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 require("./passportConfig")(passport);
 
+// Routes
 const isLoggedIn = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
@@ -53,4 +54,4 @@ app.use("/auth", AuthRoute);
 app.use("/cards", isLoggedIn, CardRoute);
 CardRoute.use("/:cardId/tasks", isLoggedIn, TaskRoute);
 
-app.listen(PORT, () => console.log("Server is running at PORT: 4000"));
+app.listen(PORT, () => console.log(`Server is running at PORT: ${PORT}`));

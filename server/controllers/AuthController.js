@@ -7,11 +7,11 @@ module.exports = {
     passport.authenticate("local", (error, user) => {
       if (error) throw error;
       if (!user) {
-        res.send({ message: "No user", status: 400 });
+        res.status(404).send({ message: "user_not_found" });
       } else {
         req.logIn(user, (error) => {
           if (error) throw error;
-          res.send({ message: "Logged in", status: 200 });
+          res.send({ message: "user_logged_in" });
         });
       }
     })(req, res, next);
@@ -21,14 +21,12 @@ module.exports = {
 
     pool.query("SELECT username FROM users WHERE username = $1", [req.body.username], (error, result) => {
       if (error) throw error;
-      if (result.rows.length) {
-        res.send({ message: "Exists", status: 409 }); // user exists
-      } else {
-        pool.query("INSERT INTO users (username, password) VALUES ($1, $2)", [req.body.username, encryptedPassword], (error) => {
-          if (error) throw error;
-          res.send({ message: "Added", status: 200 });
-        });
-      }
+      if (result.rows.length) return res.status(404).send({ message: "user_exists" });
+
+      pool.query("INSERT INTO users (username, password) VALUES ($1, $2)", [req.body.username, encryptedPassword], (error) => {
+        if (error) throw error;
+        res.send({ message: "user_added" });
+      });
     });
   },
 };

@@ -47,5 +47,3 @@ module.exports = {
     
   },
 };
-
-// maybe delegate user.auth checks to Route?

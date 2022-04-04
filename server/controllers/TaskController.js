@@ -11,6 +11,7 @@ module.exports = {
       await client.query("BEGIN");
       const taskId = await pool.query("INSERT INTO tasks (card_id, task_text) VALUES ($1, $2) RETURNING task_id", [req.params.cardId, req.body.taskText]);
 
+      // refactor this, change database schema?
       req.body.cardDateIds.forEach(async (cardDateId) => {
         await pool.query("INSERT INTO task_status (task_id, card_date_id) VALUES ($1, $2)", [taskId.rows[0].task_id, cardDateId]);
       });
