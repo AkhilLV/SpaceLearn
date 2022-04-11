@@ -28,6 +28,7 @@ module.exports = {
   },
 
   get: (req, res) => {
+    const cardId = req.params.id;
     const resObj = {
       cardName,
       tasks: [

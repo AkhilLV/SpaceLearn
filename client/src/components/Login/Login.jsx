@@ -32,23 +32,14 @@ function Login({ setIsLoggedIn }) {
       withCredentials: true,
     }).then((res) => {
       setIsLoading(false);
-      switch (res.data.message) {
-        case ("Logged in"):
-          setIsLoggedIn(true);
-          history.push("/dashboard");
-          break;
-        case ("No user"):
-          alert("User does not exist");
-          break;
-        case ("Exists"):
-          alert("User Exists");
-          break;
-        case ("Added"):
-          alert("User added");
-          break;
-        default:
-          console.log("Login failed");
+      if (res.data.message === "user_logged_in") {
+        setIsLoggedIn(true);
+        history.push("/dashboard");
       }
+    }).catch((error) => {
+      setIsLoading(false);
+      console.log(error.response.data.message);
+      alert(error.response.data.message);
     });
   };
 
@@ -62,8 +53,7 @@ function Login({ setIsLoggedIn }) {
 
   return (
     <div className="login-form">
-      <form>
-
+      <form onSubmit={handleSubmit}>
         <h2>{action === "login" ? "Login" : "Register"}</h2>
 
         <label>Username:</label>
@@ -72,12 +62,10 @@ function Login({ setIsLoggedIn }) {
         <label>Password:</label>
         <input onChange={(e) => setPasswordInput(e.target.value)} value={passwordInput} type="password" placeholder="Ex: 12345" />
 
-        <button type="button" onClick={handleSubmit}>{isLoading ? <div className="loader" /> : action}</button>
+        <button type="submit">{isLoading ? <div className="loader" /> : action}</button>
 
         <a href="#" type="button" onClick={changeChoice}>{action === "login" ? "Sign up instead" : "Sign in instead"}</a>
-
       </form>
-
       <div className="image" />
     </div>
   );

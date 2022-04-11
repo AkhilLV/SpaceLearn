@@ -20,7 +20,7 @@ module.exports = {
       res.status(200).send({ message: "Success" });
     } catch (error) {
       await client.query("ROLLBACK");
-      res.status(404).send({ message: "Failed" });
+      res.status(400).send({ message: "Failed" });
       throw error;
     } finally {
       client.release();

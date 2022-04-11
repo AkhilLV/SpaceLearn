@@ -7,7 +7,7 @@ module.exports = {
     passport.authenticate("local", (error, user) => {
       if (error) throw error;
       if (!user) {
-        res.status(404).send({ message: "user_not_found" });
+        res.status(400).send({ message: "user_not_found" });
       } else {
         req.logIn(user, (error) => {
           if (error) throw error;
@@ -21,7 +21,7 @@ module.exports = {
 
     pool.query("SELECT username FROM users WHERE username = $1", [req.body.username], (error, result) => {
       if (error) throw error;
-      if (result.rows.length) return res.status(404).send({ message: "user_exists" });
+      if (result.rows.length) return res.status(400).send({ message: "user_exists" });
 
       pool.query("INSERT INTO users (username, password) VALUES ($1, $2)", [req.body.username, encryptedPassword], (error) => {
         if (error) throw error;
