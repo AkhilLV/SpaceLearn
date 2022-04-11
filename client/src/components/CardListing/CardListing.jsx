@@ -26,7 +26,16 @@ function CardListing({ cards, setCards, setSelectedCardId }) {
     <>
       <h3>All Cards</h3>
       <ul className="card-listing">
-        {cards.map((card) => <li onClick={handleClick} key={card.card_id} data-id={card.card_id}>{card.card_name}</li>)}
+        {cards.map((card) => (
+          // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+          <li
+            onClick={handleClick}
+            key={card.card_id}
+            data-id={card.card_id}
+          >
+            {card.card_name}
+          </li>
+        ))}
       </ul>
     </>
   );

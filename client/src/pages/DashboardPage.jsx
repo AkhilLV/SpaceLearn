@@ -18,10 +18,20 @@ function DashboardPage({ isLoggedIn }) {
 
   return (
     <>
-      {showInputModal ? <CardInputModal setCards={setCards} setShowInputModal={setShowInputModal} /> : null}
+      {showInputModal ? (
+        <CardInputModal
+          setCards={setCards}
+          setShowInputModal={setShowInputModal}
+        />
+      ) : null}
 
       <div>
-        <Sidebar cards={cards} setCards={setCards} setShowInputModal={setShowInputModal} setSelectedCardId={setSelectedCardId} />
+        <Sidebar
+          cards={cards}
+          setCards={setCards}
+          setShowInputModal={setShowInputModal}
+          setSelectedCardId={setSelectedCardId}
+        />
         <CardSection selectedCardId={selectedCardId} />
       </div>
     </>
