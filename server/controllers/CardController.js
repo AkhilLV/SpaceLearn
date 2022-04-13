@@ -18,7 +18,7 @@ module.exports = {
       });
 
       await client.query("COMMIT");
-      res.status(200).send({ message: "Success" });
+      res.send({ message: "Success" });
     } catch (error) {
       await client.query("ROLLBACK");
       throw error;

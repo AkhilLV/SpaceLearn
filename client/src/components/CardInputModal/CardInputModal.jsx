@@ -12,10 +12,10 @@ function InputModal({ setCards, setShowInputModal }) {
   const [cardDateInput, setCardDateInput] = useState("");
   const [cardDates, setCardDates] = useState([]);
 
-  const addCard = () => {
+  const addCard = async () => {
     if (!cardNameInput || !cardDateInput) return alert("Invalid input");
 
-    axios({
+    const resPost = await axios({
       method: "POST",
       data: {
         cardName: cardNameInput,
@@ -23,11 +23,17 @@ function InputModal({ setCards, setShowInputModal }) {
       },
       url: `${baseUrl}/cards`,
       withCredentials: true,
-    }).then((res) => {
-      console.log(res);
-      setCards(res.data);
-      setShowInputModal(false);
     });
+
+    if (resPost.status === 200) {
+      const resGet = await axios({
+        method: "GET",
+        url: `${baseUrl}/cards`,
+        withCredentials: true,
+      });
+      setCards(resGet.data);
+      setShowInputModal(false);
+    }
   };
 
   useEffect(() => {

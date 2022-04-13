@@ -18,8 +18,8 @@
   display: flex;
   flex-direction: column;
   background-color: #222;
-  padding: 60px 60px;
-  border-radius: 15px;
+  padding: 45px 45px;
+  border-radius: 5px;
   width: 500px;
   z-index: 100000;
 }

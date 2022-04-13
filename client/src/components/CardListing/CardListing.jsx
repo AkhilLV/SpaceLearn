@@ -18,7 +18,6 @@ function CardListing({ cards, setCards, setSelectedCardId }) {
 
   const handleClick = (e) => {
     const cardId = e.target.dataset.id;
-    console.log(cardId);
     setSelectedCardId(cardId);
   };
 

@@ -1,5 +1,7 @@
 .card-listing {
-  overflow: auto;
+  max-height: calc(100% - 9rem);
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .card-listing h3 {
