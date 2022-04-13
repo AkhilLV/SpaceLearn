@@ -1,17 +1,15 @@
 .sidebar {
   background-color: rgb(43, 43, 43);
-  padding: 10px;
-  padding-top: 15px;
+  padding: 20px 30px;
+  height: 100vh;
 }
 
 .sidebar button.circle {
   width: 40px;
   height: 40px;
-  line-height: 40px;
   border-radius: 50%;
   color: #fff;
   text-align: center;
-  font-weight: 1000;
   font-size: 20px;
   background: crimson;
   border: none;
@@ -19,23 +17,28 @@
   margin-bottom: 20px;
 }
 
-.sidebar p {
-  font-weight: 1000;
-}
-
 .sidebar .filter {
-  display: flex;
-  justify-content: space-around;
   margin-bottom: 30px;
 }
 
-@media (max-width: 425px) {
-  .sidebar {
-    position: static;
-    background-color: #222;
-
-    padding-right: 20px;
-    padding-left: 20px;
-  }
+.sidebar .filter h3 {
+  margin-bottom:10px;
 }
 
+.sidebar .filter .options {
+  display: flex;
+  gap: 20px;
+  font-size: 15px;
+}
+
+.sidebar .filter .options p {
+  cursor: pointer;
+  background-color: #444;
+  padding: 5px 7px;
+  border-radius: 5px;
+  transition: 100ms ease-in-out;
+}
+
+.sidebar .filter p:hover {
+  background-color: crimson;
+}

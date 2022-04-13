@@ -28,18 +28,22 @@ module.exports = {
   },
 
   get: (req, res) => {
-    const cardId = req.params.id;
-    const resObj = {
-      cardName,
-      tasks: [
-        {
-          taskName,
-          taskDates: {
-            date: true,
-          },
-        },
-      ],
-    };
+    // const cardId = req.params.id;
+    // const resObj = {
+    //   cardName,
+    //   tasks: [
+    //     {
+    //       taskName,
+    //       taskDates: {
+    //         date: true,
+    //       },
+    //     },
+    //   ],
+    // };
+    pool.query("SELECT * FROM cards, tasks WHERE cards.card_id = tasks.task_id AND cards.card_id = ", [req.user.user_id], (error, result) => {
+      if (error) throw error;
+      res.send(result.rows);
+    });
   },
   put: (req, res) => {
     
