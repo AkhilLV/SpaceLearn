@@ -6,7 +6,7 @@ const API = axios.create({
 });
 
 export const getCards = () => API.get("/cards");
-export const postCard = (data) => API.post("./cards", data);
+export const postCard = (data) => API.post("/cards", data);
 
 export const login = (data) => API.post("/auth/login", data);
 export const register = (data) => API.post("/auth/register", data);
