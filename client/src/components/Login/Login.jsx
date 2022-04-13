@@ -3,44 +3,43 @@ import "./Login.css";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
 
-import axios from "axios";
-import baseUrl from "../../url/baseUrl";
+import { login, register } from "../../api";
 
 function Login({ setIsLoggedIn }) {
-  const [usernameInput, setUsernameInput] = useState("");
-  const [passwordInput, setPasswordInput] = useState("");
+  const [username, setusername] = useState("");
+  const [password, setpassword] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
 
   const [action, setAction] = useState("login");
 
   const history = useHistory();
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!usernameInput || !passwordInput) return alert("Invalid input");
+    if (!username || !password) return alert("Invalid input");
 
     setIsLoading(true);
 
-    axios({
-      method: "POST",
-      data: {
-        username: usernameInput,
-        password: passwordInput,
-      },
-      url: `${baseUrl}/auth/${action}`,
-      withCredentials: true,
-    }).then((res) => {
-      setIsLoading(false);
-      if (res.data.message === "user_logged_in") {
-        setIsLoggedIn(true);
-        history.push("/dashboard");
+    try {
+      if (action === "login") {
+        const res = await login({ username, password });
+
+        if (res.data.message === "user_logged_in") {
+          setIsLoggedIn(true);
+          history.push("/dashboard");
+        }
+
+        return 0;
       }
-    }).catch((error) => {
-      setIsLoading(false);
-      console.log(error.response.data.message);
-      alert(error.response.data.message);
-    });
+
+      const res = await register({ username, password });
+      alert(res.data.message);
+    } catch (err) {
+      alert(err.response.data.message);
+    }
+
+    setIsLoading(false);
   };
 
   const changeChoice = () => {
@@ -57,10 +56,10 @@ function Login({ setIsLoggedIn }) {
         <h2>{action === "login" ? "Login" : "Register"}</h2>
 
         <label>Username:</label>
-        <input onChange={(e) => setUsernameInput(e.target.value)} value={usernameInput} type="text" placeholder="Ex: John Doe" />
+        <input onChange={(e) => setusername(e.target.value)} value={username} type="text" placeholder="Ex: John Doe" />
 
         <label>Password:</label>
-        <input onChange={(e) => setPasswordInput(e.target.value)} value={passwordInput} type="password" placeholder="Ex: 12345" />
+        <input onChange={(e) => setpassword(e.target.value)} value={password} type="password" placeholder="Ex: 12345" />
 
         <button type="submit">{isLoading ? <div className="loader" /> : action}</button>
 

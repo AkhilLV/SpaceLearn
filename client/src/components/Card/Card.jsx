@@ -2,9 +2,6 @@ import "./Card.css";
 
 import { useEffect, useState } from "react";
 
-import axios from "axios";
-import baseUrl from "../../url/baseUrl";
-
 import DateSelector from "../DateSelector/DateSelector";
 import Task from "../Task/Task";
 
@@ -13,33 +10,33 @@ function Card(props) {
   const [tasksData, setTasksData] = useState("");
   const [selectedDate, setSelectedDate] = useState("done_day_one"); // bad variable name. use actual dates. do away with done_day_one ...
 
-  useEffect(() => {
-    axios({
-      method: "GET",
-      url: `${baseUrl}/cards/${props.card_id}/tasks`,
-      withCredentials: true,
-    }).then((res) => {
-      setTasksData(res.data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   axios({
+  //     method: "GET",
+  //     url: `${baseUrl}/cards/${props.card_id}/tasks`,
+  //     withCredentials: true,
+  //   }).then((res) => {
+  //     setTasksData(res.data);
+  //   });
+  // }, []);
 
-  const addTask = (e) => {
-    e.preventDefault();
+  // const addTask = (e) => {
+  //   e.preventDefault();
 
-    if (!taskInput) return;
-    axios({
-      method: "POST",
-      data: {
-        taskText: taskInput,
-      },
-      url: `${baseUrl}/cards/${props.card_id}/tasks`,
-      withCredentials: true,
-    }).then((res) => {
-      console.log(res.data);
-      setTaskInput("");
-      setTasksData(res.data);
-    });
-  };
+  //   if (!taskInput) return;
+  //   axios({
+  //     method: "POST",
+  //     data: {
+  //       taskText: taskInput,
+  //     },
+  //     url: `${baseUrl}/cards/${props.card_id}/tasks`,
+  //     withCredentials: true,
+  //   }).then((res) => {
+  //     console.log(res.data);
+  //     setTaskInput("");
+  //     setTasksData(res.data);
+  //   });
+  // };
 
   return (
     <div className="card">

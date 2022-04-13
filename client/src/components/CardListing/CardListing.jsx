@@ -1,19 +1,15 @@
 import { useEffect } from "react";
 
 import "./CardListing.css";
-import axios from "axios";
-import baseUrl from "../../url/baseUrl";
+
+import { getCards } from "../../api";
 
 function CardListing({ cards, setCards, setSelectedCardId }) {
   useEffect(() => {
-    axios({
-      method: "GET",
-      url: `${baseUrl}/cards`,
-      withCredentials: true,
-    }).then((res) => {
-      console.log(res.data);
+    (async () => {
+      const res = await getCards();
       setCards(res.data);
-    });
+    })();
   }, []);
 
   const handleClick = (e) => {

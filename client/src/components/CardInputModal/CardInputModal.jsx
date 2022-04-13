@@ -2,52 +2,40 @@ import "./CardInputModal.css";
 
 import { useEffect, useState } from "react";
 
-import axios from "axios";
-import baseUrl from "../../url/baseUrl";
+import { getCards, postCard } from "../../api";
 
 import addDaysToDate from "../../helpers/addDaysToDate";
 
 function InputModal({ setCards, setShowInputModal }) {
-  const [cardNameInput, setCardNameInput] = useState("");
-  const [cardDateInput, setCardDateInput] = useState("");
+  const [cardName, setcardName] = useState("");
+  const [cardDate, setcardDate] = useState("");
   const [cardDates, setCardDates] = useState([]);
 
   const addCard = async () => {
-    if (!cardNameInput || !cardDateInput) return alert("Invalid input");
+    if (!cardName || !cardDate) return alert("Invalid input");
 
-    const resPost = await axios({
-      method: "POST",
-      data: {
-        cardName: cardNameInput,
-        cardDates,
-      },
-      url: `${baseUrl}/cards`,
-      withCredentials: true,
-    });
+    const resPost = await postCard({ cardName, cardDates });
 
     if (resPost.status === 200) {
-      const resGet = await axios({
-        method: "GET",
-        url: `${baseUrl}/cards`,
-        withCredentials: true,
-      });
+      const resGet = await getCards();
+
       setCards(resGet.data);
       setShowInputModal(false);
     }
   };
 
   useEffect(() => {
-    const startDate = new Date(cardDateInput);
+    const startDate = new Date(cardDate);
     setCardDates([
       startDate,
       addDaysToDate(startDate, 1),
       addDaysToDate(startDate, 4),
       addDaysToDate(startDate, 9),
     ]);
-  }, [cardDateInput]);
+  }, [cardDate]);
 
   const handleDateSelect = (e) => {
-    setCardDateInput(e.target.value);
+    setcardDate(e.target.value);
   };
 
   return (
@@ -55,10 +43,10 @@ function InputModal({ setCards, setShowInputModal }) {
       <div className="overlay" />
       <div className="input-modal">
         <label>Card Name</label>
-        <input type="text" value={cardNameInput} onChange={(e) => setCardNameInput(e.target.value)} placeholder="Ex: Chemistry" />
+        <input type="text" value={cardName} onChange={(e) => setcardName(e.target.value)} placeholder="Ex: Chemistry" />
 
         <label>Start Date</label>
-        <input type="date" value={cardDateInput} onChange={handleDateSelect} />
+        <input type="date" value={cardDate} onChange={handleDateSelect} />
 
         <button type="button" onClick={addCard}>Create Card</button>
 
