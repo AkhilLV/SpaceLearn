@@ -2,8 +2,8 @@ const pool = require("../db/db");
 
 module.exports = {
   getAll: (req, res) => {
-    pool.query("SELECT card_id, card_name FROM cards WHERE user_id = $1", [req.user.user_id], (error, result) => {
-      if (error) throw error;
+    pool.query("SELECT card_id, card_name FROM cards WHERE user_id = $1", [req.user.user_id], (err, result) => {
+      if (err) throw err;
       res.send(result.rows);
     });
   },
@@ -19,9 +19,9 @@ module.exports = {
 
       await client.query("COMMIT");
       res.send({ message: "Success" });
-    } catch (error) {
+    } catch (err) {
       await client.query("ROLLBACK");
-      throw error;
+      throw err;
     } finally {
       client.release();
     }
@@ -40,8 +40,8 @@ module.exports = {
     //     },
     //   ],
     // };
-    pool.query("SELECT * FROM cards, tasks WHERE cards.card_id = tasks.task_id AND cards.card_id = ", [req.user.user_id], (error, result) => {
-      if (error) throw error;
+    pool.query("SELECT * FROM cards, tasks WHERE cards.card_id = tasks.task_id AND cards.card_id = ", [req.user.user_id], (err, result) => {
+      if (err) throw err;
       res.send(result.rows);
     });
   },

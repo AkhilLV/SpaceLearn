@@ -18,10 +18,10 @@ module.exports = {
 
       await client.query("COMMIT");
       res.status(200).send({ message: "Success" });
-    } catch (error) {
+    } catch (err) {
       await client.query("ROLLBACK");
       res.status(400).send({ message: "Failed" });
-      throw error;
+      throw err;
     } finally {
       client.release();
     }
