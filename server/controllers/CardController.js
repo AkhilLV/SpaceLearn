@@ -48,7 +48,8 @@ module.exports = {
   put: (req, res) => {
     
   },
-  delete: (req, res) => {
-    
+  delete: async (req, res) => {
+    await pool.query("DELETE FROM cards WHERE card_id = $1", [req.params.cardId]);
+    res.send({ message: "Success" });
   },
 };
