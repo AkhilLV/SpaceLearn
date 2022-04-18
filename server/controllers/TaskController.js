@@ -8,12 +8,13 @@ module.exports = {
   post: async (req, res) => {
     const client = await pool.connect();
     try {
+      const { cardId } = req.params;
       await client.query("BEGIN");
-      const taskId = await pool.query("INSERT INTO tasks (card_id, task_text) VALUES ($1, $2) RETURNING task_id", [req.params.cardId, req.body.taskText]);
+      const taskId = await client.query("INSERT INTO tasks (card_id, task_text) VALUES ($1, $2) RETURNING task_id", [cardId, req.body.taskText]);
 
-      // refactor this, change database schema?
-      req.body.cardDateIds.forEach(async (cardDateId) => {
-        await pool.query("INSERT INTO task_status (task_id, card_date_id) VALUES ($1, $2)", [taskId.rows[0].task_id, cardDateId]);
+      const cardDateIds = await client.query("SELECT card_date_id FROM card_dates WHERE card_id = $1", [cardId]);
+      cardDateIds.rows.forEach(async (cardDateId) => {
+        await client.query("INSERT INTO task_status (task_id, card_date_id) VALUES ($1, $2)", [taskId.rows[0].task_id, cardDateId.card_date_id]);
       });
 
       await client.query("COMMIT");
