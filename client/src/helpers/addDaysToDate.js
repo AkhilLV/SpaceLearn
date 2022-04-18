@@ -1,4 +1,4 @@
-const addDaysToDate = (dateObject, daysToAdd) => { // Date Object, number
+const addDaysToDate = (dateObject, daysToAdd) => { // Date, number
   const date = new Date(dateObject);
   date.setDate(date.getDate() + daysToAdd);
 

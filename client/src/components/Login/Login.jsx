@@ -30,7 +30,8 @@ function Login({ setIsLoggedIn }) {
           history.push("/dashboard");
         }
 
-        return 0;
+        // eslint-disable-next-line consistent-return
+        return;
       }
 
       const res = await register({ username, password });

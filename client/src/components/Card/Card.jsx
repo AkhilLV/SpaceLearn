@@ -3,40 +3,9 @@ import "./Card.css";
 import { useEffect, useState } from "react";
 
 import DateSelector from "../DateSelector/DateSelector";
-import Task from "../Task/Task";
 
 function Card(props) {
-  const [taskInput, setTaskInput] = useState("");
-  const [tasksData, setTasksData] = useState("");
-  const [selectedDate, setSelectedDate] = useState("done_day_one"); // bad variable name. use actual dates. do away with done_day_one ...
-
-  // useEffect(() => {
-  //   axios({
-  //     method: "GET",
-  //     url: `${baseUrl}/cards/${props.card_id}/tasks`,
-  //     withCredentials: true,
-  //   }).then((res) => {
-  //     setTasksData(res.data);
-  //   });
-  // }, []);
-
-  // const addTask = (e) => {
-  //   e.preventDefault();
-
-  //   if (!taskInput) return;
-  //   axios({
-  //     method: "POST",
-  //     data: {
-  //       taskText: taskInput,
-  //     },
-  //     url: `${baseUrl}/cards/${props.card_id}/tasks`,
-  //     withCredentials: true,
-  //   }).then((res) => {
-  //     console.log(res.data);
-  //     setTaskInput("");
-  //     setTasksData(res.data);
-  //   });
-  // };
+  const [task, setTask] = useState("");
 
   return (
     <div className="card">
@@ -45,29 +14,13 @@ function Card(props) {
         <div className="card-menu-icon" />
       </div>
 
-      <DateSelector card_date={props.card_date} setSelectedDate={setSelectedDate} />
+      <DateSelector card_date={props.card_date} />
 
       <div className="task-input">
         <form onSubmit={addTask}>
-          <input type="text" value={taskInput} onChange={(e) => setTaskInput(e.target.value)} />
-          <button className="circle">+</button>
+          <input type="text" value={task} onChange={(e) => setTask(e.target.value)} />
+          <button type="button" className="circle">+</button>
         </form>
-      </div>
-
-      <div className="tasks">
-        <ul>
-          {
-            tasksData ? tasksData.filter((task) => !task[selectedDate]).map((task) => <Task key={task.task_id} task_id={task.task_id} task_text={task.task_text} setTasksData={setTasksData} selectedDate={selectedDate} card_id={props.card_id} isTaskDone={false} />) : "All done!"
-          }
-        </ul>
-      </div>
-
-      <div className="tasks completed-tasks">
-        <ul>
-          {
-            tasksData ? tasksData.filter((task) => task[selectedDate]).map((task) => <Task key={task.task_id} task_id={task.task_id} task_text={task.task_text} setTasksData={setTasksData} selectedDate={selectedDate} card_id={props.card_id} isTaskDone />) : "All done!"
-          }
-        </ul>
       </div>
     </div>
   );
