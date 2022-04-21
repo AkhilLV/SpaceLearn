@@ -32,7 +32,7 @@ function App() {
           </Route>
 
           <Route path="/dashboard">
-            <DashboardPage isLoggedIn={isLoggedIn} />
+            <DashboardPage isLoggedIn={isLoggedIn} setShowModal={setShowModal} />
           </Route>
 
         </Switch>

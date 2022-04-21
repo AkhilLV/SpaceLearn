@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./Modal.css";
 
 function Modal({ showModal, setShowModal }) {
-  console.log("ran");
   useEffect(() => {
     setTimeout(() => {
       setShowModal([false, ""]);
