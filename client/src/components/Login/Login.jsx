@@ -5,7 +5,7 @@ import { useState } from "react";
 
 import { login, register } from "../../api";
 
-function Login({ setIsLoggedIn }) {
+function Login({ setIsLoggedIn, setShowModal }) {
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
 
@@ -17,7 +17,7 @@ function Login({ setIsLoggedIn }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!username || !password) return alert("Invalid input");
+    if (!username || !password) return setShowModal([true, "Fill all fields"]);
 
     setIsLoading(true);
 
@@ -35,9 +35,9 @@ function Login({ setIsLoggedIn }) {
       }
 
       const res = await register({ username, password });
-      alert(res.data.message);
+      setShowModal([true, res.data.message]);
     } catch (err) {
-      alert(err.response.data.message);
+      setShowModal([true, err.response.data.message]);
     }
 
     setIsLoading(false);

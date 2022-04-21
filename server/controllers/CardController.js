@@ -27,8 +27,9 @@ module.exports = {
     }
   },
 
-  get: (req, res) => {
-    // const cardId = req.params.id;
+  get: async (req, res) => {
+    const client = await pool.connect();
+    const { cardId } = req.params;
     // const resObj = {
     //   cardName,
     //   tasks: [
@@ -40,10 +41,10 @@ module.exports = {
     //     },
     //   ],
     // };
-    pool.query("SELECT * FROM cards, tasks WHERE cards.card_id = tasks.task_id AND cards.card_id = ", [req.user.user_id], (err, result) => {
-      if (err) throw err;
-      res.send(result.rows);
-    });
+    // const cardName = await client.query("SELECT card_name FROM cards WHERE card_id = $1", [cardId]);
+    // const tasks = 
+
+    // console.log(tasks)
   },
   put: (req, res) => {
     

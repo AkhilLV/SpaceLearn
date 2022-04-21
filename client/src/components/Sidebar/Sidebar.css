@@ -42,3 +42,8 @@
 .sidebar .filter p:hover {
   background-color: crimson;
 }
+
+
+@media (max-width: 576px) {
+  
+}

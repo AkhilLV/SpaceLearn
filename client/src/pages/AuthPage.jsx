@@ -1,11 +1,11 @@
 import Header from "../components/Header/Header";
 import Login from "../components/Login/Login";
 
-function AuthPage({ setIsLoggedIn }) {
+function AuthPage({ setIsLoggedIn, setShowModal }) {
   return (
     <>
       <Header />
-      <Login setIsLoggedIn={setIsLoggedIn} />
+      <Login setIsLoggedIn={setIsLoggedIn} setShowModal={setShowModal} />
     </>
   );
 }

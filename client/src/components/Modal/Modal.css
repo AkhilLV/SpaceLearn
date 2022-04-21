@@ -1,0 +1,29 @@
+.modal {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+  
+  background-color: rgba(63, 63, 63, 0.9);
+  padding: 15px 30px;
+  border-radius: 5px;
+  display: block;
+
+  z-index: 10000;
+  cursor: pointer;
+
+  animation-duration: 500ms;
+  animation-delay: 2600ms;
+  animation-name: fadeout;
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}

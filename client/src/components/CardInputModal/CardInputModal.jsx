@@ -6,13 +6,13 @@ import { getCards, postCard } from "../../api";
 
 import addDaysToDate from "../../helpers/addDaysToDate";
 
-function InputModal({ setCards, setShowInputModal }) {
+function InputModal({ setCards, setShowInputModal, setShowModal }) {
   const [cardName, setcardName] = useState("");
   const [cardDate, setcardDate] = useState("");
   const [cardDates, setCardDates] = useState([]);
 
   const addCard = async () => {
-    if (!cardName || !cardDate) return alert("Invalid input");
+    if (!cardName || !cardDate) return setShowModal([true, "Fill all fields"]);
 
     const resPost = await postCard({ cardName, cardDates });
 

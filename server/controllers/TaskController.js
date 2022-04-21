@@ -9,10 +9,11 @@ module.exports = {
     const client = await pool.connect();
     try {
       const { cardId } = req.params;
-      await client.query("BEGIN");
-      const taskId = await client.query("INSERT INTO tasks (card_id, task_text) VALUES ($1, $2) RETURNING task_id", [cardId, req.body.taskText]);
-
       const cardDateIds = await client.query("SELECT card_date_id FROM card_dates WHERE card_id = $1", [cardId]);
+
+      await client.query("BEGIN");
+
+      const taskId = await client.query("INSERT INTO tasks (card_id, task_text) VALUES ($1, $2) RETURNING task_id", [cardId, req.body.taskText]);
       cardDateIds.rows.forEach(async (cardDateId) => {
         await client.query("INSERT INTO task_status (task_id, card_date_id) VALUES ($1, $2)", [taskId.rows[0].task_id, cardDateId.card_date_id]);
       });
