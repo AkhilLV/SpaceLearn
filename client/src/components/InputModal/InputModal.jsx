@@ -11,7 +11,9 @@ function InputModal({ setCards, setShowInputModal, setShowModal }) {
   const [cardDate, setcardDate] = useState("");
   const [cardDates, setCardDates] = useState([]);
 
-  const addCard = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     if (!cardName || !cardDate) return setShowModal([true, "Fill all fields"]);
 
     try {
@@ -27,6 +29,7 @@ function InputModal({ setCards, setShowInputModal, setShowModal }) {
 
   useEffect(() => {
     const startDate = new Date(cardDate);
+
     setCardDates([
       startDate,
       addDaysToDate(startDate, 1),
@@ -38,17 +41,17 @@ function InputModal({ setCards, setShowInputModal, setShowModal }) {
   return (
     <>
       <div className="overlay" />
-      <div className="input-modal">
+      <form className="input-modal" onSubmit={handleSubmit}>
         <label>Card Name</label>
         <input type="text" value={cardName} onChange={(e) => setcardName(e.target.value)} placeholder="Ex: Chemistry" />
 
         <label>Start Date</label>
         <input type="date" value={cardDate} onChange={(e) => setcardDate(e.target.value)} />
 
-        <button type="button" onClick={addCard}>Create Card</button>
+        <button type="submit">Create Card</button>
 
         <span className="close" onClick={() => setShowInputModal(false)}>x</span>
-      </div>
+      </form>
     </>
   );
 }
