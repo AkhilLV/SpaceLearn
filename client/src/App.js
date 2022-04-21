@@ -9,6 +9,7 @@ import "./index.css";
 import LandingPage from "./pages/LandingPage";
 import AuthPage from "./pages/AuthPage";
 import DashboardPage from "./pages/DashboardPage";
+
 import Modal from "./components/Modal/Modal";
 
 function App() {

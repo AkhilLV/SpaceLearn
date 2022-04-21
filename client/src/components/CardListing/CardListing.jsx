@@ -7,8 +7,12 @@ import { getCards } from "../../api";
 function CardListing({ cards, setCards, setSelectedCardId }) {
   useEffect(() => {
     (async () => {
-      const res = await getCards();
-      setCards(res.data);
+      try {
+        const res = await getCards();
+        setCards(res.data);
+      } catch (err) {
+        console.log(err);
+      }
     })();
   }, []);
 
