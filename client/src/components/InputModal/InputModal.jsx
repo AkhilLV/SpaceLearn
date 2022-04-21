@@ -1,4 +1,4 @@
-import "./CardInputModal.css";
+import "./InputModal.css";
 
 import { useEffect, useState } from "react";
 

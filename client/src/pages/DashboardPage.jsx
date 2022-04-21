@@ -2,7 +2,7 @@ import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import Sidebar from "../components/Sidebar/Sidebar";
-import CardInputModal from "../components/CardInputModal/CardInputModal";
+import InputModal from "../components/InputModal/InputModal";
 import CardSection from "../components/CardSection/CardSection";
 
 import "./DashboardPage.css";
@@ -21,7 +21,7 @@ function DashboardPage({ isLoggedIn, setShowModal }) {
   return (
     <>
       {showInputModal ? (
-        <CardInputModal
+        <InputModal
           setCards={setCards}
           setShowInputModal={setShowInputModal}
           setShowModal={setShowModal}

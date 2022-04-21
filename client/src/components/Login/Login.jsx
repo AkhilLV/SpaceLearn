@@ -25,7 +25,7 @@ function Login({ setIsLoggedIn, setShowModal }) {
       if (action === "login") {
         const res = await login({ username, password });
 
-        if (res.data.message === "user_logged_in") {
+        if (res.status === 200) {
           setIsLoggedIn(true);
           history.push("/dashboard");
         }
@@ -37,11 +37,11 @@ function Login({ setIsLoggedIn, setShowModal }) {
       const res = await register({ username, password });
       setShowModal([true, res.data.message]);
 
-      if (res.data.message !== "user_added") return 0;
+      if (res.status !== 200) return 0;
 
       const resLogin = await login({ username, password });
 
-      if (resLogin.data.message === "user_logged_in") {
+      if (resLogin.status === 200) {
         setIsLoggedIn(true);
         history.push("/dashboard");
       }
