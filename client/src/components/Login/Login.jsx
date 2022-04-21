@@ -36,11 +36,19 @@ function Login({ setIsLoggedIn, setShowModal }) {
 
       const res = await register({ username, password });
       setShowModal([true, res.data.message]);
+
+      if (res.data.message !== "user_added") return 0;
+
+      const resLogin = await login({ username, password });
+
+      if (resLogin.data.message === "user_logged_in") {
+        setIsLoggedIn(true);
+        history.push("/dashboard");
+      }
     } catch (err) {
       setShowModal([true, err.response.data.message]);
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   const changeChoice = () => {
