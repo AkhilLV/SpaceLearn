@@ -35,10 +35,6 @@ function InputModal({ setCards, setShowInputModal, setShowModal }) {
     ]);
   }, [cardDate]);
 
-  const handleDateSelect = (e) => {
-    setcardDate(e.target.value);
-  };
-
   return (
     <>
       <div className="overlay" />
@@ -47,7 +43,7 @@ function InputModal({ setCards, setShowInputModal, setShowModal }) {
         <input type="text" value={cardName} onChange={(e) => setcardName(e.target.value)} placeholder="Ex: Chemistry" />
 
         <label>Start Date</label>
-        <input type="date" value={cardDate} onChange={handleDateSelect} />
+        <input type="date" value={cardDate} onChange={(e) => setcardDate(e.target.value)} />
 
         <button type="button" onClick={addCard}>Create Card</button>
 
