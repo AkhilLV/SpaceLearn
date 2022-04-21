@@ -14,13 +14,14 @@ function InputModal({ setCards, setShowInputModal, setShowModal }) {
   const addCard = async () => {
     if (!cardName || !cardDate) return setShowModal([true, "Fill all fields"]);
 
-    const resPost = await postCard({ cardName, cardDates });
+    try {
+      await postCard({ cardName, cardDates });
 
-    if (resPost.status === 200) {
-      const resGet = await getCards();
-
-      setCards(resGet.data);
+      const res = await getCards();
+      setCards(res.data);
       setShowInputModal(false);
+    } catch (err) {
+      console.log(err);
     }
   };
 
