@@ -24,7 +24,7 @@ function CardListing({ cards, setCards, setSelectedCardId }) {
   return (
     <ul className="card-listing">
       <h3>All Cards</h3>
-      {cards.map((card) => (
+      {cards !== [] ? cards.map((card) => (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
         <li
           onClick={handleClick}
@@ -34,7 +34,7 @@ function CardListing({ cards, setCards, setSelectedCardId }) {
           <span className="circle" />
           {card.card_name}
         </li>
-      ))}
+      )) : "No cards"}
     </ul>
   );
 }

@@ -20,13 +20,13 @@ function DashboardPage({ isLoggedIn, setShowModal }) {
 
   return (
     <>
-      {showInputModal ? (
+      {showInputModal && (
         <InputModal
           setCards={setCards}
           setShowInputModal={setShowInputModal}
           setShowModal={setShowModal}
         />
-      ) : null}
+      )}
 
       <div id="dashboard">
         <Sidebar

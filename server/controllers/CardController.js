@@ -34,6 +34,7 @@ module.exports = {
     //   cardName,
     //   tasks: [
     //     {
+    //       taskId,
     //       taskName,
     //       taskDates: {
     //         date: true,
@@ -41,10 +42,19 @@ module.exports = {
     //     },
     //   ],
     // };
-    // const cardName = await client.query("SELECT card_name FROM cards WHERE card_id = $1", [cardId]);
-    // const tasks = 
+    const cardData = await client.query(`
+      SELECT cards.card_name, tasks.task_id, tasks.task_text, card_dates.card_date, task_status.task_done
+      FROM ((cards
+      INNER JOIN tasks
+      ON cards.card_id = tasks.card_id)
+      INNER JOIN card_dates
+      ON cards.card_id = card_dates.card_id)
+      INNER JOIN task_status
+      ON (task_status.task_id = tasks.task_id AND task_status.card_date_id = card_dates.card_date_id)
+      WHERE cards.card_id = $1
+    `, [cardId]);
 
-    // console.log(tasks)
+    res.send(cardData);
   },
   put: (req, res) => {
     
