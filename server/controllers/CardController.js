@@ -30,31 +30,36 @@ module.exports = {
   get: async (req, res) => {
     const client = await pool.connect();
     const { cardId } = req.params;
-    // const resObj = {
-    //   cardName,
-    //   tasks: [
-    //     {
-    //       taskId,
-    //       taskName,
-    //       taskDates: {
-    //         date: true,
-    //       },
-    //     },
-    //   ],
-    // };
+
     const cardData = await client.query(`
-      SELECT cards.card_name, tasks.task_id, tasks.task_text, card_dates.card_date, task_status.task_done
-      FROM ((cards
-      INNER JOIN tasks
-      ON cards.card_id = tasks.card_id)
-      INNER JOIN card_dates
-      ON cards.card_id = card_dates.card_id)
-      INNER JOIN task_status
-      ON (task_status.task_id = tasks.task_id AND task_status.card_date_id = card_dates.card_date_id)
-      WHERE cards.card_id = $1
+    SELECT json_build_object(
+      'cardName', cards.card_name,
+      'tasks', json_agg(json_build_object(
+        'taskId', tasks.task_id,
+        'taskText', tasks.task_text,
+        'taskDates', (
+          SELECT json_agg(json_build_object(
+            'date', card_dates.card_date,
+            'done', task_status.task_done
+          ))
+          FROM (cards
+          INNER JOIN card_dates
+          ON cards.card_id = card_dates.card_id)
+          INNER JOIN task_status
+          ON (task_status.task_id = tasks.task_id AND task_status.card_date_id = card_dates.card_date_id)
+          GROUP BY cards.card_name
+        )
+      )
+      )
+    )
+    FROM cards
+    INNER JOIN tasks
+    ON cards.card_id = tasks.card_id
+    WHERE cards.card_id = $1
+    GROUP BY cards.card_name;
     `, [cardId]);
 
-    res.send(cardData);
+    res.send(cardData.rows[0].json_build_object);
   },
   put: (req, res) => {
     
