@@ -1,12 +1,16 @@
 const pool = require("../db/db");
 
 module.exports = {
-  getAll: (req, res) => {
-    pool.query("SELECT card_id, card_name FROM cards WHERE user_id = $1", [req.user.user_id], (err, result) => {
-      if (err) throw err;
-      res.send(result.rows);
-    });
+  getAll: async (req, res) => {
+    try {
+      const cards = await pool.query("SELECT card_id, card_name FROM cards WHERE user_id = $1", [req.user.user_id]);
+      res.send(cards.rows);
+    } catch (err) {
+      res.status(400).send({ message: "cards_not_fetched" });
+      throw err;
+    }
   },
+
   post: async (req, res) => {
     const client = await pool.connect();
     try {
@@ -18,9 +22,10 @@ module.exports = {
       });
 
       await client.query("COMMIT");
-      res.send({ message: "Success" });
+      res.send({ message: "card_added" });
     } catch (err) {
       await client.query("ROLLBACK");
+      res.status(400).send({ message: "card_not_added" });
       throw err;
     } finally {
       client.release();
@@ -31,41 +36,55 @@ module.exports = {
     const client = await pool.connect();
     const { cardId } = req.params;
 
-    const cardData = await client.query(`
-    SELECT json_build_object(
-      'cardName', cards.card_name,
-      'tasks', json_agg(json_build_object(
-        'taskId', tasks.task_id,
-        'taskText', tasks.task_text,
-        'taskDates', (
-          SELECT json_agg(json_build_object(
-            'date', card_dates.card_date,
-            'done', task_status.task_done
-          ))
-          FROM (cards
-          INNER JOIN card_dates
-          ON cards.card_id = card_dates.card_id)
-          INNER JOIN task_status
-          ON (task_status.task_id = tasks.task_id AND task_status.card_date_id = card_dates.card_date_id)
-          GROUP BY cards.card_name
+    if (isNaN(cardId)) return res.send({ message: "card_id not valid" });
+
+    try {
+      const cardData = await client.query(`
+      SELECT json_build_object(
+        'cardName', cards.card_name,
+        'tasks', json_agg(json_build_object(
+          'taskId', tasks.task_id,
+          'taskText', tasks.task_text,
+          'taskDates', (
+            SELECT json_agg(json_build_object(
+              'date', card_dates.card_date,
+              'done', task_status.task_done
+            ))
+            FROM (cards
+            INNER JOIN card_dates
+            ON cards.card_id = card_dates.card_id)
+            INNER JOIN task_status
+            ON (task_status.task_id = tasks.task_id AND task_status.card_date_id = card_dates.card_date_id)
+            GROUP BY cards.card_name
+          )
+        )
         )
       )
-      )
-    )
-    FROM cards
-    INNER JOIN tasks
-    ON cards.card_id = tasks.card_id
-    WHERE cards.card_id = $1
-    GROUP BY cards.card_name;
-    `, [cardId]);
+      FROM cards
+      INNER JOIN tasks
+      ON cards.card_id = tasks.card_id
+      WHERE cards.card_id = $1
+      GROUP BY cards.card_name
+      `, [cardId]);
 
-    res.send(cardData.rows[0].json_build_object);
+      console.log(cardData);
+      res.send(cardData.rows);
+    } catch (err) {
+      res.status(400).send({ message: "card_not_fetched" });
+      throw err;
+    }
   },
+
   put: (req, res) => {
-    
+
   },
+
   delete: async (req, res) => {
-    await pool.query("DELETE FROM cards WHERE card_id = $1", [req.params.cardId]);
-    res.send({ message: "Success" });
+    try {
+      await pool.query("DELETE FROM cards WHERE card_id = $1", [req.params.cardId]);
+      res.send({ message: "card_deleted" });
+    } catch (err) {
+      res.status(400).send({ message: "card_not_deleted" });
+    }
   },
 };

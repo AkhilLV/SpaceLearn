@@ -6,6 +6,8 @@ const API = axios.create({
 });
 
 export const getCards = () => API.get("/cards");
+export const getCard = (cardId) => API.get(`/cards/${cardId}`);
+
 export const postCard = (data) => API.post("/cards", data);
 
 export const login = (data) => API.post("/auth/login", data);
