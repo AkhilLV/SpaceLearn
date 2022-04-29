@@ -38,7 +38,7 @@ function Login({ setIsLoggedIn, setShowModal }) {
 
       await loginUser();
     } catch (err) {
-      setShowModal([true, err.response.data.message]);
+      console.log(err);
       setIsLoading(false);
     }
   };

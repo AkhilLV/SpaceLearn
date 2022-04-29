@@ -20,7 +20,7 @@ function CardSection({ selectedCardId }) {
 
   return (
     <div>
-      { selectedCardId }
+      { cardData ? "Hey" : null }
     </div>
   );
 }
