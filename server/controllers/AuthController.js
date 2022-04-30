@@ -17,13 +17,15 @@ module.exports = {
     })(req, res, next);
   },
   register: async (req, res) => {
-    const encryptedPassword = await bcrypt.hash(req.body.password, 10);
+    const { username, password } = req.body;
 
-    pool.query("SELECT username FROM users WHERE username = $1", [req.body.username], (err, result) => {
+    const encryptedPassword = await bcrypt.hash(password, 10);
+
+    pool.query("SELECT username FROM users WHERE username = $1", [username], (err, result) => {
       if (err) throw err;
       if (result.rows.length) return res.status(400).send({ message: "user_exists" });
 
-      pool.query("INSERT INTO users (username, password) VALUES ($1, $2)", [req.body.username, encryptedPassword], (err) => {
+      pool.query("INSERT INTO users (username, password) VALUES ($1, $2)", [username, encryptedPassword], (err) => {
         if (err) throw err;
         res.send({ message: "user_added" });
       });

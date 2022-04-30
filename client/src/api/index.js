@@ -10,5 +10,7 @@ export const getCard = (cardId) => API.get(`/cards/${cardId}`);
 
 export const postCard = (data) => API.post("/cards", data);
 
+export const addTask = (data) => API.post("/tasks", data);
+
 export const login = (data) => API.post("/auth/login", data);
 export const register = (data) => API.post("/auth/register", data);

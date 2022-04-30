@@ -1,0 +1,43 @@
+Notes
+
+withCredentials: true with every request
+
+
+Auth
+
+POST => /auth/login
+  req.body {
+    username: String,
+    password: String
+  }
+
+POST => /auth/register
+  req.body {
+    username: String,
+    password: String
+  }
+
+
+Cards
+
+GET => /cards
+GET => /cards/:cardId(Number)
+
+POST => /cards
+  req.body {
+    cardName: String,
+    cardDates: [Array of Dates]
+  }
+
+DELETE => /cards/:cardId(Number)
+
+
+Tasks
+
+GET => /cards/:cardId/tasks
+
+POST => /cards/:cardId/tasks
+
+
+PUT => /cards/:cardId/tasks/:taskId
+DELETE => /cards/:cardId/tasks/:taskId

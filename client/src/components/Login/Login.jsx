@@ -66,7 +66,7 @@ function Login({ setIsLoggedIn, setShowModal }) {
 
         <a href="#" type="button" onClick={changeChoice}>{action === "login" ? "Sign up instead" : "Sign in instead"}</a>
       </form>
-      <div className="image" />
+      <div className="image" loading="lazy" />
     </div>
   );
 }

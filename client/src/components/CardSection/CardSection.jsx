@@ -2,8 +2,12 @@ import { useEffect, useState } from "react";
 
 import { getCard } from "../../api";
 
+import DateSelector from "../DateSelector/DateSelector";
+import TaskInput from "../TaskInput/TaskInput";
+
 function CardSection({ selectedCardId }) {
   const [cardData, setCardData] = useState(false);
+  const [selectedDate, setSelectedDate] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -19,9 +23,16 @@ function CardSection({ selectedCardId }) {
   useEffect(() => console.log(cardData), [cardData]);
 
   return (
-    <div>
-      { cardData ? "Hey" : null }
-    </div>
+    cardData.cardName
+      ? (
+        <div className="card">
+          <h2>{cardData.cardName}</h2>
+
+          <DateSelector cardDates={cardData.cardDates} setSelectedDate={setSelectedDate} />
+
+          <TaskInput />
+        </div>
+      ) : null
   );
 }
 

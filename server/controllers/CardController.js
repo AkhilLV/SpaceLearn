@@ -2,8 +2,10 @@ const pool = require("../db/db");
 
 module.exports = {
   getAll: async (req, res) => {
+    const userId = req.user.user_id;
+
     try {
-      const cards = await pool.query("SELECT card_id, card_name FROM cards WHERE user_id = $1", [req.user.user_id]);
+      const cards = await pool.query("SELECT card_id, card_name FROM cards WHERE user_id = $1", [userId]);
       res.send(cards.rows);
     } catch (err) {
       res.status(400).send({ message: "cards_not_fetched" });
@@ -12,12 +14,16 @@ module.exports = {
   },
 
   post: async (req, res) => {
+    const userId = req.user.user_id;
+    const { cardName, cardDates } = req.body;
+
     const client = await pool.connect();
+
     try {
       await client.query("BEGIN");
-      const cardId = await client.query("INSERT INTO cards (user_id, card_name) VALUES ($1, $2) RETURNING card_id", [req.user.user_id, req.body.cardName]);
+      const cardId = await client.query("INSERT INTO cards (user_id, card_name) VALUES ($1, $2) RETURNING card_id", [userId, cardName]);
 
-      req.body.cardDates.forEach(async (cardDate) => {
+      cardDates.forEach(async (cardDate) => {
         await client.query("INSERT INTO card_dates (card_id, card_date) VALUES ($1, $2)", [cardId.rows[0].card_id, cardDate]);
       });
 
@@ -33,23 +39,24 @@ module.exports = {
   },
 
   get: async (req, res) => {
-    const client = await pool.connect();
     const { cardId } = req.params;
 
     if (isNaN(cardId)) return res.send({ message: "card_id not valid" });
 
+    const client = await pool.connect();
+
     try {
       const cardData = {};
 
-      const cardName = await pool.query("SELECT card_name FROM cards WHERE card_id = $1", [cardId]);
+      const cardName = await client.query("SELECT card_name FROM cards WHERE card_id = $1", [cardId]);
       cardData.cardName = cardName.rows[0].card_name;
 
-      const cardDates = await pool.query(`
+      const cardDates = await client.query(`
       SELECT json_agg(card_date) FROM card_dates WHERE card_id = $1
       `, [cardId]);
       cardData.cardDates = cardDates.rows[0].json_agg;
 
-      const tasks = await pool.query(`
+      const tasks = await client.query(`
       SELECT json_agg((json_build_object(
         'taskId', tasks.task_id,
         'taskText', tasks.task_text,
@@ -78,6 +85,8 @@ module.exports = {
     } catch (err) {
       res.status(400).send({ message: "card_not_fetched" });
       throw err;
+    } finally {
+      client.release();
     }
   },
 
@@ -86,8 +95,10 @@ module.exports = {
   },
 
   delete: async (req, res) => {
+    const { cardId } = req.params;
+
     try {
-      await pool.query("DELETE FROM cards WHERE card_id = $1", [req.params.cardId]);
+      await pool.query("DELETE FROM cards WHERE card_id = $1", [cardId]);
       res.send({ message: "card_deleted" });
     } catch (err) {
       res.status(400).send({ message: "card_not_deleted" });
