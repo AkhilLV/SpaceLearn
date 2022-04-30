@@ -19,6 +19,7 @@
   font-size: 15px;
 }
 
+.card-listing li.active,
 .card-listing li:hover {
   background: #444;
 }
@@ -33,6 +34,7 @@
   transition: 200ms ease-in-out;
 }
 
-.card-listing li:hover .circle {
-  background-color: crimson;
+.card-listing li:hover .circle,
+.card-listing li.active .circle {
+  background-color: cornsilk;
 }

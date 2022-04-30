@@ -39,6 +39,11 @@ function Login({ setIsLoggedIn, setShowModal }) {
       await loginUser();
     } catch (err) {
       console.log(err);
+      if (err.response.data.message === "user_exists") {
+        setShowModal([true, "User exists"]);
+      } else if (err.response.data.message === "user_not_found") {
+        setShowModal([true, "User not found"]);
+      }
       setIsLoading(false);
     }
   };

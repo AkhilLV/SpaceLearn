@@ -19,6 +19,8 @@
 
 .hero h1 span {
   color: crimson;
+  margin-right: 7px;
+  margin-left: 7px;
 }
 
 .hero p {

@@ -2,6 +2,8 @@ import { useEffect } from "react";
 
 import "./CardListing.css";
 
+import getSiblingElements from "../../helpers/getSiblingElements";
+
 import { getCards } from "../../api";
 
 function CardListing({ cards, setCards, setSelectedCardId }) {
@@ -19,6 +21,9 @@ function CardListing({ cards, setCards, setSelectedCardId }) {
   const handleClick = (e) => {
     const cardId = e.target.dataset.id;
     setSelectedCardId(cardId);
+
+    getSiblingElements(e.target).forEach((element) => element.classList.remove("active"));
+    e.target.classList.add("active");
   };
 
   return (
