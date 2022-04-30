@@ -1,6 +1,7 @@
 import "./DateSelector.css";
 
 import getSiblingElements from "../../helpers/getSiblingElements";
+import dateToWords from "../../helpers/dateToWords";
 
 function DateSelector({ cardDates, setSelectedDate }) {
   const handleDateSelectorClick = (event) => {
@@ -12,10 +13,7 @@ function DateSelector({ cardDates, setSelectedDate }) {
 
   return (
     <div className="date-selector" onClick={handleDateSelectorClick}>
-      <div className="date active" data-date={cardDates[0]}>{cardDates[0]}</div>
-      <div className="date" data-date={cardDates[1]}>{cardDates[1]}</div>
-      <div className="date" data-date={cardDates[2]}>{cardDates[2]}</div>
-      <div className="date" data-date={cardDates[3]}>{cardDates[3]}</div>
+      {cardDates.map((cardDate, i) => <div className={`date ${i === 0 && "active"}`} data-date={cardDate}>{dateToWords(new Date(cardDate))}</div>)}
     </div>
   );
 }

@@ -36,8 +36,10 @@ Tasks
 
 GET => /cards/:cardId/tasks
 
-POST => /cards/:cardId/tasks
-
+POST => /cards/:cardId(Number)/tasks
+  req.body {
+    taskText: String
+  }
 
 PUT => /cards/:cardId/tasks/:taskId
 DELETE => /cards/:cardId/tasks/:taskId

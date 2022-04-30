@@ -1,0 +1,40 @@
+.card .task-input form {
+  margin-top: 20px;
+}
+
+.card .task-input form {
+  display: flex;
+  gap: 10px;
+}
+
+.card .task-input form input {
+  font-family: "Poppins";
+  font-size: 14px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 3px;
+  padding: 10px 18px;
+  outline: none;
+  min-width: 300px;
+  background-color: #3a3a3a;
+  color: #fff;
+  transition: 250ms;
+}
+
+.card .task-input form input:focus {
+  background-color: #444;
+}
+
+.card .task-input form button.circle {
+  min-width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 50%;
+  color: #fff;
+  text-align: center;
+  font-weight: 1000;
+  font-size: 20px;
+  background: #02c39a;
+  border: none;
+  cursor: pointer;
+}

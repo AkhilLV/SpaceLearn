@@ -1,23 +1,22 @@
 .card .date-selector {
   display: flex;
-  border-bottom: 1px solid #444;
-  font-size: 14px;
-  justify-content: space-around;
+  gap: 25px;
+  justify-content: space-between;
+  margin-bottom: 25px;
 }
 
 .card .date-selector .date {
-  border-right: 1px solid #444;
+  border-radius: 5px;
   font-size: 14px;
   text-align: center;
-  white-space: nowrap;
-  padding: 15px 10px;
+  padding: 10px 10px;
   cursor: pointer;
   transition: 250ms;
-  flex: 1;
+  background: #333;
 }
 
 .card .date-selector .date.active {
-  background: #444;
+  background: #555;
 }
 
 .card .date-selector .date:last-child {
@@ -25,5 +24,5 @@
 }
 
 .card .date-selector .date:hover {
-  background: #444;
+  background: #555;
 }

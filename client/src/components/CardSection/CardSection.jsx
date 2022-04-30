@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 
 import { getCard } from "../../api";
 
+import "./CardSection.css";
+
 import DateSelector from "../DateSelector/DateSelector";
 import TaskInput from "../TaskInput/TaskInput";
 
