@@ -1,0 +1,41 @@
+.card .tasks {
+  margin-top: 40px;
+}
+
+.card .tasks p {
+  display: flex;
+  align-items: center;
+  margin-bottom: 7px;
+  padding: 7px 10px;
+  border-radius: 5px;
+  transition: 250ms;
+}
+
+.card .tasks p:hover {
+  text-decoration: line-through;
+  cursor: pointer;
+  background: #555;
+}
+
+.card .tasks .circle {
+  display: inline-block;
+  border-radius: 50%;
+  margin-right: 15px;
+  min-width: 15px;
+  height: 15px;
+  background-color: #02c39a;
+}
+
+.card .completed-tasks {
+  border-top: 1px solid #444;
+  padding-top: 30px;
+}
+
+.card .completed-tasks .circle {
+  background-color: #555;
+}
+
+.card .completed-tasks p {
+  color: #555;
+  text-decoration: line-through;
+}

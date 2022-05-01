@@ -6,6 +6,7 @@ import "./CardSection.css";
 
 import DateSelector from "../DateSelector/DateSelector";
 import TaskInput from "../TaskInput/TaskInput";
+import Tasks from "../Tasks/Tasks";
 
 function CardSection({ selectedCardId }) {
   const [cardData, setCardData] = useState(false);
@@ -22,8 +23,6 @@ function CardSection({ selectedCardId }) {
     })();
   }, [selectedCardId]);
 
-  useEffect(() => console.log(cardData), [cardData]);
-
   return (
     cardData.cardName
       ? (
@@ -33,6 +32,13 @@ function CardSection({ selectedCardId }) {
           <DateSelector cardDates={cardData.cardDates} setSelectedDate={setSelectedDate} />
 
           <TaskInput />
+
+          {cardData.tasks
+            && (
+            <Tasks tasks={cardData.tasks.filter((task) => !task.taskDates[selectedDate])} />
+            )}
+
+          {/* <CompletedTasks /> */}
         </div>
       ) : null
   );
