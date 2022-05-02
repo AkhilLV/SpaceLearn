@@ -48,6 +48,8 @@ module.exports = {
     try {
       const cardData = {};
 
+      cardData.cardId = cardId;
+
       const cardName = await client.query("SELECT card_name FROM cards WHERE card_id = $1", [cardId]);
       cardData.cardName = cardName.rows[0].card_name;
 
@@ -62,7 +64,10 @@ module.exports = {
         'taskText', tasks.task_text,
         'taskDates', (
           SELECT json_object_agg(
-            card_dates.card_date, task_status.task_done
+            card_dates.card_date, json_build_object(
+              'cardDateId', card_dates.card_date_id,
+              'done', task_status.task_done
+            )
           )
           FROM (cards
           INNER JOIN card_dates

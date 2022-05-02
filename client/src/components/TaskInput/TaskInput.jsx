@@ -2,16 +2,21 @@ import React, { useState } from "react";
 
 import "./TaskInput.css";
 
-import { addTask } from "../../api";
+import { addTask, getCard } from "../../api";
 
-export default function TaskInput({ setSelectedCardId }) {
+export default function TaskInput({ cardId, setCardData }) {
   const [taskText, setTaskText] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!taskText) return alert("Enter a new task");
+
     try {
-      await addTask(setSelectedCardId, { taskText });
+      await addTask(cardId, { taskText });
+      const res = await getCard(cardId);
+      setTaskText("");
+      setCardData(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -21,7 +26,7 @@ export default function TaskInput({ setSelectedCardId }) {
     <div className="task-input">
       <form onSubmit={handleSubmit}>
         <input type="text" placeholder="Ex: Study redox reactions" value={taskText} onChange={(e) => setTaskText(e.target.value)} />
-        <button type="button" className="circle">+</button>
+        <button type="submit" className="circle">+</button>
       </form>
     </div>
   );

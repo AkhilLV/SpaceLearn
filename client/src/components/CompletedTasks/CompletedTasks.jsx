@@ -1,6 +1,6 @@
-import "./Tasks.css";
+import "./CompletedTasks.css";
 
-function Task({ tasks }) {
+export default function CompletedTasks({ tasks }) {
   return (
     <div className="tasks">
       {tasks.map((task) => (
@@ -12,5 +12,3 @@ function Task({ tasks }) {
     </div>
   );
 }
-
-export default Task;

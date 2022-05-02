@@ -41,5 +41,5 @@ POST => /cards/:cardId(Number)/tasks
     taskText: String
   }
 
-PUT => /cards/:cardId/tasks/:taskId
-DELETE => /cards/:cardId/tasks/:taskId
+PUT => /cards/:cardId/tasks/:taskId(Number)
+DELETE => /cards/:cardId/tasks/:taskId(Number)
