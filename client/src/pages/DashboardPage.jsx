@@ -10,7 +10,7 @@ import "./DashboardPage.css";
 function DashboardPage({ isLoggedIn, setShowModal }) {
   const [cards, setCards] = useState([]);
   const [showInputModal, setShowInputModal] = useState(false);
-  const [selectedCardId, setSelectedCardId] = useState(null);
+  const [selectedCardId, setSelectedCardId] = useState(false);
 
   const history = useHistory();
 
@@ -35,7 +35,7 @@ function DashboardPage({ isLoggedIn, setShowModal }) {
           setShowInputModal={setShowInputModal}
           setSelectedCardId={setSelectedCardId}
         />
-        <CardSection selectedCardId={selectedCardId} />
+        {selectedCardId && <CardSection selectedCardId={selectedCardId} />}
       </div>
     </>
   );

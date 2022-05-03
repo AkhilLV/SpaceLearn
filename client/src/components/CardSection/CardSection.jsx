@@ -11,7 +11,7 @@ import CompletedTasks from "../CompletedTasks/CompletedTasks";
 
 function CardSection({ selectedCardId }) {
   const [cardData, setCardData] = useState(false);
-  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedDate, setSelectedDate] = useState(false);
   const [selectedDateId, setSelectedDateId] = useState(false);
 
   useEffect(() => {
@@ -19,6 +19,7 @@ function CardSection({ selectedCardId }) {
       try {
         const res = await getCard(selectedCardId);
         setCardData(res.data);
+        setSelectedDate(res.data.cardDates[0]);
       } catch (err) {
         console.log(err);
       }
@@ -26,7 +27,7 @@ function CardSection({ selectedCardId }) {
   }, [selectedCardId]);
 
   return (
-    cardData.cardName
+    cardData && selectedDate
       ? (
         <div className="card">
           <h2>{cardData.cardName}</h2>
@@ -43,11 +44,12 @@ function CardSection({ selectedCardId }) {
             && (
             <>
               <Tasks
-                tasks={cardData.tasks.filter((task) => !task.taskDates[selectedDate])}
+                selectedDate={selectedDate}
+                tasks={cardData.tasks.filter((task) => !task.taskDates[selectedDate].done)}
               />
-              <CompletedTasks
-                tasks={cardData.tasks.filter((task) => task.taskDates[selectedDate])}
-              />
+              {/* <CompletedTasks
+                tasks={cardData.tasks.filter((task) => task.taskDates[selectedDate].done)}
+              /> */}
             </>
             )}
         </div>

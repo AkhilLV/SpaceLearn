@@ -13,7 +13,7 @@ function DateSelector({ cardDates, setSelectedDate }) {
 
   return (
     <div className="date-selector" onClick={handleDateSelectorClick}>
-      {cardDates.map((cardDate, i) => <div className={`date ${i === 0 && "active"}`} data-date={cardDate}>{dateToWords(new Date(cardDate))}</div>)}
+      {cardDates.map((cardDate, i) => <div key={cardDate} className={`date ${i === 0 && "active"}`} data-date={cardDate}>{dateToWords(new Date(cardDate))}</div>)}
     </div>
   );
 }
