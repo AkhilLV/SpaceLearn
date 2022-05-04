@@ -1,3 +1,4 @@
+/* eslint-disable arrow-body-style */
 import { useEffect, useState } from "react";
 
 import { getCard } from "../../api";
@@ -10,16 +11,18 @@ import Tasks from "../Tasks/Tasks";
 import CompletedTasks from "../CompletedTasks/CompletedTasks";
 
 function CardSection({ selectedCardId }) {
-  const [cardData, setCardData] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(false);
   const [selectedDateId, setSelectedDateId] = useState(false);
+
+  const [state, setState] = useState(false);
 
   useEffect(() => {
     (async () => {
       try {
         const res = await getCard(selectedCardId);
-        setCardData(res.data);
-        setSelectedDate(res.data.cardDates[0]);
+        setState({
+          selectedDate: res.data.cardDates[0],
+          cardData: res.data,
+        });
       } catch (err) {
         console.log(err);
       }
@@ -27,29 +30,32 @@ function CardSection({ selectedCardId }) {
   }, [selectedCardId]);
 
   return (
-    cardData && selectedDate
+    state
       ? (
         <div className="card">
-          <h2>{cardData.cardName}</h2>
+          <h2>{state.cardData.cardName}</h2>
 
           <DateSelector
-            cardDates={cardData.cardDates}
-            setSelectedDate={setSelectedDate}
+            cardDates={state.cardData.cardDates}
+            setState={setState}
             setSelectedDateId={setSelectedDateId}
           />
 
-          <TaskInput cardId={cardData.cardId} setCardData={setCardData} />
+          <TaskInput cardId={state.cardData.cardId} setState={setState} />
 
-          {cardData.tasks
+          {state.cardData.tasks
             && (
             <>
               <Tasks
-                selectedDate={selectedDate}
-                tasks={cardData.tasks.filter((task) => !task.taskDates[selectedDate].done)}
+                tasks={state.cardData.tasks.filter((task) => {
+                  return !task.taskDates[state.selectedDate].done;
+                })}
               />
-              {/* <CompletedTasks
-                tasks={cardData.tasks.filter((task) => task.taskDates[selectedDate].done)}
-              /> */}
+              <CompletedTasks
+                tasks={state.cardData.tasks.filter((task) => {
+                  return task.taskDates[state.selectedDate].done;
+                })}
+              />
             </>
             )}
         </div>
