@@ -32,14 +32,22 @@ module.exports = {
     }
   },
   put: async (req, res) => {
-    await pool.query("UPDATE tasks SET task_text = $1 WHERE task_id = $2", [req.body.taskText, req.params.taskId]);
+    const { taskId } = req.params;
+    const { taskText } = req.body;
+
+    await pool.query("UPDATE tasks SET task_text = $1 WHERE task_id = $2", [taskText, taskId]);
     res.send({ message: "Success" });
   },
   patch: async (req, res) => {
-    const { taskDone } = req.params;
-    if (taskDone !== "true" && taskDone !== "false") return;
+    console.log("req recieve");
+    const { taskId, cardDateId } = req.params;
+    const { taskDone } = req.body;
 
-    await pool.query("UPDATE task_status SET task_done = $1 WHERE task_id = $2 AND card_date_id = $3");
+    console.log(taskDone);
+    if (typeof taskDone !== "boolean") return res.send({ message: "Invalid req.body" });
+
+    await pool.query("UPDATE task_status SET task_done = $1 WHERE task_id = $2 AND card_date_id = $3", [taskDone, taskId, cardDateId]);
+    res.send({ message: "Success" });
   },
   delete: async (req, res) => {
     await pool.query("DELETE FROM tasks WHERE task_id = $1", [req.params.taskId]);

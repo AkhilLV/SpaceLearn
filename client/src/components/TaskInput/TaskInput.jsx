@@ -4,7 +4,7 @@ import "./TaskInput.css";
 
 import { addTask, getCard } from "../../api";
 
-export default function TaskInput({ cardId, setCardData }) {
+export default function TaskInput({ cardId, setState }) {
   const [taskText, setTaskText] = useState("");
 
   const handleSubmit = async (e) => {
@@ -16,7 +16,10 @@ export default function TaskInput({ cardId, setCardData }) {
       await addTask(cardId, { taskText });
       const res = await getCard(cardId);
       setTaskText("");
-      setCardData(res.data);
+      setState((prev) => ({
+        ...prev,
+        cardData: res.data,
+      }));
     } catch (err) {
       console.log(err);
     }

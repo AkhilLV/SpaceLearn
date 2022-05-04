@@ -41,5 +41,14 @@ POST => /cards/:cardId(Number)/tasks
     taskText: String
   }
 
-PUT => /cards/:cardId/tasks/:taskId(Number)
+PUT(Updates taskText) => /cards/:cardId/tasks/:taskId(Number)
+  req.body {
+    taskText: String
+  }
+
+PATCH(Updates taskDone) => /cards/:cardId/tasks/:taskId(Number)/:cardDateId(Number)
+  req.body {
+    taskDone: Boolean
+  }
+
 DELETE => /cards/:cardId/tasks/:taskId(Number)
