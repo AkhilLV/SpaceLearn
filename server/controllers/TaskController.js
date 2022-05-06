@@ -35,18 +35,20 @@ module.exports = {
     const { taskId } = req.params;
     const { taskText } = req.body;
 
+    if (typeof taskId !== "number") return res.send({ message: "taskId should be a number" });
+    if (typeof taskText !== "string") return res.send({ message: "taskText should be a string" });
+
     await pool.query("UPDATE tasks SET task_text = $1 WHERE task_id = $2", [taskText, taskId]);
     res.send({ message: "Success" });
   },
   patch: async (req, res) => {
-    console.log("req recieve");
     const { taskId, cardDateId } = req.params;
     const { taskDone } = req.body;
 
-    console.log(taskDone);
-    if (typeof taskDone !== "boolean") return res.send({ message: "Invalid req.body" });
+    if (typeof taskDone !== "boolean") return res.status(404).send({ message: "taskDone should be boolean" });
 
     await pool.query("UPDATE task_status SET task_done = $1 WHERE task_id = $2 AND card_date_id = $3", [taskDone, taskId, cardDateId]);
+    console.log("Updated", taskId);
     res.send({ message: "Success" });
   },
   delete: async (req, res) => {

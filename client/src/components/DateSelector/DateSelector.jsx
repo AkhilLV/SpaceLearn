@@ -2,6 +2,7 @@ import "./DateSelector.css";
 
 import getSiblingElements from "../../helpers/getSiblingElements";
 import dateToWords from "../../helpers/dateToWords";
+import { useEffect } from "react";
 
 function DateSelector({ cardDates, setState }) {
   const handleDateSelectorClick = (event) => {
@@ -12,13 +13,16 @@ function DateSelector({ cardDates, setState }) {
 
     setState((prev) => ({
       ...prev,
+      selectedDateId: event.target.dataset.dateid,
       selectedDate: event.target.dataset.date,
     }));
   };
 
+  useEffect(() => { console.log(cardDates); }, []);
+
   return (
     <div className="date-selector" onClick={handleDateSelectorClick}>
-      {cardDates.map((cardDate, i) => <div key={cardDate} className={`date ${i === 0 && "active"}`} data-date={cardDate}>{dateToWords(new Date(cardDate))}</div>)}
+      {cardDates.map((cardDate, i) => <div key={cardDate.cardDateId} className={`date ${i === 0 && "active"}`} data-date={cardDate.cardDate} data-dateid={cardDate.cardDateId}>{dateToWords(new Date(cardDate.cardDate))}</div>)}
     </div>
   );
 }

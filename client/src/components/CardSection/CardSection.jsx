@@ -11,8 +11,6 @@ import Tasks from "../Tasks/Tasks";
 import CompletedTasks from "../CompletedTasks/CompletedTasks";
 
 function CardSection({ selectedCardId }) {
-  const [selectedDateId, setSelectedDateId] = useState(false);
-
   const [state, setState] = useState(false);
 
   useEffect(() => {
@@ -20,7 +18,8 @@ function CardSection({ selectedCardId }) {
       try {
         const res = await getCard(selectedCardId);
         setState({
-          selectedDate: res.data.cardDates[0],
+          selectedDateId: res.data.cardDates[0].cardDateId,
+          selectedDate: res.data.cardDates[0].cardDate,
           cardData: res.data,
         });
       } catch (err) {
@@ -38,23 +37,29 @@ function CardSection({ selectedCardId }) {
           <DateSelector
             cardDates={state.cardData.cardDates}
             setState={setState}
-            setSelectedDateId={setSelectedDateId}
           />
 
           <TaskInput cardId={state.cardData.cardId} setState={setState} />
 
+          {/* the props for these 2 components are similar. abstract away */}
           {state.cardData.tasks
             && (
             <>
               <Tasks
                 tasks={state.cardData.tasks.filter((task) => {
-                  return !task.taskDates[state.selectedDate].done;
+                  return !task.taskDates[state.selectedDate];
                 })}
+                selectedCardId={selectedCardId}
+                cardDateId={state.selectedDateId}
+                setState={setState}
               />
               <CompletedTasks
                 tasks={state.cardData.tasks.filter((task) => {
-                  return task.taskDates[state.selectedDate].done;
+                  return task.taskDates[state.selectedDate];
                 })}
+                selectedCardId={selectedCardId}
+                cardDateId={state.selectedDateId}
+                setState={setState}
               />
             </>
             )}
