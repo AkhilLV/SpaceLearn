@@ -41,27 +41,14 @@ function CardSection({ selectedCardId }) {
 
           <TaskInput cardId={state.cardData.cardId} setState={setState} />
 
-          {/* the props for these 2 components are similar. abstract away */}
           {state.cardData.tasks
             && (
-            <>
               <Tasks
-                tasks={state.cardData.tasks.filter((task) => {
-                  return !task.taskDates[state.selectedDate];
-                })}
+                tasks={state.cardData.tasks}
                 selectedCardId={selectedCardId}
-                cardDateId={state.selectedDateId}
+                state={state}
                 setState={setState}
               />
-              <CompletedTasks
-                tasks={state.cardData.tasks.filter((task) => {
-                  return task.taskDates[state.selectedDate];
-                })}
-                selectedCardId={selectedCardId}
-                cardDateId={state.selectedDateId}
-                setState={setState}
-              />
-            </>
             )}
         </div>
       ) : null
