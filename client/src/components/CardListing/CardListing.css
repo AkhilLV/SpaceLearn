@@ -2,6 +2,8 @@
   max-height: calc(100% - 9rem);
   overflow-y: auto;
   overflow-x: hidden;
+  border-top: 3px #444 solid;
+  padding-top: 20px;
 }
 
 .card-listing h3 {

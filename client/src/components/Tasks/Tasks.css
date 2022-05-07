@@ -24,11 +24,11 @@
   min-width: 15px;
   height: 15px;
   background-color: #02c39a;
+  transition: 250ms ease-in-out;
 }
 
-.card .completed-tasks {
-  border-top: 1px solid #444;
-  padding-top: 30px;
+.card .completed-tasks .task:hover .circle {
+  background-color: #fff;
 }
 
 .card .completed-tasks .circle {
@@ -38,4 +38,8 @@
 .card .completed-tasks p {
   color: #555;
   text-decoration: line-through;
+}
+
+.card .completed-tasks .task:hover {
+  color: #fff;
 }

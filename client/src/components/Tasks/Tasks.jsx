@@ -7,14 +7,12 @@ function Tasks({
   const handleClick = async (e) => {
     if (!Array.from(e.target.classList).includes("task")) return;
 
-    const taskDone = Array.from(e.currentTarget.classList).includes("tasks");
-
+    const taskDone = !Array.from(e.currentTarget.classList).includes("completed-tasks");
     const taskId = e.target.dataset.taskid;
 
     try {
-      await crossTask(selectedCardId, taskId, state.selectedDateId, {
-        taskDone,
-      });
+      await crossTask(selectedCardId, taskId, state.selectedDateId, { taskDone });
+
       const res = await getCard(selectedCardId);
       setState((prev) => ({
         ...prev,
@@ -35,7 +33,7 @@ function Tasks({
           </p>
         ))}
       </div>
-      <div className="completed-tasks" onClick={handleClick}>
+      <div className="tasks completed-tasks" onClick={handleClick}>
         {tasks.filter((task) => task.taskDates[state.selectedDate]).map((task) => (
           <p key={task.taskId} data-taskid={task.taskId} className="task">
             <div className="circle" />

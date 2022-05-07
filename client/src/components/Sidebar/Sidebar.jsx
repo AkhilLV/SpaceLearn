@@ -1,4 +1,5 @@
 import "./Sidebar.css";
+import taskBoard from "../../assets/task-board.svg";
 
 import CardListing from "../CardListing/CardListing";
 
@@ -9,16 +10,14 @@ function Sidebar({
     <div className="sidebar">
       <button type="button" title="Add new card" className="circle" onClick={() => setShowInputModal(true)}>+</button>
 
-      <div className="filter">
-        <h3>Filter by</h3>
-        <div className="options">
-          <p>all</p>
-          <p>today</p>
-          <p>tomorrow</p>
-        </div>
-      </div>
-
-      <CardListing cards={cards} setCards={setCards} setSelectedCardId={setSelectedCardId} />
+      {cards
+        ? <CardListing cards={cards} setCards={setCards} setSelectedCardId={setSelectedCardId} />
+        : (
+          <div className="no-card-dialog">
+            <img src={taskBoard} alt="a task board" />
+            <p>You have no cards. Try adding some!</p>
+          </div>
+        )}
     </div>
   );
 }

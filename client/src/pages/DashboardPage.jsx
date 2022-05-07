@@ -8,7 +8,7 @@ import CardSection from "../components/CardSection/CardSection";
 import "./DashboardPage.css";
 
 function DashboardPage({ isLoggedIn, setShowModal }) {
-  const [cards, setCards] = useState([]);
+  const [cards, setCards] = useState(false);
   const [showInputModal, setShowInputModal] = useState(false);
   const [selectedCardId, setSelectedCardId] = useState(false);
 

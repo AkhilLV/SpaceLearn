@@ -8,7 +8,6 @@ import "./CardSection.css";
 import DateSelector from "../DateSelector/DateSelector";
 import TaskInput from "../TaskInput/TaskInput";
 import Tasks from "../Tasks/Tasks";
-import CompletedTasks from "../CompletedTasks/CompletedTasks";
 
 function CardSection({ selectedCardId }) {
   const [state, setState] = useState(false);
@@ -51,7 +50,7 @@ function CardSection({ selectedCardId }) {
               />
             )}
         </div>
-      ) : null
+      ) : "Nothinghere"
   );
 }
 

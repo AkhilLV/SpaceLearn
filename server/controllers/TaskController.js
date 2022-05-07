@@ -48,7 +48,6 @@ module.exports = {
     if (typeof taskDone !== "boolean") return res.status(404).send({ message: "taskDone should be boolean" });
 
     await pool.query("UPDATE task_status SET task_done = $1 WHERE task_id = $2 AND card_date_id = $3", [taskDone, taskId, cardDateId]);
-    console.log("Updated", taskId);
     res.send({ message: "Success" });
   },
   delete: async (req, res) => {
