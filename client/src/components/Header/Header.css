@@ -1,15 +1,16 @@
 header {
-  padding: 30px 100px 10px 100px;
-
+  margin-top: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 30px;
+  margin-bottom: 35px;
 }
 
-header img {
-  width: 120px;
-  height: 100%;
-  object-fit: cover;
-  transform: translateY(2px);
+header a {
+  text-decoration: none;
+  color: #fff;
+}
+
+header h3 {
+  font-size: 18px;
 }
