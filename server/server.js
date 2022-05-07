@@ -7,6 +7,8 @@ const session = require("express-session");
 const PgSession = require("connect-pg-simple")(session);
 const pool = require("./db/db");
 
+require("dotenv").config();
+
 const AuthRoute = require("./routes/Auth");
 const CardRoute = require("./routes/Card");
 const TaskRoute = require("./routes/Task");
@@ -14,13 +16,12 @@ const TaskRoute = require("./routes/Task");
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-// Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.CLIENT_URL,
     credentials: true,
   }),
 );
@@ -30,19 +31,18 @@ app.use(
     store: new PgSession({
       pool,
     }),
-    secret: "secretcode",
+    secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: true,
   }),
 );
 
-app.use(cookieParser("secretcode"));
+app.use(cookieParser(process.env.COOKIE_SECRET));
 
 app.use(passport.initialize());
 app.use(passport.session());
 require("./passportConfig")(passport);
 
-// Routes
 const isLoggedIn = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
