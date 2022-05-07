@@ -1,28 +1,8 @@
-import { useEffect } from "react";
-
 import "./CardListing.css";
 
 import getSiblingElements from "../../helpers/getSiblingElements";
 
-import { getCards } from "../../api";
-
-function CardListing({ cards, setCards, setSelectedCardId }) {
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await getCards();
-
-        if (!res.data.length) {
-          setCards(false);
-        } else {
-          setCards(res.data);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    })();
-  }, []);
-
+function CardListing({ cards, setSelectedCardId }) {
   const handleClick = (e) => {
     const cardId = e.target.dataset.id;
     setSelectedCardId(cardId);
