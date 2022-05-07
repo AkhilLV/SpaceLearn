@@ -1,5 +1,6 @@
-import { getCard, crossTask } from "../../api";
 import "./Tasks.css";
+
+import { getCard, crossTask } from "../../api";
 
 function Tasks({
   tasks, selectedCardId, state, setState,

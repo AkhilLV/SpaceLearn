@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+
 import "./Modal.css";
 
 function Modal({ showModal, setShowModal }) {

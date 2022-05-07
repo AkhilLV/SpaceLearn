@@ -8,7 +8,7 @@ module.exports = {
       const cards = await pool.query("SELECT card_id, card_name FROM cards WHERE user_id = $1", [userId]);
       res.send(cards.rows);
     } catch (err) {
-      res.status(400).send({ message: "cards_not_fetched" });
+      res.status(400).send({ message: "cards not fetched" });
       throw err;
     }
   },
@@ -28,10 +28,10 @@ module.exports = {
       });
 
       await client.query("COMMIT");
-      res.send({ message: "card_added" });
+      res.send({ message: "card added" });
     } catch (err) {
       await client.query("ROLLBACK");
-      res.status(400).send({ message: "card_not_added" });
+      res.status(400).send({ message: "card not added" });
       throw err;
     } finally {
       client.release();
@@ -47,7 +47,6 @@ module.exports = {
 
     try {
       const cardData = {};
-
       cardData.cardId = cardId;
 
       const cardName = await client.query("SELECT card_name FROM cards WHERE card_id = $1", [cardId]);
@@ -92,10 +91,6 @@ module.exports = {
     } finally {
       client.release();
     }
-  },
-
-  put: (req, res) => {
-    
   },
 
   delete: async (req, res) => {

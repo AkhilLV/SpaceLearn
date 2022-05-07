@@ -2,7 +2,6 @@ import "./DateSelector.css";
 
 import getSiblingElements from "../../helpers/getSiblingElements";
 import dateToWords from "../../helpers/dateToWords";
-import { useEffect } from "react";
 
 function DateSelector({ cardDates, setState }) {
   const handleDateSelectorClick = (event) => {
@@ -17,8 +16,6 @@ function DateSelector({ cardDates, setState }) {
       selectedDate: event.target.dataset.date,
     }));
   };
-
-  useEffect(() => { console.log(cardDates); }, []);
 
   return (
     <div className="date-selector" onClick={handleDateSelectorClick}>

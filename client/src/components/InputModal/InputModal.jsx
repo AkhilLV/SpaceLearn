@@ -1,6 +1,6 @@
-import "./InputModal.css";
-
 import { useEffect, useState } from "react";
+
+import "./InputModal.css";
 
 import { getCards, postCard } from "../../api";
 

@@ -1,6 +1,8 @@
-import "./Sidebar.css";
 import { useEffect } from "react";
+
+import "./Sidebar.css";
 import taskBoard from "../../assets/task-board.svg";
+
 import CardListing from "../CardListing/CardListing";
 
 import { getCards } from "../../api";

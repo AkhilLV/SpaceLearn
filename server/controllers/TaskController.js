@@ -5,6 +5,7 @@ module.exports = {
     const tasks = await pool.query("SELECT task_id, task_text FROM tasks WHERE card_id = $1", [req.params.cardId]);
     res.send(tasks.rows);
   },
+
   post: async (req, res) => {
     const { cardId } = req.params;
     const { taskText } = req.body;
@@ -22,15 +23,16 @@ module.exports = {
       });
 
       await client.query("COMMIT");
-      res.status(200).send({ message: "Success" });
+      res.status(200).send({ message: "task added" });
     } catch (err) {
       await client.query("ROLLBACK");
-      res.status(400).send({ message: "Failed" });
+      res.status(400).send({ message: "task not added" });
       throw err;
     } finally {
       client.release();
     }
   },
+
   put: async (req, res) => {
     const { taskId } = req.params;
     const { taskText } = req.body;
@@ -41,15 +43,22 @@ module.exports = {
     await pool.query("UPDATE tasks SET task_text = $1 WHERE task_id = $2", [taskText, taskId]);
     res.send({ message: "Success" });
   },
+
   patch: async (req, res) => {
     const { taskId, cardDateId } = req.params;
     const { taskDone } = req.body;
 
     if (typeof taskDone !== "boolean") return res.status(404).send({ message: "taskDone should be boolean" });
 
-    await pool.query("UPDATE task_status SET task_done = $1 WHERE task_id = $2 AND card_date_id = $3", [taskDone, taskId, cardDateId]);
-    res.send({ message: "Success" });
+    try {
+      await pool.query("UPDATE task_status SET task_done = $1 WHERE task_id = $2 AND card_date_id = $3", [taskDone, taskId, cardDateId]);
+      res.send({ message: "Success" });
+    } catch (err) {
+      res.status(400).send({ message: "task not patched" });
+      throw err;
+    }
   },
+
   delete: async (req, res) => {
     await pool.query("DELETE FROM tasks WHERE task_id = $1", [req.params.taskId]);
     res.send({ message: "Success" });
