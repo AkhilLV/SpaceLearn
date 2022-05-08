@@ -28,7 +28,7 @@ export default function TaskInput({ cardId, setState }) {
   return (
     <div className="task-input">
       <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="Ex: Study redox reactions" value={taskText} onChange={(e) => setTaskText(e.target.value)} />
+        <input className="input" type="text" placeholder="Ex: Study redox reactions" value={taskText} onChange={(e) => setTaskText(e.target.value)} />
         <button type="submit" className="circle">+</button>
       </form>
     </div>

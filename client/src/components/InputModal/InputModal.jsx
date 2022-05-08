@@ -46,9 +46,9 @@ function InputModal({ setCards, setShowInputModal, setShowModal }) {
         <input type="text" value={cardName} onChange={(e) => setCardName(e.target.value)} placeholder="Ex: Chemistry" />
 
         <label>Start Date</label>
-        <input type="date" value={cardDate} onChange={(e) => setCardDate(e.target.value)} />
+        <input className="input" type="date" value={cardDate} onChange={(e) => setCardDate(e.target.value)} />
 
-        <button type="submit">Create Card</button>
+        <button className="btn" type="submit">Create Card</button>
 
         <span className="close" onClick={() => setShowInputModal(false)}>x</span>
       </form>
