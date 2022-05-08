@@ -30,7 +30,8 @@ function Login({ setIsLoggedIn, setShowModal }) {
     try {
       if (action === "login") {
         await loginUser();
-        return 0;
+        // eslint-disable-next-line consistent-return
+        return;
       }
 
       await register({ username, password });

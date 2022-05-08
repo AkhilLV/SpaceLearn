@@ -24,6 +24,7 @@ function Tasks({
     }
   };
 
+  // similar divs. refactor
   return (
     <>
       <div className="tasks" onClick={handleClick}>

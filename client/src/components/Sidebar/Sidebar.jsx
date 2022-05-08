@@ -15,11 +15,9 @@ function Sidebar({
       try {
         const res = await getCards();
 
-        if (!res.data.length) {
-          setCards(false);
-        } else {
-          setCards(res.data);
-        }
+        if (!res.data.length) return setCards(false);
+
+        setCards(res.data);
       } catch (err) {
         console.log(err);
       }

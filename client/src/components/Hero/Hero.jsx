@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import "./Hero.css";
 import { Link } from "react-router-dom";
-import previewImage from "../../assets/previewImage.png";
 
 function Hero() {
   return (
