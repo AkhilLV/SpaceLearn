@@ -60,19 +60,16 @@ function Login({ setIsLoggedIn, setShowModal }) {
   return (
     <div className="login-form">
       <form onSubmit={handleSubmit}>
-        <h2>{action === "login" ? "Login" : "Register"}</h2>
-
+        <h1>{action === "login" ? "Login" : "Register"}</h1>
+        <a href="#" type="button" onClick={changeChoice}>{action === "login" ? "Sign up instead" : "Sign in instead"}</a>
         <label>Username:</label>
-        <input onChange={(e) => setUsername(e.target.value)} value={username} type="text" placeholder="Ex: John Doe" />
+        <input className="input" onChange={(e) => setUsername(e.target.value)} value={username} type="text" placeholder="Ex: John Doe" />
 
         <label>Password:</label>
-        <input onChange={(e) => setPassword(e.target.value)} value={password} type="password" placeholder="Ex: 12345" />
+        <input className="input" onChange={(e) => setPassword(e.target.value)} value={password} type="password" placeholder="Ex: 12345" />
 
-        <button type="submit">{isLoading ? <div className="loader" /> : action}</button>
-
-        <a href="#" type="button" onClick={changeChoice}>{action === "login" ? "Sign up instead" : "Sign in instead"}</a>
+        <button className="btn" type="submit">{isLoading ? <div className="loader" /> : action}</button>
       </form>
-      <div className="image" loading="lazy" />
     </div>
   );
 }

@@ -50,7 +50,7 @@ function CardSection({ selectedCardId }) {
               />
             )}
         </div>
-      ) : "Nothinghere"
+      ) : null
   );
 }
 

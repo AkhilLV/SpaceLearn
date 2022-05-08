@@ -18,24 +18,8 @@
 }
 
 .hero button {
-  background-color: #444;
-  border: none;
-  outline: none;
-  background: #12ec50;  
   padding: 12px 25px;
-  display: inline-block;
-  border-radius: 3px;
-  font-family: "Inter";
-  font-size: 16px;
-  cursor: pointer;
-  transition: 250ms;
   margin-bottom: 30px;
-}
-
-.hero button:hover {
-  background: #fff;
-  color: #111;
-  transform: translateY(-2px);
 }
 
 .hero a.link {
@@ -52,7 +36,6 @@
   border-radius: 10px;
   box-shadow: 0px 10px 30px rgba(0,0,0,0.8);
 }
-
 
 @media (max-width: 840px) {
   .hero h1 {

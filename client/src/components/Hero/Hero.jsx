@@ -11,7 +11,7 @@ function Hero() {
         almost 90% of it. Let's fix that!
       </p>
       <Link to="/auth">
-        <button type="button">Get started!</button>
+        <button className="btn" type="button">Get started!</button>
       </Link>
       <a href="#" className="link">learn how it works</a>
 
