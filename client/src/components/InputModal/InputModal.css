@@ -15,13 +15,31 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
   background-color: #222;
-  padding: 45px 45px;
   border-radius: 5px;
-  width: 500px;
+  width: 450px;
   z-index: 100000;
+}
+
+.input-modal .header {
+  border-bottom: #333 3px solid;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  margin-bottom: 5px;
+}
+
+.input-modal .header .close {
+  font-weight: 1000;
+  text-decoration: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.input-modal form {
+  padding: 20px 50px;
+  padding-bottom: 30px;
 }
 
 .input-modal label {
@@ -34,27 +52,4 @@
 .input-modal input {
   width: 100%;
   margin-bottom: 30px;
-}
-
-.input-modal button {
-  background: crimson;
-  color: #fff;
-  padding: 10px 20px;
-  display: inline-block;
-  width: 100%;
-}
-
-.input-modal button:hover {
-  background: rgb(194, 35, 67);
-  transform: translateY(-2px);
-}
-
-.input-modal .close {
-  position: absolute;
-  top: 20px;
-  right: 25px;
-  font-weight: 1000;
-  text-decoration: none;
-  color: #fff;
-  cursor: pointer;
 }

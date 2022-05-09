@@ -9,6 +9,7 @@
 :root {
   --space-green: #12ec50;
   --transition: 250ms ease-in-out;
+  --shadow: 0px 10px 30px rgba(0,0,0,0.8);
 }
 
 body {
@@ -38,6 +39,7 @@ h3 {
   display: inline-block;
   border: none;
   outline: none;
+  padding: 12px 25px;
 
   font-family: "Inter";
   border-radius: 3px;
@@ -48,6 +50,11 @@ h3 {
 
   text-align: center;
   transition: var(--transition);
+}
+
+.btn.btn-small {
+  font-size: 15px;
+  padding: 12px 20px;
 }
 
 .btn:hover {

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import "./InputModal.css";
+import close from "../../assets/close.svg";
 
 import { getCards, postCard } from "../../api";
 
@@ -41,17 +42,23 @@ function InputModal({ setCards, setShowInputModal, setShowModal }) {
   return (
     <>
       <div className="overlay" />
-      <form className="input-modal" onSubmit={handleSubmit}>
-        <label>Card Name</label>
-        <input type="text" value={cardName} onChange={(e) => setCardName(e.target.value)} placeholder="Ex: Chemistry" />
+      <div className="input-modal">
+        <div className="header">
+          <h3>Add card</h3>
+          <img src={close} className="close" onClick={() => setShowInputModal(false)} />
+        </div>
+        <form onSubmit={handleSubmit}>
 
-        <label>Start Date</label>
-        <input className="input" type="date" value={cardDate} onChange={(e) => setCardDate(e.target.value)} />
+          <label>Card Name</label>
+          <input className="input" type="text" value={cardName} onChange={(e) => setCardName(e.target.value)} placeholder="Ex: Chemistry" />
 
-        <button className="btn" type="submit">Create Card</button>
+          <label>Start Date</label>
+          <input className="input" type="date" value={cardDate} onChange={(e) => setCardDate(e.target.value)} />
 
-        <span className="close" onClick={() => setShowInputModal(false)}>x</span>
-      </form>
+          <button className="btn btn-small" type="submit">Create Card</button>
+        </form>
+      </div>
+
     </>
   );
 }
