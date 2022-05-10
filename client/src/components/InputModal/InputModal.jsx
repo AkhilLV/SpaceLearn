@@ -7,13 +7,15 @@ import { getCards, postCard } from "../../api";
 
 import addDaysToDate from "../../helpers/addDaysToDate";
 import CardContext from "../../contexts/CardContext";
+import ModalContext from "../../contexts/ModalContext";
 
-function InputModal({ setShowInputModal, setShowModal }) {
+function InputModal({ setShowInputModal }) {
   const [cardName, setCardName] = useState("");
   const [cardDate, setCardDate] = useState("");
   const [cardDates, setCardDates] = useState([]);
 
   const { setCards } = useContext(CardContext);
+  const { setShowModal } = useContext(ModalContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable react/react-in-jsx-scope */
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import "./index.css";
@@ -14,15 +14,16 @@ import { UserProvider } from "./contexts/UserContext";
 import { CardProvider } from "./contexts/CardContext";
 
 import Modal from "./components/Modal/Modal";
+import ModalContext from "./contexts/ModalContext";
 
 function App() {
-  const [showModal, setShowModal] = useState([false, ""]);
+  const { showModal } = useContext(ModalContext);
 
   return (
     <Router>
       <div className="App">
 
-        {showModal[0] ? <Modal showModal={showModal} setShowModal={setShowModal} /> : null}
+        {showModal[0] && <Modal /> }
 
         <Switch>
 
@@ -32,12 +33,12 @@ function App() {
 
           <UserProvider>
             <Route path="/auth">
-              <AuthPage setShowModal={setShowModal} />
+              <AuthPage />
             </Route>
 
             <CardProvider>
               <Route path="/dashboard">
-                <DashboardPage setShowModal={setShowModal} />
+                <DashboardPage />
               </Route>
             </CardProvider>
           </UserProvider>

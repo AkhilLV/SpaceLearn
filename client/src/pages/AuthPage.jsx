@@ -1,11 +1,11 @@
 import Header from "../components/Header/Header";
 import Login from "../components/Login/Login";
 
-function AuthPage({ setShowModal }) {
+function AuthPage() {
   return (
     <>
       <Header />
-      <Login setShowModal={setShowModal} />
+      <Login />
     </>
   );
 }

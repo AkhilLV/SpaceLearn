@@ -5,8 +5,9 @@ import { useContext, useState } from "react";
 
 import { login, register } from "../../api";
 import UserContext from "../../contexts/UserContext";
+import ModalContext from "../../contexts/ModalContext";
 
-function Login({ setShowModal }) {
+function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -14,6 +15,7 @@ function Login({ setShowModal }) {
   const [action, setAction] = useState("login");
 
   const { setIsLoggedIn } = useContext(UserContext);
+  const { setShowModal } = useContext(ModalContext);
 
   const history = useHistory();
 

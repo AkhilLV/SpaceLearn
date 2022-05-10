@@ -10,7 +10,7 @@ import "./DashboardPage.css";
 import UserContext from "../contexts/UserContext";
 import CardContext from "../contexts/CardContext";
 
-function DashboardPage({ setShowModal }) {
+function DashboardPage() {
   const [showInputModal, setShowInputModal] = useState(false);
 
   const { isLoggedIn } = useContext(UserContext);
@@ -27,7 +27,6 @@ function DashboardPage({ setShowModal }) {
       {showInputModal && (
         <InputModal
           setShowInputModal={setShowInputModal}
-          setShowModal={setShowModal}
         />
       )}
 

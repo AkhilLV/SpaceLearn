@@ -1,8 +1,11 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import ModalContext from "../../contexts/ModalContext";
 
 import "./Modal.css";
 
-function Modal({ showModal, setShowModal }) {
+function Modal() {
+  const { showModal, setShowModal } = useContext(ModalContext);
+
   useEffect(() => {
     setTimeout(() => {
       setShowModal([false, ""]);
