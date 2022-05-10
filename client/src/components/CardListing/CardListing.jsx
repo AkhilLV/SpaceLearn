@@ -1,8 +1,12 @@
 import "./CardListing.css";
 
+import { useContext } from "react";
 import getSiblingElements from "../../helpers/getSiblingElements";
+import CardContext from "../../contexts/CardContext";
 
-function CardListing({ cards, setSelectedCardId }) {
+function CardListing() {
+  const { cards, setSelectedCardId } = useContext(CardContext);
+
   const handleClick = (e) => {
     const cardId = e.target.dataset.id;
     setSelectedCardId(cardId);

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 
 import "./Sidebar.css";
 import taskBoard from "../../assets/task-board.svg";
@@ -6,10 +6,11 @@ import taskBoard from "../../assets/task-board.svg";
 import CardListing from "../CardListing/CardListing";
 
 import { getCards } from "../../api";
+import CardContext from "../../contexts/CardContext";
 
-function Sidebar({
-  cards, setCards, setShowInputModal, setSelectedCardId,
-}) {
+function Sidebar({ setShowInputModal }) {
+  const { setCards, cards } = useContext(CardContext);
+
   useEffect(() => {
     (async () => {
       try {
@@ -29,7 +30,7 @@ function Sidebar({
       <button type="button" title="Add new card" className="circle" onClick={() => setShowInputModal(true)}>+</button>
 
       {cards
-        ? <CardListing cards={cards} setSelectedCardId={setSelectedCardId} />
+        ? <CardListing />
         : (
           <div className="no-card-dialog">
             <img src={taskBoard} alt="a task board" />

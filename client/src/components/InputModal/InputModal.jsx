@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import "./InputModal.css";
 import close from "../../assets/close.svg";
@@ -6,11 +6,14 @@ import close from "../../assets/close.svg";
 import { getCards, postCard } from "../../api";
 
 import addDaysToDate from "../../helpers/addDaysToDate";
+import CardContext from "../../contexts/CardContext";
 
-function InputModal({ setCards, setShowInputModal, setShowModal }) {
+function InputModal({ setShowInputModal, setShowModal }) {
   const [cardName, setCardName] = useState("");
   const [cardDate, setCardDate] = useState("");
   const [cardDates, setCardDates] = useState([]);
+
+  const { setCards } = useContext(CardContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

@@ -7,14 +7,14 @@ import CardSection from "../components/CardSection/CardSection";
 
 import "./DashboardPage.css";
 
-import UserContext from "../contexts/user";
+import UserContext from "../contexts/UserContext";
+import CardContext from "../contexts/CardContext";
 
 function DashboardPage({ setShowModal }) {
-  const [cards, setCards] = useState(false);
   const [showInputModal, setShowInputModal] = useState(false);
-  const [selectedCardId, setSelectedCardId] = useState(false);
 
   const { isLoggedIn } = useContext(UserContext);
+  const { selectedCardId } = useContext(CardContext);
 
   const history = useHistory();
 
@@ -26,20 +26,15 @@ function DashboardPage({ setShowModal }) {
     <>
       {showInputModal && (
         <InputModal
-          setCards={setCards}
           setShowInputModal={setShowInputModal}
           setShowModal={setShowModal}
         />
       )}
 
       <div id="dashboard">
-        <Sidebar
-          cards={cards}
-          setCards={setCards}
-          setShowInputModal={setShowInputModal}
-          setSelectedCardId={setSelectedCardId}
-        />
-        {selectedCardId && <CardSection selectedCardId={selectedCardId} />}
+        <Sidebar setShowInputModal={setShowInputModal} />
+
+        {selectedCardId && <CardSection />}
       </div>
     </>
   );

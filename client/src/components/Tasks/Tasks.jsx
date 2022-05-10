@@ -1,10 +1,14 @@
 import "./Tasks.css";
 
+import { useContext } from "react";
 import { getCard, crossTask } from "../../api";
+import CardContext from "../../contexts/CardContext";
 
 function Tasks({
-  tasks, selectedCardId, state, setState,
+  tasks, state, setState,
 }) {
+  const { selectedCardId } = useContext(CardContext);
+
   const handleClick = async (e) => {
     if (!Array.from(e.target.classList).includes("task")) return;
 

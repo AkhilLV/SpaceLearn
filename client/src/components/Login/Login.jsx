@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { useContext, useState } from "react";
 
 import { login, register } from "../../api";
-import UserContext from "../../contexts/user";
+import UserContext from "../../contexts/UserContext";
 
 function Login({ setShowModal }) {
   const [username, setUsername] = useState("");

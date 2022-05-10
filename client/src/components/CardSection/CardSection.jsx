@@ -1,5 +1,5 @@
 /* eslint-disable arrow-body-style */
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { getCard } from "../../api";
 
@@ -8,9 +8,12 @@ import "./CardSection.css";
 import DateSelector from "../DateSelector/DateSelector";
 import TaskInput from "../TaskInput/TaskInput";
 import Tasks from "../Tasks/Tasks";
+import CardContext from "../../contexts/CardContext";
 
-function CardSection({ selectedCardId }) {
+function CardSection() {
   const [state, setState] = useState(false);
+
+  const { selectedCardId } = useContext(CardContext);
 
   useEffect(() => {
     (async () => {
@@ -44,7 +47,6 @@ function CardSection({ selectedCardId }) {
             && (
               <Tasks
                 tasks={state.cardData.tasks}
-                selectedCardId={selectedCardId}
                 state={state}
                 setState={setState}
               />

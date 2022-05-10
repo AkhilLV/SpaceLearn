@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import "./TaskInput.css";
 
 import { addTask, getCard } from "../../api";
+import CardContext from "../../contexts/CardContext";
 
-export default function TaskInput({ cardId, setState }) {
+export default function TaskInput({ setState }) {
+  const { selectedCardId } = useContext(CardContext);
+
   const [taskText, setTaskText] = useState("");
 
   const handleSubmit = async (e) => {
@@ -13,8 +16,8 @@ export default function TaskInput({ cardId, setState }) {
     if (!taskText) return alert("Enter a new task");
 
     try {
-      await addTask(cardId, { taskText });
-      const res = await getCard(cardId);
+      await addTask(selectedCardId, { taskText });
+      const res = await getCard(selectedCardId);
       setTaskText("");
       setState((prev) => ({
         ...prev,

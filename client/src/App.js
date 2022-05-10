@@ -10,7 +10,8 @@ import LandingPage from "./pages/LandingPage";
 import AuthPage from "./pages/AuthPage";
 import DashboardPage from "./pages/DashboardPage";
 
-import { UserProvider } from "./contexts/user";
+import { UserProvider } from "./contexts/UserContext";
+import { CardProvider } from "./contexts/CardContext";
 
 import Modal from "./components/Modal/Modal";
 
@@ -18,31 +19,33 @@ function App() {
   const [showModal, setShowModal] = useState([false, ""]);
 
   return (
-    <UserProvider>
-      <Router>
-        <div className="App">
+    <Router>
+      <div className="App">
 
-          {showModal[0] ? <Modal showModal={showModal} setShowModal={setShowModal} /> : null}
+        {showModal[0] ? <Modal showModal={showModal} setShowModal={setShowModal} /> : null}
 
-          <Switch>
+        <Switch>
 
-            <Route path="/" exact>
-              <LandingPage />
-            </Route>
+          <Route path="/" exact>
+            <LandingPage />
+          </Route>
 
+          <UserProvider>
             <Route path="/auth">
               <AuthPage setShowModal={setShowModal} />
             </Route>
 
-            <Route path="/dashboard">
-              <DashboardPage setShowModal={setShowModal} />
-            </Route>
+            <CardProvider>
+              <Route path="/dashboard">
+                <DashboardPage setShowModal={setShowModal} />
+              </Route>
+            </CardProvider>
+          </UserProvider>
 
-          </Switch>
+        </Switch>
 
-        </div>
-      </Router>
-    </UserProvider>
+      </div>
+    </Router>
   );
 }
 
