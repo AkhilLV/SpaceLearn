@@ -1,13 +1,18 @@
 const express = require("express");
 const cors = require("cors");
+
 const passport = require("passport");
 const passportLocal = require("passport-local").Strategy;
+
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+
 const PgSession = require("connect-pg-simple")(session);
 const pool = require("./db/db");
 
 require("dotenv").config();
+
+const isLoggedIn = require("./middleware/isLoggedIn");
 
 const AuthRoute = require("./routes/Auth");
 const CardRoute = require("./routes/Card");
@@ -28,9 +33,7 @@ app.use(
 
 app.use(
   session({
-    store: new PgSession({
-      pool,
-    }),
+    store: new PgSession({ pool }),
     secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: true,
@@ -42,13 +45,6 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(passport.initialize());
 app.use(passport.session());
 require("./passportConfig")(passport);
-
-const isLoggedIn = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.send({ message: "not_logged_in" });
-};
 
 app.use("/auth", AuthRoute);
 app.use("/cards", isLoggedIn, CardRoute);

@@ -1,5 +1,3 @@
-import "./LandingPage.css";
-
 import Hero from "../components/Hero/Hero";
 import Header from "../components/Header/Header";
 

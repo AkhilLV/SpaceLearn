@@ -58,7 +58,6 @@ function InputModal({ setCards, setShowInputModal, setShowModal }) {
           <button className="btn btn-small" type="submit">Create Card</button>
         </form>
       </div>
-
     </>
   );
 }
