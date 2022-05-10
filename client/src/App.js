@@ -10,36 +10,39 @@ import LandingPage from "./pages/LandingPage";
 import AuthPage from "./pages/AuthPage";
 import DashboardPage from "./pages/DashboardPage";
 
+import { UserProvider } from "./contexts/user";
+
 import Modal from "./components/Modal/Modal";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showModal, setShowModal] = useState([false, ""]);
 
   return (
-    <Router>
-      <div className="App">
+    <UserProvider>
+      <Router>
+        <div className="App">
 
-        {showModal[0] ? <Modal showModal={showModal} setShowModal={setShowModal} /> : null}
+          {showModal[0] ? <Modal showModal={showModal} setShowModal={setShowModal} /> : null}
 
-        <Switch>
+          <Switch>
 
-          <Route path="/" exact>
-            <LandingPage />
-          </Route>
+            <Route path="/" exact>
+              <LandingPage />
+            </Route>
 
-          <Route path="/auth">
-            <AuthPage setIsLoggedIn={setIsLoggedIn} setShowModal={setShowModal} />
-          </Route>
+            <Route path="/auth">
+              <AuthPage setShowModal={setShowModal} />
+            </Route>
 
-          <Route path="/dashboard">
-            <DashboardPage isLoggedIn={isLoggedIn} setShowModal={setShowModal} />
-          </Route>
+            <Route path="/dashboard">
+              <DashboardPage setShowModal={setShowModal} />
+            </Route>
 
-        </Switch>
+          </Switch>
 
-      </div>
-    </Router>
+        </div>
+      </Router>
+    </UserProvider>
   );
 }
 

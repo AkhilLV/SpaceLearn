@@ -1,16 +1,19 @@
 import "./Login.css";
 
 import { useHistory } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import { login, register } from "../../api";
+import UserContext from "../../contexts/user";
 
-function Login({ setIsLoggedIn, setShowModal }) {
+function Login({ setShowModal }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const [isLoading, setIsLoading] = useState(false);
   const [action, setAction] = useState("login");
+
+  const { setIsLoggedIn } = useContext(UserContext);
 
   const history = useHistory();
 

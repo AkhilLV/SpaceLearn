@@ -1,5 +1,5 @@
 import { useHistory } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import Sidebar from "../components/Sidebar/Sidebar";
 import InputModal from "../components/InputModal/InputModal";
@@ -7,10 +7,14 @@ import CardSection from "../components/CardSection/CardSection";
 
 import "./DashboardPage.css";
 
-function DashboardPage({ isLoggedIn, setShowModal }) {
+import UserContext from "../contexts/user";
+
+function DashboardPage({ setShowModal }) {
   const [cards, setCards] = useState(false);
   const [showInputModal, setShowInputModal] = useState(false);
   const [selectedCardId, setSelectedCardId] = useState(false);
+
+  const { isLoggedIn } = useContext(UserContext);
 
   const history = useHistory();
 
