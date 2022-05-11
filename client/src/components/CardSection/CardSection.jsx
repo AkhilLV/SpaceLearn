@@ -32,7 +32,7 @@ function CardSection() {
 
   return (
     state
-      ? (
+      && (
         <div className="card">
           <h2>{state.cardData.cardName}</h2>
 
@@ -52,7 +52,7 @@ function CardSection() {
               />
             )}
         </div>
-      ) : null
+      )
   );
 }
 

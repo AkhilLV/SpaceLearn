@@ -28,7 +28,7 @@ module.exports = {
       });
 
       await client.query("COMMIT");
-      res.send({ message: "card added" });
+      res.send({ card: { cardId: cardId.rows[0].card_id }, message: "card added" });
     } catch (err) {
       await client.query("ROLLBACK");
       res.status(400).send({ message: "card not added" });

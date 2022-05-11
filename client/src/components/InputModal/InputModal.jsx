@@ -14,7 +14,7 @@ function InputModal({ setShowInputModal }) {
   const [cardDate, setCardDate] = useState("");
   const [cardDates, setCardDates] = useState([]);
 
-  const { setCards } = useContext(CardContext);
+  const { setCards, setSelectedCardId } = useContext(CardContext);
   const { setShowModal } = useContext(ModalContext);
 
   const handleSubmit = async (e) => {
@@ -23,7 +23,8 @@ function InputModal({ setShowInputModal }) {
     if (!cardName || !cardDate) return setShowModal([true, "Fill all fields"]);
 
     try {
-      await postCard({ cardName, cardDates });
+      const postRes = await postCard({ cardName, cardDates });
+      setSelectedCardId(postRes.data.card.cardId);
 
       const res = await getCards();
       setCards(res.data);
