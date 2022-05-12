@@ -10,10 +10,17 @@ function Tasks({
   const { selectedCardId } = useContext(CardContext);
 
   const handleClick = async (e) => {
-    if (!Array.from(e.target.classList).includes("task")) return;
+    const classList = Array.from(e.target.classList);
+    if (!(classList.includes("task") || classList.includes("circle"))) return;
 
+    // determines if a task should be marked as done or not. checks the parent
     const taskDone = !Array.from(e.currentTarget.classList).includes("completed-tasks");
-    const taskId = e.target.dataset.taskid;
+
+    let task = e.target;
+    if (classList.includes("circle")) {
+      task = e.target.parentNode;
+    }
+    const taskId = task.dataset.taskid;
 
     try {
       await crossTask(selectedCardId, taskId, state.selectedDateId, { taskDone });

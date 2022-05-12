@@ -1,7 +1,6 @@
 import "./CardListing.css";
 
 import { useContext, useEffect, useRef } from "react";
-import getSiblingElements from "../../helpers/getSiblingElements";
 import CardContext from "../../contexts/CardContext";
 
 function CardListing() {
