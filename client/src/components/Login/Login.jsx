@@ -22,7 +22,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!username || !password) return setShowModal([true, "Fill all fields"]);
+    if (!username.trim() || !password) return setShowModal([true, "Fill all fields"]);
 
     setIsLoading(true);
 

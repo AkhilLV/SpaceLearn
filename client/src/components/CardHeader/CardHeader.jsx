@@ -16,9 +16,11 @@ export default function CardHeader({ state }) {
       setShowMenu(false);
 
       const res = await getCards();
+
+      setSelectedCardId(false);
+
       if (!res.data.length) return setCards(false);
       setCards(res.data);
-      setSelectedCardId(res.data[0].card_id);
     } catch (err) {
       console.log(err);
     }
