@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS users (
 
 CREATE TABLE IF NOT EXISTS cards (
   card_id BIGSERIAL NOT NULL PRIMARY KEY,
-  user_id INTEGER NOT NULL REFERENCES users (user_id),
+  user_id INTEGER NOT NULL REFERENCES users (user_id) ON DELETE CASCADE,
   card_name VARCHAR(255) NOT NULL
 );
 
@@ -30,8 +30,8 @@ CREATE TABLE IF NOT EXISTS tasks (
 
 CREATE TABLE IF NOT EXISTS task_status (
   task_status_id BIGSERIAL NOT NULL PRIMARY KEY,
-  task_id INTEGER NOT NULL REFERENCES tasks (task_id),
-  card_date_id INTEGER NOT NULL REFERENCES card_dates (card_date_id),
+  task_id INTEGER NOT NULL REFERENCES tasks (task_id) ON DELETE CASCADE,
+  card_date_id INTEGER NOT NULL REFERENCES card_dates (card_date_id) ON DELETE CASCADE,
   task_done BOOLEAN DEFAULT FALSE NOT NULL
 );
 

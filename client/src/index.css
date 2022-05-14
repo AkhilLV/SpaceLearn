@@ -35,21 +35,26 @@ h3 {
 
 /* Buttons */
 
-.btn {
-  display: inline-block;
+button {
   border: none;
   outline: none;
+
+  cursor: pointer;
+  font-family: "Inter";
+
+  transition: var(--transition);
+}
+
+.btn {
+  display: inline-block;
   padding: 12px 25px;
 
-  font-family: "Inter";
   border-radius: 3px;
   font-size: 17px;
-  cursor: pointer;
 
   background: var(--space-green);  
 
   text-align: center;
-  transition: var(--transition);
 }
 
 .btn.btn-small {

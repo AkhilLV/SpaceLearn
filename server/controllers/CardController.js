@@ -100,6 +100,7 @@ module.exports = {
       await pool.query("DELETE FROM cards WHERE card_id = $1", [cardId]);
       res.send({ message: "card_deleted" });
     } catch (err) {
+      console.log(err);
       res.status(400).send({ message: "card_not_deleted" });
     }
   },

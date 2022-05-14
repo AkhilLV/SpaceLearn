@@ -5,9 +5,11 @@ import { getCard } from "../../api";
 
 import "./CardSection.css";
 
+import CardHeader from "../CardHeader/CardHeader";
 import DateSelector from "../DateSelector/DateSelector";
 import TaskInput from "../TaskInput/TaskInput";
 import Tasks from "../Tasks/Tasks";
+
 import CardContext from "../../contexts/CardContext";
 
 function CardSection() {
@@ -34,7 +36,8 @@ function CardSection() {
     state
       && (
         <div className="card">
-          <h2>{state.cardData.cardName}</h2>
+
+          <CardHeader state={state} />
 
           <DateSelector
             cardDates={state.cardData.cardDates}
