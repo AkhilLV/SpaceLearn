@@ -47,7 +47,7 @@ function InputModal({ setShowInputModal }) {
 
   return (
     <>
-      <div className="overlay" />
+      <div className="overlay overlay-dark" onClick={() => setShowInputModal(false)} />
       <div className="input-modal">
         <div className="header">
           <h3>Add card</h3>

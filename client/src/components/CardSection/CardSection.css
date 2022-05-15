@@ -17,10 +17,10 @@
 }
 
 .card .menu .dropdown {
-  display: none;
   position: absolute;
   top: 0;
   left: 25px;
+  z-index: 200000;
 }
 
 .card .menu .dropdown button {
@@ -46,10 +46,6 @@
 
 .card .menu .dropdown button:hover {
   background: #eee;
-}
-
-.card .menu .dropdown.show {
-  display: block;
 }
 
 .card img {

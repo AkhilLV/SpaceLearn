@@ -37,7 +37,7 @@ function CardSection() {
       && (
         <div className="card">
 
-          <CardHeader state={state} />
+          <CardHeader cardName={state.cardData.cardName} />
 
           <DateSelector
             cardDates={state.cardData.cardDates}
