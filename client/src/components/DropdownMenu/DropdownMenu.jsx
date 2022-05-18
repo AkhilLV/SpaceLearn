@@ -14,7 +14,7 @@ export default function DropdownMenu({ config }) {
       <>
         <div className="overlay" onClick={() => setShowDropdownMenu(false)} />
         <div className="dropdown">
-          {config.map((button) => <button type="button" onClick={button.handler}>{button.buttonName}</button>)}
+          {config.map((button) => <button key={button.buttonName} type="button" onClick={button.handler}>{button.buttonName}</button>)}
         </div>
       </>
       )}

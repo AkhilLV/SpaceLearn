@@ -48,11 +48,20 @@ function CardSection() {
 
           {state.cardData.tasks
             && (
-              <Tasks
-                tasks={state.cardData.tasks}
-                state={state}
-                setState={setState}
-              />
+              <>
+                <Tasks
+                  tasks={state.cardData.tasks.filter((task) => !task.taskDates[state.selectedDate])}
+                  taskDone={false}
+                  state={state}
+                  setState={setState}
+                />
+                <Tasks
+                  tasks={state.cardData.tasks.filter((task) => task.taskDates[state.selectedDate])}
+                  taskDone
+                  state={state}
+                  setState={setState}
+                />
+              </>
             )}
         </div>
       )

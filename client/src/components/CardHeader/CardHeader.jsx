@@ -3,15 +3,18 @@ import { useContext } from "react";
 import { deleteCard, getCards } from "../../api";
 
 import CardContext from "../../contexts/CardContext";
+import ModalContext from "../../contexts/ModalContext";
 
 import DropdownMenu from "../DropdownMenu/DropdownMenu";
 
 export default function CardHeader({ cardName }) {
   const { selectedCardId, setSelectedCardId, setCards } = useContext(CardContext);
+  const { setShowDropdownMenu } = useContext(ModalContext);
 
   const handleDelete = async () => {
     try {
       await deleteCard(selectedCardId);
+      setShowDropdownMenu(false);
 
       const res = await getCards();
 
