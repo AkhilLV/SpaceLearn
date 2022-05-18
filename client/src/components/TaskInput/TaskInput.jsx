@@ -8,14 +8,14 @@ import ModalContext from "../../contexts/ModalContext";
 
 export default function TaskInput({ setState }) {
   const { selectedCardId } = useContext(CardContext);
-  const { setShowModal } = useContext(ModalContext);
+  const { setShowInfoModal } = useContext(ModalContext);
 
   const [taskText, setTaskText] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!taskText) return setShowModal([true, "Enter a new task"]);
+    if (!taskText) return setShowInfoModal([true, "Enter a new task"]);
 
     try {
       await addTask(selectedCardId, { taskText });

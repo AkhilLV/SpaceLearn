@@ -17,13 +17,13 @@ import Modal from "./components/Modal/Modal";
 import ModalContext from "./contexts/ModalContext";
 
 function App() {
-  const { showModal } = useContext(ModalContext);
+  const { showInfoModal } = useContext(ModalContext);
 
   return (
     <Router>
       <div className="App">
 
-        {showModal[0] && <Modal /> }
+        {showInfoModal[0] && <Modal /> }
 
         <Switch>
 

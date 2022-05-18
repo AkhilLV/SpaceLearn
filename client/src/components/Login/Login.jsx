@@ -15,14 +15,14 @@ function Login() {
   const [action, setAction] = useState("login");
 
   const { setIsLoggedIn } = useContext(UserContext);
-  const { setShowModal } = useContext(ModalContext);
+  const { setShowInfoModal } = useContext(ModalContext);
 
   const history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!username.trim() || !password) return setShowModal([true, "Fill all fields"]);
+    if (!username.trim() || !password) return setShowInfoModal([true, "Fill all fields"]);
 
     setIsLoading(true);
 
@@ -40,15 +40,15 @@ function Login() {
       }
 
       await register({ username, password });
-      setShowModal([true, "User registered"]);
+      setShowInfoModal([true, "User registered"]);
 
       await loginUser();
     } catch (err) {
       console.log(err);
       if (err.response.data.message === "user_exists") {
-        setShowModal([true, "User exists"]);
+        setShowInfoModal([true, "User exists"]);
       } else if (err.response.data.message === "user_not_found") {
-        setShowModal([true, "User not found"]);
+        setShowInfoModal([true, "User not found"]);
       }
       setIsLoading(false);
     }

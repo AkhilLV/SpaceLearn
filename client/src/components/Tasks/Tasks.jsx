@@ -16,6 +16,7 @@ function Tasks({
     // determines if a task should be marked as done or not. checks the parent
     const taskDone = !Array.from(e.currentTarget.classList).includes("completed-tasks");
 
+    // fixes undefined id if user clicks on circle
     let task = e.target;
     if (classList.includes("circle")) {
       task = e.target.parentNode;
@@ -23,6 +24,7 @@ function Tasks({
     const taskId = task.dataset.taskid;
 
     try {
+      // functions has too many params
       await crossTask(selectedCardId, taskId, state.selectedDateId, { taskDone });
 
       const res = await getCard(selectedCardId);

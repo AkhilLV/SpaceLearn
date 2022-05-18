@@ -3,10 +3,16 @@ import { createContext, useState } from "react";
 const ModalContext = createContext();
 
 export function ModalProvider({ children }) {
-  const [showModal, setShowModal] = useState([false, ""]);
+  const [showInfoModal, setShowInfoModal] = useState([false, ""]);
+  const [showDropdownMenu, setShowDropdownMenu] = useState(false);
 
   return (
-    <ModalContext.Provider value={{ showModal, setShowModal }}>{ children }</ModalContext.Provider>
+    <ModalContext.Provider value={{
+      showInfoModal, setShowInfoModal, showDropdownMenu, setShowDropdownMenu,
+    }}
+    >
+      { children }
+    </ModalContext.Provider>
   );
 }
 
