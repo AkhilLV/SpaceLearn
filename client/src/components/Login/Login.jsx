@@ -1,6 +1,6 @@
 import "./Login.css";
 
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 
 import { login, register } from "../../api";
@@ -17,7 +17,7 @@ function Login() {
   const { setIsLoggedIn } = useContext(UserContext);
   const { setShowInfoModal } = useContext(ModalContext);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,7 +29,7 @@ function Login() {
     async function loginUser() {
       await login({ username, password });
       setIsLoggedIn(true);
-      history.push("/dashboard");
+      navigate("/dashboard");
     }
 
     try {

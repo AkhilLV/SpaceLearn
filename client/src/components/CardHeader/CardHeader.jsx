@@ -7,8 +7,10 @@ import ModalContext from "../../contexts/ModalContext";
 
 import DropdownMenu from "../DropdownMenu/DropdownMenu";
 
-export default function CardHeader({ cardName }) {
-  const { selectedCardId, setSelectedCardId, setCards } = useContext(CardContext);
+export default function CardHeader() {
+  const {
+    selectedCardId, setSelectedCardId, setCards, cardData,
+  } = useContext(CardContext);
   const { setShowDropdownMenu } = useContext(ModalContext);
 
   const handleDelete = async () => {
@@ -33,7 +35,7 @@ export default function CardHeader({ cardName }) {
 
   return (
     <div className="card-header">
-      <h2>{cardName}</h2>
+      <h2>{cardData.cardName}</h2>
 
       <DropdownMenu config={[
         {

@@ -5,10 +5,22 @@ const CardContext = createContext();
 export function CardProvider({ children }) {
   const [cards, setCards] = useState(false);
   const [selectedCardId, setSelectedCardId] = useState(false);
+  const [cardData, setCardData] = useState(false);
+  const [selectedDateId, setSelectedDateId] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(false);
 
   return (
     <CardContext.Provider value={{
-      cards, setCards, selectedCardId, setSelectedCardId,
+      cards,
+      setCards,
+      selectedCardId,
+      setSelectedCardId,
+      cardData,
+      setCardData,
+      selectedDateId,
+      setSelectedDateId,
+      selectedDate,
+      setSelectedDate,
     }}
     >
       { children }

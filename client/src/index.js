@@ -1,8 +1,10 @@
+/* eslint-disable react/jsx-filename-extension */
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import App from "./App";
 
 import { ModalProvider } from "./contexts/ModalContext";
 
-// eslint-disable-next-line react/jsx-filename-extension
-ReactDOM.render(<React.StrictMode><ModalProvider><App /></ModalProvider></React.StrictMode>, document.getElementById("root"));
+const container = document.getElementById("root");
+const root = createRoot(container); // createRoot(container!) if you use TypeScript
+root.render(<React.StrictMode><ModalProvider><App /></ModalProvider></React.StrictMode>);

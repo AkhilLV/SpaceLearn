@@ -5,9 +5,9 @@ import CardContext from "../../contexts/CardContext";
 import "./Tasks.css";
 
 export default function Tasks({
-  tasks, taskDone, state, setState,
+  tasks, taskDone,
 }) {
-  const { selectedCardId } = useContext(CardContext);
+  const { selectedCardId, selectedDateId, setCardData } = useContext(CardContext);
 
   const handleClick = async (e) => {
     const classList = Array.from(e.target.classList);
@@ -23,13 +23,10 @@ export default function Tasks({
 
     try {
       // function has too many params, hard to read
-      await crossTask(selectedCardId, taskId, state.selectedDateId, { taskDone: !taskDone });
+      await crossTask(selectedCardId, taskId, selectedDateId, { taskDone: !taskDone });
 
       const res = await getCard(selectedCardId);
-      setState((prev) => ({
-        ...prev,
-        cardData: res.data,
-      }));
+      setCardData(res.data);
     } catch (err) {
       console.log(err);
     }

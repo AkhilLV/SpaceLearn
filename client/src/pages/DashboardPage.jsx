@@ -1,4 +1,4 @@
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 
 import Sidebar from "../components/Sidebar/Sidebar";
@@ -16,18 +16,19 @@ function DashboardPage() {
   const { isLoggedIn } = useContext(UserContext);
   const { selectedCardId } = useContext(CardContext);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!isLoggedIn) return history.push("/auth");
-  }, []);
+  // useEffect(() => {
+  //   if (!isLoggedIn) return navigate("/auth");
+  // }, []);
 
   return (
     <>
+
       {showInputModal && (
-        <InputModal
-          setShowInputModal={setShowInputModal}
-        />
+      <InputModal
+        setShowInputModal={setShowInputModal}
+      />
       )}
 
       <div id="dashboard">
@@ -35,6 +36,7 @@ function DashboardPage() {
 
         {selectedCardId && <CardSection />}
       </div>
+
     </>
   );
 }

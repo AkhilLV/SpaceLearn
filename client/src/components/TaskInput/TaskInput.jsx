@@ -6,8 +6,8 @@ import { addTask, getCard } from "../../api";
 import CardContext from "../../contexts/CardContext";
 import ModalContext from "../../contexts/ModalContext";
 
-export default function TaskInput({ setState }) {
-  const { selectedCardId } = useContext(CardContext);
+export default function TaskInput() {
+  const { selectedCardId, setCardData } = useContext(CardContext);
   const { setShowInfoModal } = useContext(ModalContext);
 
   const [taskText, setTaskText] = useState("");
@@ -21,10 +21,7 @@ export default function TaskInput({ setState }) {
       await addTask(selectedCardId, { taskText });
       const res = await getCard(selectedCardId);
       setTaskText("");
-      setState((prev) => ({
-        ...prev,
-        cardData: res.data,
-      }));
+      setCardData(res.data);
     } catch (err) {
       console.log(err);
     }
