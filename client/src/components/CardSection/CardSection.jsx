@@ -1,6 +1,7 @@
 /* eslint-disable arrow-body-style */
 import { useContext, useEffect } from "react";
 
+import { motion } from "framer-motion";
 import { getCard } from "../../api";
 
 import "./CardSection.css";
@@ -30,10 +31,20 @@ function CardSection() {
     })();
   }, [selectedCardId]);
 
+  const variants = {
+    hidden: { scale: 0.9 },
+    visible: { scale: 1 },
+  };
+
   return (
     cardData
       && (
-        <div className="card">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={variants}
+          className="card"
+        >
 
           <CardHeader />
 
@@ -50,11 +61,11 @@ function CardSection() {
                 />
                 <Tasks
                   tasks={cardData.tasks.filter((task) => task.taskDates[selectedDate])}
-                  taskDone={true}
+                  taskDone
                 />
               </>
             )}
-        </div>
+        </motion.div>
       )
   );
 }

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 
 import "./InputModal.css";
+import { motion } from "framer-motion";
 import close from "../../assets/close.svg";
 
 import { getCards, postCard } from "../../api";
@@ -45,10 +46,20 @@ function InputModal({ setShowInputModal }) {
     ]);
   }, [cardDate]);
 
+  const variants = {
+    hidden: { scale: 0.9, x: "-50%", y: "-50%" },
+    visible: { scale: 1 },
+  };
+
   return (
     <>
-      <div className="overlay overlay-dark" onClick={() => setShowInputModal(false)} />
-      <div className="input-modal">
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="overlay overlay-dark" onClick={() => setShowInputModal(false)} />
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={variants}
+        className="input-modal"
+      >
         <div className="header">
           <h3>Add card</h3>
           <img src={close} className="close" onClick={() => setShowInputModal(false)} />
@@ -63,7 +74,7 @@ function InputModal({ setShowInputModal }) {
 
           <button className="btn btn-small" type="submit">Create Card</button>
         </form>
-      </div>
+      </motion.div>
     </>
   );
 }
