@@ -2,6 +2,8 @@ import { useContext } from "react";
 
 import { deleteCard, getCards } from "../../api";
 
+import "./CardHeader.css";
+
 import CardContext from "../../contexts/CardContext";
 import ModalContext from "../../contexts/ModalContext";
 

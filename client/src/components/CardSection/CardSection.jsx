@@ -1,7 +1,7 @@
 /* eslint-disable arrow-body-style */
 import { useContext, useEffect } from "react";
 
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { getCard } from "../../api";
 
 import "./CardSection.css";
@@ -34,25 +34,27 @@ function CardSection() {
   const variants = {
     hidden: { scale: 0.9 },
     visible: { scale: 1 },
+    exit: { scale: 0 },
   };
 
   return (
-    cardData
-      && (
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={variants}
-          className="card"
-        >
+    <AnimatePresence>
+      {cardData && (
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        variants={variants}
+        className="card"
+      >
 
-          <CardHeader />
+        <CardHeader />
 
-          <DateSelector />
+        <TaskInput />
 
-          <TaskInput />
+        <DateSelector />
 
-          {cardData.tasks
+        {cardData.tasks
             && (
               <>
                 <Tasks
@@ -65,8 +67,9 @@ function CardSection() {
                 />
               </>
             )}
-        </motion.div>
-      )
+      </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
 

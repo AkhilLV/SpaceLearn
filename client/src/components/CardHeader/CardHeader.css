@@ -1,0 +1,5 @@
+.card .card-header {
+  font-size: 21px;
+  display: flex;
+  align-items: center;
+}

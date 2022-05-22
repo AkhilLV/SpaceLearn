@@ -1,3 +1,7 @@
+.card .task-input {
+  margin-bottom: 30px;
+}
+
 .card .task-input form {
   margin-top: 20px;
 }

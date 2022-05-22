@@ -3,10 +3,3 @@
   flex-direction: column;
   padding: 40px 40px;
 }
-
-.card .card-header {
-  font-size: 21px;
-  margin-bottom: 30px;
-  display: flex;
-  align-items: center;
-}
