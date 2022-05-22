@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function Hero() {
   return (
-    <div className="hero">
+    <div className="hero center">
       <h1>Up your game with <br /> spaced learning cards</h1>
       <p>
         After seven days of leaning something new, <br />you forget

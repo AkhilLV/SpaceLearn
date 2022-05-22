@@ -40,9 +40,11 @@ export default function Tasks({
   return (
     <div className={`tasks ${taskDone && "completed-tasks"}`} onClick={handleClick}>
       {tasks.map((task) => (
-        <p key={task.taskId} data-taskid={task.taskId} className="task">
-          <div className="circle" />
-          {task.taskText}
+        <div key={task.taskId} data-taskid={task.taskId} className="task">
+          <div className="center-vertical">
+            <div className="circle" />
+            <span>{task.taskText}</span>
+          </div>
           <DropdownMenu config={[
             {
               buttonName: "Delete",
@@ -54,7 +56,7 @@ export default function Tasks({
             },
           ]}
           />
-        </p>
+        </div>
       ))}
     </div>
   );

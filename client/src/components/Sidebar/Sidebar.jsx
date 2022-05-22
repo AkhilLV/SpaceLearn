@@ -32,7 +32,7 @@ function Sidebar({ setShowInputModal }) {
       {cards
         ? <CardListing />
         : (
-          <div className="no-card-dialog">
+          <div className="no-card-dialog center">
             <img src={taskBoard} alt="a task board" />
             <p>You have no cards. Try adding some!</p>
           </div>

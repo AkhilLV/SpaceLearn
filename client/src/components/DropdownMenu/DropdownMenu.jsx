@@ -15,7 +15,7 @@ export default function DropdownMenu({ config }) {
       {/* bug: the dropdown component is not removed from dom */}
       <AnimatePresence>
         {showDropdownMenu && (
-          <motion.div key="123ds1" className="dropdown" initial={{ scale: 0.5 }} animate={{ scale: 1 }} exit={{ scale: 0 }}>
+          <motion.div className="dropdown" initial={{ scale: 0.5 }} animate={{ scale: 1 }} exit={{ scale: 0 }}>
             {config.map((button) => <motion.button key={button.buttonName} type="button" onClick={button.handler}>{button.buttonName}</motion.button>)}
           </motion.div>
         )}

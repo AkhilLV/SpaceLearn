@@ -104,3 +104,21 @@ button {
 .input:focus {
   background-color: #444;
 }
+
+/* Utility */
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.center-vertical {
+  display: flex;
+  align-items: center;
+}
+
+.center-horizontal {
+  display: flex;
+  justify-content: center;
+}

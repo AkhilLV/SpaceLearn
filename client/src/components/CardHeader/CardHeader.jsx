@@ -36,7 +36,7 @@ export default function CardHeader() {
   };
 
   return (
-    <div className="card-header">
+    <div className="card-header center-vertical">
       <h2>{cardData.cardName}</h2>
 
       <DropdownMenu config={[

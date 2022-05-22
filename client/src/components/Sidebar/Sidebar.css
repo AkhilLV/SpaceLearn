@@ -44,10 +44,7 @@
 }
 
 .sidebar .no-card-dialog {
-  display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   width: 200px;
   border-top: 3px #444 solid;
   padding-top: 20px;

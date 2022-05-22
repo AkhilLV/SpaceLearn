@@ -2,7 +2,7 @@
   margin-top: 30px;
 }
 
-.card .tasks p {
+.card .tasks .task {
   display: flex;
   align-items: center;
   margin-bottom: 7px;
@@ -11,7 +11,7 @@
   transition: 250ms;
 }
 
-.card .tasks p:hover {
+.card .tasks .task:hover {
   text-decoration: line-through;
   cursor: pointer;
   background: #555;
@@ -35,7 +35,7 @@
   background-color: #555;
 }
 
-.card .completed-tasks p {
+.card .completed-tasks .task {
   color: #555;
   text-decoration: line-through;
 }
