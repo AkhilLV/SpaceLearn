@@ -5,6 +5,7 @@
 .card .tasks .task {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: 7px;
   padding: 7px 10px;
   border-radius: 5px;

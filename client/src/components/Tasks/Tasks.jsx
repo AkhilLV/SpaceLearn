@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { getCard, crossTask } from "../../api";
+import { getCard, crossTask, deleteTask } from "../../api";
 import CardContext from "../../contexts/CardContext";
 import DropdownMenu from "../DropdownMenu/DropdownMenu";
 
@@ -33,7 +33,19 @@ export default function Tasks({
     }
   };
 
-  const handleDelete = () => { };
+  const handleDelete = async (e) => {
+    const task = e.target.parentNode.parentNode.parentNode;
+    const taskId = task.dataset.taskid;
+
+    try {
+      await deleteTask(selectedCardId, taskId);
+
+      const res = await getCard(selectedCardId);
+      setCardData(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handleEdit = () => { };
 
