@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { getCard, crossTask } from "../../api";
 import CardContext from "../../contexts/CardContext";
+import DropdownMenu from "../DropdownMenu/DropdownMenu";
 
 import "./Tasks.css";
 
@@ -32,12 +33,27 @@ export default function Tasks({
     }
   };
 
+  const handleDelete = () => { };
+
+  const handleEdit = () => { };
+
   return (
     <div className={`tasks ${taskDone && "completed-tasks"}`} onClick={handleClick}>
       {tasks.map((task) => (
         <p key={task.taskId} data-taskid={task.taskId} className="task">
           <div className="circle" />
           {task.taskText}
+          <DropdownMenu config={[
+            {
+              buttonName: "Delete",
+              handler: handleDelete,
+            },
+            {
+              buttonName: "Edit",
+              handler: handleEdit,
+            },
+          ]}
+          />
         </p>
       ))}
     </div>

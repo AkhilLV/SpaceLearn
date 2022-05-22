@@ -1,11 +1,10 @@
 import "./DropdownMenu.css";
-import { useContext } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import moreMenu from "../../assets/more-menu.svg";
-import ModalContext from "../../contexts/ModalContext";
 
 export default function DropdownMenu({ config }) {
-  const { showDropdownMenu, setShowDropdownMenu } = useContext(ModalContext);
+  const [showDropdownMenu, setShowDropdownMenu] = useState(false);
 
   return (
     <div className="menu">
