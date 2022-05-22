@@ -5,7 +5,6 @@ import { deleteCard, getCards } from "../../api";
 import "./CardHeader.css";
 
 import CardContext from "../../contexts/CardContext";
-import ModalContext from "../../contexts/ModalContext";
 
 import DropdownMenu from "../DropdownMenu/DropdownMenu";
 
@@ -13,9 +12,8 @@ export default function CardHeader() {
   const {
     selectedCardId, setSelectedCardId, setCards, cardData,
   } = useContext(CardContext);
-  const { setShowDropdownMenu } = useContext(ModalContext);
 
-  const handleDelete = async () => {
+  const handleDelete = async (e, setShowDropdownMenu) => {
     try {
       await deleteCard(selectedCardId);
       setShowDropdownMenu(false);

@@ -34,6 +34,7 @@ export default function Tasks({
   };
 
   const handleDelete = async (e) => {
+    // go up from button to task div
     const task = e.target.parentNode.parentNode.parentNode;
     const taskId = task.dataset.taskid;
 
