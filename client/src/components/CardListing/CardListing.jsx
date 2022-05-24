@@ -9,9 +9,16 @@ function CardListing() {
   const cardContainer = useRef(null);
 
   const handleClick = (e) => {
-    if (!Array.from(e.target.classList).includes("card-listing-item")) return;
+    if (!e.target.matches(".clickable")) return;
 
-    const cardId = e.target.dataset.id;
+    let card = e.target;
+
+    // access id when user clicks on nested elements
+    if (e.target.matches(".circle")) {
+      card = e.target.parentNode;
+    }
+
+    const cardId = card.dataset.id;
     setSelectedCardId(cardId);
   };
 
@@ -37,11 +44,11 @@ function CardListing() {
         {cards.map((card) => (
           // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
           <li
-            className="card-listing-item"
+            className="clickable card-listing-item"
             key={card.card_id}
             data-id={card.card_id}
           >
-            <span className="circle" />
+            <span className="clickable circle" />
             {card.card_name}
           </li>
         ))}
