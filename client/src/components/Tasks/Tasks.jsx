@@ -11,12 +11,15 @@ export default function Tasks({
   const { selectedCardId, selectedDateId, setCardData } = useContext(CardContext);
 
   const handleClick = async (e) => {
-    const classList = Array.from(e.target.classList);
-    if (!(classList.includes("task") || classList.includes("circle"))) return;
+    if (!(e.target.matches(".clickable"))) return;
 
-    // fixes undefined id if user clicks on circle
     let task = e.target;
-    if (classList.includes("circle")) {
+
+    // access id when user clicks on nested elements
+    if (e.target.matches(".circle") || e.target.matches(".task-text")) {
+      task = e.target.parentNode.parentNode;
+    }
+    if (e.target.matches(".center-vertical")) {
       task = e.target.parentNode;
     }
 
@@ -53,10 +56,10 @@ export default function Tasks({
   return (
     <div className={`tasks ${taskDone && "completed-tasks"}`} onClick={handleClick}>
       {tasks.map((task) => (
-        <div key={task.taskId} data-taskid={task.taskId} className="task">
-          <div className="center-vertical">
-            <div className="circle" />
-            <span>{task.taskText}</span>
+        <div key={task.taskId} data-taskid={task.taskId} className="clickable task">
+          <div className="clickable center-vertical">
+            <div className="clickable circle" />
+            <span className="clickable task-text">{task.taskText}</span>
           </div>
           <DropdownMenu config={[
             {

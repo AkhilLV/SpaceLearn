@@ -13,12 +13,16 @@ export function CardProvider({ children }) {
     <CardContext.Provider value={{
       cards,
       setCards,
+
       selectedCardId,
       setSelectedCardId,
+
       cardData,
       setCardData,
+
       selectedDateId,
       setSelectedDateId,
+
       selectedDate,
       setSelectedDate,
     }}
