@@ -1,8 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 
-import { motion } from "framer-motion";
-
 import Sidebar from "../components/Sidebar/Sidebar";
 import InputModal from "../components/InputModal/InputModal";
 import CardSection from "../components/CardSection/CardSection";

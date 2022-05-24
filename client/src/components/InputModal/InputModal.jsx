@@ -7,6 +7,7 @@ import close from "../../assets/close.svg";
 import { getCards, postCard } from "../../api";
 
 import addDaysToDate from "../../helpers/addDaysToDate";
+
 import CardContext from "../../contexts/CardContext";
 import ModalContext from "../../contexts/ModalContext";
 

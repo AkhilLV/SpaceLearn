@@ -24,8 +24,6 @@ function Login() {
 
     if (!username.trim() || !password) return setShowInfoModal([true, "Fill all fields"]);
 
-    setIsLoading(true);
-
     async function loginUser() {
       await login({ username, password });
       setIsLoggedIn(true);
@@ -34,11 +32,17 @@ function Login() {
 
     try {
       if (action === "login") {
+        setIsLoading(true);
         await loginUser();
         // eslint-disable-next-line consistent-return
         return;
       }
 
+      if (password.split("").length < 8) {
+        return setShowInfoModal([true, "Password should be 8 characters or more"]);
+      }
+
+      setIsLoading(true);
       await register({ username, password });
       setShowInfoModal([true, "User registered"]);
 
