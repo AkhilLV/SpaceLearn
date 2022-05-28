@@ -2,13 +2,25 @@ const pool = require("../db/db");
 
 module.exports = {
   get: async (req, res) => {
-    const tasks = await pool.query("SELECT task_id, task_text FROM tasks WHERE card_id = $1", [req.params.cardId]);
-    res.send(tasks.rows);
+    const { cardId } = req.params;
+
+    if (typeof cardId !== "number") return res.status(400).send({ message: "cardId should be a number" });
+
+    try {
+      const tasks = await pool.query("SELECT task_id, task_text FROM tasks WHERE card_id = $1", [cardId]);
+      res.send(tasks.rows);
+    } catch (err) {
+      res.status(500).send({ message: "tasks not fetched" });
+      throw err;
+    }
   },
 
   post: async (req, res) => {
     const { cardId } = req.params;
     const { taskText } = req.body;
+
+    if (typeof cardId !== "number") return res.status(400).send({ message: "cardId should be a number" });
+    if (typeof taskText !== "string") return res.status(400).send({ message: "taskText should be a string" });
 
     const client = await pool.connect();
 
@@ -23,45 +35,61 @@ module.exports = {
       });
 
       await client.query("COMMIT");
-      res.status(200).send({ message: "task added" });
+      res.send({ message: "task added" });
     } catch (err) {
       await client.query("ROLLBACK");
-      res.status(400).send({ message: "task not added" });
+      res.status(500).send({ message: "task not added" });
       throw err;
     } finally {
       client.release();
     }
   },
 
-  put: async (req, res) => {
+  updateText: async (req, res) => {
     const { taskId } = req.params;
     const { taskText } = req.body;
 
-    if (typeof taskId !== "number") return res.send({ message: "taskId should be a number" });
-    if (typeof taskText !== "string") return res.send({ message: "taskText should be a string" });
+    if (typeof taskId !== "number") return res.status(400).send({ message: "taskId should be a number" });
+    if (typeof taskText !== "string") return res.status(400).send({ message: "taskText should be a string" });
 
-    await pool.query("UPDATE tasks SET task_text = $1 WHERE task_id = $2", [taskText, taskId]);
-    res.send({ message: "Success" });
+    try {
+      await pool.query("UPDATE tasks SET task_text = $1 WHERE task_id = $2", [taskText, taskId]);
+      res.send({ message: "task updated" });
+    } catch (err) {
+      res.status(500).send({ message: "task text not updated" });
+      throw err;
+    }
   },
 
-  patch: async (req, res) => {
+  updateStatus: async (req, res) => {
     const { taskId, cardDateId } = req.params;
     const { taskDone } = req.body;
 
-    if (typeof taskDone !== "boolean") return res.status(404).send({ message: "taskDone should be boolean" });
+    if (typeof taskId !== "number") return res.status(400).send({ message: "taskId should be a number" });
+    if (typeof cardDateId !== "number") return res.status(400).send({ message: "cardDateId should be a number" });
+    if (typeof taskDone !== "boolean") return res.status(400).send({ message: "taskDone should be boolean" });
 
     try {
       await pool.query("UPDATE task_status SET task_done = $1 WHERE task_id = $2 AND card_date_id = $3", [taskDone, taskId, cardDateId]);
       res.send({ message: "Success" });
     } catch (err) {
-      res.status(400).send({ message: "task not patched" });
+      res.status(500).send({ message: "task status not updated" });
       throw err;
     }
   },
 
   delete: async (req, res) => {
-    await pool.query("DELETE FROM tasks WHERE task_id = $1", [req.params.taskId]);
-    res.send({ message: "Success" });
+    const { taskId } = req.params;
+
+    if (typeof taskId !== "number") return res.status(400).send({ message: "taskId should be a number" });
+
+    try {
+      await pool.query("DELETE FROM tasks WHERE task_id = $1", [taskId]);
+      res.send({ message: "task deleted" });
+    } catch (err) {
+      res.status(500).send({ message: "task not deleted" });
+      throw err;
+    }
   },
 };
 
