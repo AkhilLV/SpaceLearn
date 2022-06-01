@@ -8,7 +8,7 @@ module.exports = {
       const cards = await pool.query("SELECT card_id, card_name FROM cards WHERE user_id = $1", [userId]);
       res.send(cards.rows);
     } catch (err) {
-      res.status(400).send({ message: "cards not fetched" });
+      res.status(500).send({ message: "cards not fetched" });
       throw err;
     }
   },
@@ -31,7 +31,7 @@ module.exports = {
       res.send({ card: { cardId: cardId.rows[0].card_id }, message: "card added" });
     } catch (err) {
       await client.query("ROLLBACK");
-      res.status(400).send({ message: "card not added" });
+      res.status(500).send({ message: "card not added" });
       throw err;
     } finally {
       client.release();
@@ -40,8 +40,6 @@ module.exports = {
 
   get: async (req, res) => {
     const { cardId } = req.params;
-
-    if (isNaN(cardId)) return res.send({ message: "card_id not valid" });
 
     const client = await pool.connect();
 
@@ -86,7 +84,31 @@ module.exports = {
 
       res.send(cardData);
     } catch (err) {
-      res.status(400).send({ message: "card_not_fetched" });
+      res.status(500).send({ message: "card not fetched" });
+      throw err;
+    } finally {
+      client.release();
+    }
+  },
+
+  // in dev
+  patch: async (req, res) => {
+    const { cardId } = req.params;
+    const { cardName, cardDates } = req.body;
+
+    const client = await pool.connect();
+    try {
+      await client.query("BEGIN");
+      await client.query("UPDATE cards SET card_name = $1 WHERE card_id = $2 RETURNING card_id", [cardName, cardId]);
+
+      cardDates.forEach(async (cardDate) => {
+        await client.query("UPDATE card_dates SET card_date = $1 WHERE card_date_id = $2 RETURNING card_id", [cardId.rows[0].card_id, cardDate]);
+      });
+
+      await client.query("COMMIT");
+      res.send({ message: "card updated" });
+    } catch (err) {
+      res.status(500).send({ message: "card not updated" });
       throw err;
     } finally {
       client.release();
@@ -98,10 +120,10 @@ module.exports = {
 
     try {
       await pool.query("DELETE FROM cards WHERE card_id = $1", [cardId]);
-      res.send({ message: "card_deleted" });
+      res.send({ message: "card deleted" });
     } catch (err) {
-      console.log(err);
-      res.status(400).send({ message: "card_not_deleted" });
+      res.status(500).send({ message: "card not deleted" });
+      throw err;
     }
   },
 };

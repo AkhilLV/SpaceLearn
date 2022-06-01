@@ -8,7 +8,7 @@ router.get("/", controller.getAll);
 
 router.post(
   "/",
-  body("cardName").isString(),
+  body("cardName").isString().isLength({ min: 1 }),
   body("cardDates").isArray({ min: 1 }),
   (req, res) => {
     const errors = validationResult(req);

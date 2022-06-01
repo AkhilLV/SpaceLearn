@@ -51,3 +51,5 @@ app.use("/cards", isLoggedIn, CardRoute);
 CardRoute.use("/:cardId/tasks", isLoggedIn, TaskRoute);
 
 app.listen(PORT, () => console.log(`Server is running at PORT: ${PORT}`));
+
+module.exports = app; // for testing

@@ -7,8 +7,8 @@ const controller = require("../controllers/TaskController");
 router.get("/", controller.get);
 router.post("/", controller.post);
 
-router.put("/:taskId", controller.put);
-router.patch("/:taskId/:cardDateId", controller.patch);
+router.put("/:taskId", controller.updateText);
+router.patch("/:taskId/:cardDateId", controller.updateStatus);
 router.delete("/:taskId", controller.delete);
 
 module.exports = router;
