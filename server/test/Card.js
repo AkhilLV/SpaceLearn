@@ -90,7 +90,7 @@ describe("Cards", () => {
   });
 
   describe("/GET cards/:cardId", () => {
-    it("should not GET the card with id 1321", (done) => {
+    it("should not GET the card with id 1321(non existent)", (done) => {
       chai.request(server)
         .get("/cards/1321")
         .end((err, res) => {
@@ -113,6 +113,15 @@ describe("Cards", () => {
         .get("/cards/asd2")
         .end((err, res) => {
           res.should.have.status(400);
+          done();
+        });
+    });
+
+    it("should not GET the card with id 9 (unautorised)", (done) => {
+      chai.request(server)
+        .get("/cards/9")
+        .end((err, res) => {
+          res.should.have.status(403);
           done();
         });
     });

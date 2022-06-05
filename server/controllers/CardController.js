@@ -1,5 +1,7 @@
 const pool = require("../db/db");
 
+const ApiError = require("../error/ApiError");
+
 module.exports = {
   getAll: async (req, res) => {
     const userId = req.user.user_id;
@@ -41,13 +43,19 @@ module.exports = {
   get: async (req, res) => {
     const { cardId } = req.params;
 
+    const result = await pool.query("SELECT card_id FROM cards WHERE user_id = $1 AND card_id = $2", [req.user.user_id, cardId]);
+    if (result.rows.length === 0) return res.status(403).send({ message: "Unauthorised request" });
+
     const client = await pool.connect();
 
     try {
       const cardData = {};
       cardData.cardId = cardId;
 
-      const cardName = await client.query("SELECT card_name FROM cards WHERE card_id = $1", [cardId]);
+      const cardName = await client.query("SELECT card_name FROM cards WHERE card_id = $1 AND user_id = $2", [cardId, req.user.user_id]);
+
+      if (cardName.rows.length === 0) return res.status(400).send({ message: "Invalid cardId" });
+
       cardData.cardName = cardName.rows[0].card_name;
 
       const cardDates = await client.query(`

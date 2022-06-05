@@ -3,7 +3,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import moreMenu from "../../assets/more-menu.svg";
 
-export default function DropdownMenu({ config }) {
+export default function DropdownMenu({ buttons }) {
   const [showDropdownMenu, setShowDropdownMenu] = useState(false);
 
   return (
@@ -16,7 +16,7 @@ export default function DropdownMenu({ config }) {
       <AnimatePresence>
         {showDropdownMenu && (
           <motion.div className="dropdown" initial={{ scale: 0.5 }} animate={{ scale: 1 }} exit={{ scale: 0 }}>
-            {config.map((button) => <motion.button key={button.buttonName} type="button" onClick={(e) => { button.handler(e, setShowDropdownMenu); }}>{button.buttonName}</motion.button>)}
+            {buttons.map((button) => <motion.button key={button.buttonName} type="button" onClick={(e) => { button.handler(e, setShowDropdownMenu); }}>{button.buttonName}</motion.button>)}
           </motion.div>
         )}
       </AnimatePresence>

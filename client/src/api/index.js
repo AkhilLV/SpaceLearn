@@ -8,8 +8,9 @@ const API = axios.create({
 export const getCards = () => API.get("/cards");
 export const getCard = (cardId) => API.get(`/cards/${cardId}`);
 export const deleteCard = (cardId) => API.delete(`/cards/${cardId}`);
-
 export const postCard = (data) => API.post("/cards", data);
+
+export const editCard = (cardId, data) => API.patch(`/cards/${cardId}`, data);
 
 export const addTask = (cardId, data) => API.post(`/cards/${cardId}/tasks`, data);
 export const crossTask = (cardId, taskId, cardDateId, data) => API.patch(`/cards/${cardId}/tasks/${taskId}/${cardDateId}`, data);

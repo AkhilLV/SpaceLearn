@@ -1,15 +1,21 @@
-import { useContext, useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 
 import "./Sidebar.css";
 import taskBoard from "../../assets/task-board.svg";
 
+import Form from "../Form/Form";
 import CardListing from "../CardListing/CardListing";
 
-import { getCards } from "../../api";
+import { getCards, postCard } from "../../api";
 import CardContext from "../../contexts/CardContext";
+import ModalContext from "../../contexts/ModalContext";
+import generateCardDates from "../../helpers/generateCardDates";
 
-function Sidebar({ setShowInputModal }) {
-  const { setCards, cards } = useContext(CardContext);
+function Sidebar() {
+  const [showForm, setShowForm] = useState(false);
+
+  const { setShowInfoModal } = useContext(ModalContext);
+  const { setCards, cards, setSelectedCardId } = useContext(CardContext);
 
   useEffect(() => {
     (async () => {
@@ -25,9 +31,50 @@ function Sidebar({ setShowInputModal }) {
     })();
   }, []);
 
+  const handleAddCardForm = async (e, inputValues) => {
+    const cardName = inputValues[1];
+    const cardDate = new Date(inputValues[2]);
+
+    if (!cardName || !cardDate) return setShowInfoModal([true, "Fill all fields"]);
+
+    const cardDates = generateCardDates(cardDate);
+
+    try {
+      const postRes = await postCard({ cardName, cardDates });
+      setSelectedCardId(postRes.data.card.cardId);
+
+      const res = await getCards();
+      setCards(res.data);
+      setShowForm(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="sidebar">
-      <button type="button" title="Add new card" className="circle" onClick={() => setShowInputModal(true)}>+</button>
+      <button type="button" title="Add new card" className="circle" onClick={() => setShowForm(true)}>+</button>
+
+      {showForm && (
+      <Form
+        headerText="Add card"
+        inputItems={[
+          {
+            id: 1,
+            labelText: "Card Name",
+            inputType: "text",
+          },
+          {
+            id: 2,
+            labelText: "Card Date",
+            inputType: "date",
+          },
+        ]}
+        submitBtnText="Create card"
+        onSubmit={handleAddCardForm}
+        setShowForm={setShowForm}
+      />
+      )}
 
       {cards
         ? <CardListing />

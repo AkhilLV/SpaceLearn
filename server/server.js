@@ -18,6 +18,8 @@ const AuthRoute = require("./routes/Auth");
 const CardRoute = require("./routes/Card");
 const TaskRoute = require("./routes/Task");
 
+const apiErrorHandler = require("./error/apiErrorHandler");
+
 const app = express();
 const PORT = process.env.PORT || 4000;
 
@@ -49,6 +51,8 @@ require("./passportConfig")(passport);
 app.use("/auth", AuthRoute);
 app.use("/cards", isLoggedIn, CardRoute);
 CardRoute.use("/:cardId/tasks", isLoggedIn, TaskRoute);
+
+app.use(apiErrorHandler);
 
 app.listen(PORT, () => console.log(`Server is running at PORT: ${PORT}`));
 
