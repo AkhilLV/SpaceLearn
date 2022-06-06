@@ -2,6 +2,8 @@ const passport = require("passport");
 const bcrypt = require("bcryptjs");
 const pool = require("../db/db");
 
+const ApiError = require("../error/ApiError");
+
 module.exports = {
   login: (req, res, next) => {
     passport.authenticate("local", (err, user) => {
