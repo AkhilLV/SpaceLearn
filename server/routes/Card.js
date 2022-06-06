@@ -14,7 +14,7 @@ router.post(
   "/",
   body("cardName").isString().isLength({ min: 1 }),
   body("cardDates").isArray({ min: 1 }),
-  check("cardDates.*").isISO8601(),
+  check("cardDates.*").isISO8601(), // checks if each item in [cardDates] is a date
   (req, res, next) => {
     const errors = validationResult(req);
 

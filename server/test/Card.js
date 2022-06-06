@@ -2,7 +2,6 @@ process.env.NODE_ENV = "test";
 
 const chai = require("chai");
 const chaiHttp = require("chai-http");
-const pool = require("../db/db");
 const server = require("../server");
 
 const should = chai.should();
@@ -81,6 +80,19 @@ describe("Cards", () => {
         .send({
           cardName: "my card",
           cardDates: 123,
+        })
+        .end((err, res) => {
+          res.should.have.status(400);
+          done();
+        });
+    });
+
+    it("should not post a card", (done) => {
+      chai.request(server)
+        .post("/cards")
+        .send({
+          cardName: "my card",
+          cardDates: [123, null],
         })
         .end((err, res) => {
           res.should.have.status(400);
