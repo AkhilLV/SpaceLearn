@@ -107,10 +107,10 @@ module.exports = {
     const client = await pool.connect();
     try {
       await client.query("BEGIN");
-      await client.query("UPDATE cards SET card_name = $1 WHERE card_id = $2 RETURNING card_id", [cardName, cardId]);
+      await client.query("UPDATE cards SET card_name = $1 WHERE card_id = $2", [cardName, cardId]);
 
       cardDates.forEach(async (cardDate) => {
-        await client.query("UPDATE card_dates SET card_date = $1 WHERE card_date_id = $2 RETURNING card_id", [cardId.rows[0].card_id, cardDate]);
+        await client.query("UPDATE card_dates SET card_date = $1 WHERE card_date_id = $2 ", [cardDate.cardDate, cardDate.cardDateId]);
       });
 
       await client.query("COMMIT");

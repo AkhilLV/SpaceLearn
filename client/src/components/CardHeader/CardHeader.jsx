@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 
-import { deleteCard, getCards, editCard } from "../../api";
+import { deleteCard, getCards, editCard, getCard } from "../../api";
 
 import generateCardDates from "../../helpers/generateCardDates";
 
@@ -14,7 +14,7 @@ import ModalContext from "../../contexts/ModalContext";
 
 export default function CardHeader() {
   const {
-    selectedCardId, setSelectedCardId, setCards, cardData,
+    selectedCardId, setSelectedCardId, setCards, cardData, setCardData,
   } = useContext(CardContext);
 
   const { setShowInfoModal } = useContext(ModalContext);
@@ -44,20 +44,23 @@ export default function CardHeader() {
   };
 
   const handleEditCardForm = async (e, inputValues) => {
-    const cardName = inputValues[1];
-    const cardDate = new Date(inputValues[2]);
+    // maybe dont send a request at all if values have not changed
+    const cardName = inputValues[1] || cardData.cardName;
+    const cardDate = (inputValues[2] && new Date(inputValues[2])) || cardData.cardDates[0].cardDate;
 
     if (!cardName || !cardDate) return setShowInfoModal([true, "Fill all fields"]);
 
     const cardDates = generateCardDates(cardDate);
 
-    const newCardDates = cardData.cardDates.map((item, i) => {
-      return { cardDate: cardDates[i], cardDateId: item.cardDate.Id };
+    const cardDatesWithIds = cardData.cardDates.map((cardDate, i) => {
+      return { cardDate: cardDates[i], cardDateId: cardDate.cardDateId };
     });
 
     try {
-      const postRes = await editCard(selectedCardId, { cardName, cardDates });
-      setSelectedCardId(postRes.data.card.cardId);
+      await editCard(selectedCardId, { cardName, cardDates: cardDatesWithIds });
+
+      const resCard = await getCard(selectedCardId);
+      setCardData(resCard.data);
 
       const res = await getCards();
       setCards(res.data);

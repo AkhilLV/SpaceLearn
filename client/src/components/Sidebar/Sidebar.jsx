@@ -33,9 +33,9 @@ function Sidebar() {
 
   const handleAddCardForm = async (e, inputValues) => {
     const cardName = inputValues[1];
-    const cardDate = new Date(inputValues[2]);
+    const cardDate = inputValues[2] && new Date(inputValues[2]);
 
-    if (!cardName || !cardDate) return setShowInfoModal([true, "Fill all fields"]);
+    if (!(cardName && cardDate)) return setShowInfoModal([true, "Fill all fields"]);
 
     const cardDates = generateCardDates(cardDate);
 
@@ -48,6 +48,7 @@ function Sidebar() {
       setShowForm(false);
     } catch (err) {
       console.log(err);
+      setShowInfoModal([true, "Oops. Something went wrong"]);
     }
   };
 

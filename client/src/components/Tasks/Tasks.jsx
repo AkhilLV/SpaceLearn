@@ -60,7 +60,7 @@ export default function Tasks({
             <div className="clickable circle" />
             <span className="clickable task-text">{task.taskText}</span>
           </div>
-          <DropdownMenu config={[
+          <DropdownMenu buttons={[
             {
               buttonName: "Delete",
               handler: handleDelete,

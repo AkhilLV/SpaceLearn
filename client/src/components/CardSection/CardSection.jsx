@@ -22,8 +22,10 @@ function CardSection() {
     (async () => {
       try {
         const res = await getCard(selectedCardId);
+
         setSelectedDateId(res.data.cardDates[0].cardDateId);
         setSelectedDate(res.data.cardDates[0].cardDate);
+
         setCardData(res.data);
       } catch (err) {
         console.log(err);
