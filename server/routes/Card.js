@@ -23,7 +23,7 @@ router.post(
       return;
     }
 
-    controller.post(req, res);
+    controller.post(req, res, next);
   },
 );
 
@@ -38,7 +38,7 @@ router.get(
       return;
     }
 
-    controller.get(req, res);
+    controller.get(req, res, next);
   },
 );
 
@@ -57,7 +57,7 @@ router.patch(
       return;
     }
 
-    controller.patch(req, res);
+    controller.patch(req, res, next);
   },
 );
 
@@ -72,7 +72,7 @@ router.delete(
       return;
     }
 
-    controller.delete(req, res);
+    controller.delete(req, res, next);
   },
 );
 

@@ -3,19 +3,19 @@ const pool = require("../db/db");
 const ApiError = require("../error/ApiError");
 
 module.exports = {
-  getAll: async (req, res) => {
+  getAll: async (req, res, next) => {
     const userId = req.user.user_id;
 
     try {
       const cards = await pool.query("SELECT card_id, card_name FROM cards WHERE user_id = $1", [userId]);
       res.send(cards.rows);
     } catch (err) {
-      res.status(500).send({ message: "cards not fetched" });
+      next(ApiError.internal({ errors: err }));
       throw err;
     }
   },
 
-  post: async (req, res) => {
+  post: async (req, res, next) => {
     const userId = req.user.user_id;
     const { cardName, cardDates } = req.body;
 
@@ -33,18 +33,18 @@ module.exports = {
       res.send({ card: { cardId: cardId.rows[0].card_id }, message: "card added" });
     } catch (err) {
       await client.query("ROLLBACK");
-      res.status(500).send({ message: "card not added" });
+      next(ApiError.internal({ errors: err }));
       throw err;
     } finally {
       client.release();
     }
   },
 
-  get: async (req, res) => {
+  get: async (req, res, next) => {
     const { cardId } = req.params;
 
     const result = await pool.query("SELECT card_id FROM cards WHERE user_id = $1 AND card_id = $2", [req.user.user_id, cardId]);
-    if (result.rows.length === 0) return res.status(403).send({ message: "Unauthorised request" });
+    if (result.rows.length === 0) return next(ApiError.unauthorised({ errors: "unauthorised" }));
 
     const client = await pool.connect();
 
@@ -54,7 +54,7 @@ module.exports = {
 
       const cardName = await client.query("SELECT card_name FROM cards WHERE card_id = $1 AND user_id = $2", [cardId, req.user.user_id]);
 
-      if (cardName.rows.length === 0) return res.status(400).send({ message: "Invalid cardId" });
+      if (cardName.rows.length === 0) return next(ApiError.badRequest({ errors: "invalid card id" }));
 
       cardData.cardName = cardName.rows[0].card_name;
 
@@ -92,7 +92,7 @@ module.exports = {
 
       res.send(cardData);
     } catch (err) {
-      res.status(500).send({ message: "card not fetched" });
+      next(ApiError.internal({ errors: err }));
       throw err;
     } finally {
       client.release();
@@ -100,7 +100,7 @@ module.exports = {
   },
 
   // in dev
-  patch: async (req, res) => {
+  patch: async (req, res, next) => {
     const { cardId } = req.params;
     const { cardName, cardDates } = req.body;
 
@@ -116,21 +116,21 @@ module.exports = {
       await client.query("COMMIT");
       res.send({ message: "card updated" });
     } catch (err) {
-      res.status(500).send({ message: "card not updated" });
+      next(ApiError.internal({ errors: err }));
       throw err;
     } finally {
       client.release();
     }
   },
 
-  delete: async (req, res) => {
+  delete: async (req, res, next) => {
     const { cardId } = req.params;
 
     try {
       await pool.query("DELETE FROM cards WHERE card_id = $1", [cardId]);
       res.send({ message: "card deleted" });
     } catch (err) {
-      res.status(500).send({ message: "card not deleted" });
+      next(ApiError.internal({ errors: err }));
       throw err;
     }
   },

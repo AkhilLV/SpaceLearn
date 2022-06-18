@@ -11,6 +11,10 @@ class ApiError {
   static internal(msg) {
     return new ApiError(500, msg);
   }
+
+  static unauthorised(msg) {
+    return new ApiError(403, msg);
+  }
 }
 
 module.exports = ApiError;
