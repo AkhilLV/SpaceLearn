@@ -9,7 +9,7 @@ module.exports = {
     passport.authenticate("local", (err, user) => {
       if (err) throw err;
       if (!user) {
-        res.status(400).send({ message: "user_not_found" });
+        next(ApiError.badRequest({ message: "user_not_found" })); // change message to error, breaking change
       } else {
         req.logIn(user, (err) => {
           if (err) throw err;
@@ -18,14 +18,14 @@ module.exports = {
       }
     })(req, res, next);
   },
-  register: async (req, res) => {
+  register: async (req, res, next) => {
     const { username, password } = req.body;
 
     const encryptedPassword = await bcrypt.hash(password, 10);
 
     pool.query("SELECT username FROM users WHERE username = $1", [username], (err, result) => {
       if (err) throw err;
-      if (result.rows.length) return res.status(400).send({ message: "user_exists" });
+      if (result.rows.length) return next(ApiError.badRequest({ message: "user_exists" }));
 
       pool.query("INSERT INTO users (username, password) VALUES ($1, $2)", [username, encryptedPassword], (err) => {
         if (err) throw err;
