@@ -7,7 +7,11 @@ import close from "../../assets/close.svg";
 function Form({
   headerText = "", inputItems = [], submitBtnText = "Submit", onSubmit = () => {}, setShowForm,
 }) {
-  const [inputValues, setInputValues] = useState({});
+  // set default inputValues
+  const [inputValues, setInputValues] = useState(inputItems.reduce((acc, inputItem) => {
+    acc[inputItem.id] = inputItem.inputValue || "";
+    return acc;
+  }, {}));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,7 +49,7 @@ function Form({
                 key={item.id}
                 className="input"
                 type={item.inputType}
-                value={inputValues[item.id] || item.inputValue || ""}
+                value={inputValues[item.id]}
                 onChange={onChange(item.id)}
               />
             </>
