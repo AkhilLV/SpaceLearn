@@ -1,17 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useContext } from "react";
 
-import Sidebar from "../components/Sidebar/Sidebar";
-import CardSection from "../components/CardSection/CardSection";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import Dashboard from "../../components/Dashboard/Dashboard";
 
 import "./DashboardPage.css";
 
-import UserContext from "../contexts/UserContext";
-import CardContext from "../contexts/CardContext";
+import UserContext from "../../contexts/UserContext";
 
 function DashboardPage() {
   const { isLoggedIn } = useContext(UserContext);
-  const { selectedCardId } = useContext(CardContext);
 
   const navigate = useNavigate();
 
@@ -23,7 +21,7 @@ function DashboardPage() {
     <div id="dashboard">
       <Sidebar />
 
-      {selectedCardId && <CardSection />}
+      <Dashboard />
     </div>
   );
 }

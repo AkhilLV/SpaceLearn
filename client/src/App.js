@@ -9,9 +9,10 @@ import "./index.css";
 import { UserProvider } from "./contexts/UserContext";
 import { CardProvider } from "./contexts/CardContext";
 
+import CardPage from "./pages/CardPage/CardPage";
 import LandingPage from "./pages/LandingPage";
 import AuthPage from "./pages/AuthPage";
-import DashboardPage from "./pages/DashboardPage";
+import DashboardPage from "./pages/DashboardPage/DashboardPage";
 
 import Modal from "./components/Modal/Modal";
 import ModalContext from "./contexts/ModalContext";
@@ -30,6 +31,7 @@ function App() {
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/auth" element={<AuthPage />} />
+              <Route path="/cards/:cardId" element={<CardPage />} />
               <Route path="/dashboard" element={<DashboardPage />} />
             </Routes>
           </CardProvider>

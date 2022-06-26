@@ -1,6 +1,8 @@
 import { useState, useContext } from "react";
 
-import { deleteCard, getCards, editCard, getCard } from "../../api";
+import {
+  deleteCard, getCards, editCard, getCard,
+} from "../../api";
 
 import generateCardDates from "../../helpers/generateCardDates";
 
@@ -52,9 +54,7 @@ export default function CardHeader() {
 
     const cardDates = generateCardDates(cardDate);
 
-    const cardDatesWithIds = cardData.cardDates.map((cardDate, i) => {
-      return { cardDate: cardDates[i], cardDateId: cardDate.cardDateId };
-    });
+    const cardDatesWithIds = cardData.cardDates.map((cardDate, i) => ({ cardDate: cardDates[i], cardDateId: cardDate.cardDateId }));
 
     try {
       await editCard(selectedCardId, { cardName, cardDates: cardDatesWithIds });
