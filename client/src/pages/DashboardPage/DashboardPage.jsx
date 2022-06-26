@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useContext } from "react";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
-import Dashboard from "../../components/Dashboard/Dashboard";
 
 import "./DashboardPage.css";
 
@@ -21,7 +20,7 @@ function DashboardPage() {
     <div id="dashboard">
       <Sidebar />
 
-      <Dashboard />
+      <h1>Dashboard</h1>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 
 import "./Sidebar.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import taskBoard from "../../assets/task-board.svg";
 
 import Form from "../Form/Form";
@@ -80,6 +80,13 @@ function Sidebar() {
         setShowForm={setShowForm}
       />
       )}
+
+      <div className="dashboard-menu">
+        <Link to="/dashboard" className="dashboard-link">
+          <span className="clickable circle" />
+          Dashboard
+        </Link>
+      </div>
 
       {cards.length
         ? <CardListing />
