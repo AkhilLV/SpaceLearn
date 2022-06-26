@@ -39,7 +39,7 @@ function CardListing() {
         child.classList.add("active");
       }
     });
-  }, [cardId]);
+  }, [cardId, cards]);
 
   return (
     <div className="card-listing">
