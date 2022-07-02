@@ -20,7 +20,22 @@ function DashboardPage() {
     <div id="dashboard">
       <Sidebar />
 
-      <h1>Dashboard</h1>
+      <div className="dashboard-content">
+        <header>
+          <h1>Hello Jake</h1>
+          <span className="circle"></span>
+        </header>
+
+        <p className="select-date">Showing tasks for 23 June</p>
+
+        <div className="box-container">
+          <div className="box">3 tasks left</div>
+          <div className="box box-green">7 tasks completed</div>
+        </div>
+
+        <h1>Your list</h1>
+      </div>
+
     </div>
   );
 }
