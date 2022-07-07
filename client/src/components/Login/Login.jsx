@@ -52,7 +52,7 @@ function Login() {
       if (err.response.data.message === "user_exists") {
         setShowInfoModal([true, "User exists"]);
       } else if (err.response.data.message === "user_not_found") {
-        setShowInfoModal([true, "User not found"]);
+        setShowInfoModal([true, "Check your username or password"]);
       }
       setIsLoading(false);
     }
