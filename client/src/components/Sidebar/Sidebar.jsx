@@ -7,6 +7,8 @@ import taskBoard from "../../assets/task-board.svg";
 import Form from "../Form/Form";
 import CardListing from "../CardListing/CardListing";
 
+import addIcon from "../../assets/icons/add.svg";
+
 import { getCards, postCard } from "../../api";
 
 import CardContext from "../../contexts/CardContext";
@@ -65,7 +67,7 @@ function Sidebar() {
         className="circle"
         onClick={() => setShowForm(true)}
       >
-        +
+        <img src={addIcon} alt="" />
       </button>
 
       {showForm && (
