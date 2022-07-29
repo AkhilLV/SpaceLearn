@@ -1,6 +1,6 @@
 const express = require("express");
 const {
-  body, check, param, validationResult,
+  body, check, param, query, validationResult,
 } = require("express-validator");
 
 const ApiError = require("../error/ApiError");
@@ -8,13 +8,30 @@ const ApiError = require("../error/ApiError");
 const router = express.Router();
 const controller = require("../controllers/CardController");
 
-router.get("/", controller.getAll);
+router.get(
+  "/",
+  query("cardDate").optional().isISO8601(),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      next(ApiError.badRequest({ errors: errors.array() }));
+      return;
+    }
+
+    if (req.query.cardDate) {
+      controller.getAllByDate(req, res, next);
+    } else {
+      controller.getAll(req, res, next);
+    }
+  },
+);
 
 router.post(
   "/",
   body("cardName").isString().isLength({ min: 1 }),
   body("cardDates").isArray({ min: 1 }),
-  check("cardDates.*").isISO8601(), // checks if each item in [cardDates] is a date
+  check("cardDates.*").isISO8601(),
   (req, res, next) => {
     const errors = validationResult(req);
 
