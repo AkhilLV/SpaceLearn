@@ -11,10 +11,12 @@
   --space-green-light: #72ff66;
   --transition: 250ms ease-in-out;
   --shadow: 0px 10px 30px rgba(0, 0, 0, 0.8);
+
+  --icon-width: 22px;
 }
 
 body {
-  background-color: #222;
+  background-color: #141414;
   font-family: "Inter";
   color: #fff;
 }

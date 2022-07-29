@@ -1,5 +1,5 @@
 .sidebar {
-  background-color: rgb(43, 43, 43);
+  background-color: #1e1e1e;
   padding: 20px 30px;
   height: 100vh;
 }
@@ -7,10 +7,11 @@
 .sidebar .add-card-btn {
   /* why does this work? */
   background-color: transparent;
+  margin-bottom: 15px;
 }
 
 .sidebar .add-card-btn img {
-  width: 45px;
+  width: 40px;
 }
 
 .sidebar .no-card-dialog {
@@ -34,12 +35,12 @@
   margin-top: 20px;
 }
 
-.sidebar .dashboard-menu .dashboard-link {
+.sidebar .dashboard-link {
   display: flex;
   align-items: center;
   text-decoration: none;
   color: #fff;
-  padding: 10px 15px;
+  padding: 12px 17px;
   margin-bottom: 6px;
   border-radius: 50px;
   transition: 200ms ease-in-out;
@@ -58,7 +59,7 @@
 }
 
 .sidebar .dashboard-menu .dashboard-link img {
-  width: 22px;
+  width: var(--icon-width);
   /* Convert svg color to white */
   filter: invert(92%) sepia(100%) saturate(0%) hue-rotate(202deg)
     brightness(106%) contrast(106%);

@@ -1,10 +1,10 @@
 import "./CardListing.css";
 
 import { Link, useNavigate, useParams } from "react-router-dom";
-import {
-  useContext, useEffect, useRef,
-} from "react";
+import { useContext, useEffect, useRef } from "react";
 import CardContext from "../../contexts/CardContext";
+
+import searchIcon from "../../assets/icons/search.svg";
 
 function CardListing() {
   const { cards } = useContext(CardContext);
@@ -43,23 +43,28 @@ function CardListing() {
 
   return (
     <div className="card-listing">
-      <h3>All Cards</h3>
-      <div ref={cardContainer} onClick={handleClick} className="card-listing-container">
+      <header>
+        <h3>All Cards</h3>
+        <img src={searchIcon} alt="" />
+      </header>
+      <div
+        ref={cardContainer}
+        onClick={handleClick}
+        className="card-listing-container"
+      >
         {cards.map((card) => (
           // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
           <Link
             to={`/cards/${card.card_id}`}
-            className="clickable card-listing-item"
+            className="clickable card-listing-item dashboard-link"
             key={card.card_id}
             data-id={card.card_id}
           >
             <span className="clickable circle" />
             {card.card_name}
           </Link>
-
         ))}
       </div>
-
     </div>
   );
 }
