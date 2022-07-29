@@ -1,13 +1,13 @@
-header {
+header.site-header {
   margin-top: 40px;
   margin-bottom: 35px;
 }
 
-header a {
+header.site-header a {
   text-decoration: none;
   color: #fff;
 }
 
-header h3 {
+header.site-header h3 {
   font-size: 18px;
 }

@@ -1,6 +1,10 @@
 import { useState, useContext } from "react";
 
-import { deleteCard, getCards, editCard, getCard } from "../../api";
+import { useParams, useNavigate } from "react-router-dom";
+
+import {
+  deleteCard, getCards, editCard, getCard,
+} from "../../api";
 
 import generateCardDates from "../../helpers/generateCardDates";
 
@@ -14,8 +18,11 @@ import ModalContext from "../../contexts/ModalContext";
 
 export default function CardHeader() {
   const {
-    selectedCardId, setSelectedCardId, setCards, cardData, setCardData,
+    setCards, cardData, setCardData,
   } = useContext(CardContext);
+  const { cardId } = useParams();
+
+  const navigate = useNavigate();
 
   const { setShowInfoModal } = useContext(ModalContext);
 
@@ -25,13 +32,11 @@ export default function CardHeader() {
     setShowDropdownMenu(false);
 
     try {
-      await deleteCard(selectedCardId);
+      await deleteCard(cardId);
 
       const res = await getCards();
 
-      setSelectedCardId(false);
-
-      if (!res.data.length) return setCards(false);
+      navigate("/dashboard");
       setCards(res.data);
     } catch (err) {
       console.log(err);
@@ -52,14 +57,12 @@ export default function CardHeader() {
 
     const cardDates = generateCardDates(cardDate);
 
-    const cardDatesWithIds = cardData.cardDates.map((cardDate, i) => {
-      return { cardDate: cardDates[i], cardDateId: cardDate.cardDateId };
-    });
+    const cardDatesWithIds = cardData.cardDates.map((cardDate, i) => ({ cardDate: cardDates[i], cardDateId: cardDate.cardDateId }));
 
     try {
-      await editCard(selectedCardId, { cardName, cardDates: cardDatesWithIds });
+      await editCard(cardId, { cardName, cardDates: cardDatesWithIds });
 
-      const resCard = await getCard(selectedCardId);
+      const resCard = await getCard(cardId);
       setCardData(resCard.data);
 
       const res = await getCards();

@@ -1,14 +1,16 @@
 import { useContext, useState } from "react";
 
 import "./TaskInput.css";
-
+import { useNavigate, useParams } from "react-router-dom";
 import { addTask, getCard } from "../../api";
 import CardContext from "../../contexts/CardContext";
 import ModalContext from "../../contexts/ModalContext";
 
 export default function TaskInput() {
-  const { selectedCardId, setCardData } = useContext(CardContext);
+  const { setCardData } = useContext(CardContext);
   const { setShowInfoModal } = useContext(ModalContext);
+
+  const { cardId } = useParams();
 
   const [taskText, setTaskText] = useState("");
 
@@ -18,8 +20,8 @@ export default function TaskInput() {
     if (!taskText) return setShowInfoModal([true, "Enter a new task"]);
 
     try {
-      await addTask(selectedCardId, { taskText });
-      const res = await getCard(selectedCardId);
+      await addTask(cardId, { taskText });
+      const res = await getCard(cardId);
       setTaskText("");
       setCardData(res.data);
     } catch (err) {

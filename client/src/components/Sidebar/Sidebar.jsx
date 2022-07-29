@@ -1,12 +1,14 @@
 import { useState, useContext, useEffect } from "react";
 
 import "./Sidebar.css";
+import { useNavigate, Link } from "react-router-dom";
 import taskBoard from "../../assets/task-board.svg";
 
 import Form from "../Form/Form";
 import CardListing from "../CardListing/CardListing";
 
 import { getCards, postCard } from "../../api";
+
 import CardContext from "../../contexts/CardContext";
 import ModalContext from "../../contexts/ModalContext";
 import generateCardDates from "../../helpers/generateCardDates";
@@ -15,7 +17,9 @@ function Sidebar() {
   const [showForm, setShowForm] = useState(false);
 
   const { setShowInfoModal } = useContext(ModalContext);
-  const { setCards, cards, setSelectedCardId } = useContext(CardContext);
+  const { setCards, cards } = useContext(CardContext);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -41,7 +45,7 @@ function Sidebar() {
 
     try {
       const postRes = await postCard({ cardName, cardDates });
-      setSelectedCardId(postRes.data.card.cardId);
+      navigate(`/cards/${postRes.data.card.cardId}`);
 
       const res = await getCards();
       setCards(res.data);
@@ -77,7 +81,14 @@ function Sidebar() {
       />
       )}
 
-      {cards
+      <div className="dashboard-menu">
+        <Link to="/dashboard" className="dashboard-link">
+          <span className="clickable circle" />
+          Dashboard
+        </Link>
+      </div>
+
+      {cards.length
         ? <CardListing />
         : (
           <div className="no-card-dialog center">

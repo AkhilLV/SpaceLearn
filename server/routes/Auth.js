@@ -9,7 +9,7 @@ const controller = require("../controllers/AuthController");
 router.post(
   "/login",
   body("username").isString().isLength({ min: 1 }),
-  body("password").isString().isLength({ min: 8 }),
+  body("password").isString(),
   (req, res, next) => {
     const errors = validationResult(req);
 

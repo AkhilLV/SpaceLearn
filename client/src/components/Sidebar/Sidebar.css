@@ -58,3 +58,35 @@
 .sidebar .no-card-dialog p {
   text-align: center;
 }
+
+.sidebar .dashboard-menu {
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.sidebar .dashboard-menu .dashboard-link {
+  text-decoration: none;
+  color: #fff;
+  padding: 6px 8px;
+  margin-bottom: 6px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 200ms ease-in-out;
+  width: 250px;
+  font-size: 15px;
+}
+
+.sidebar .dashboard-menu .dashboard-link .circle {
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+  background-color: #555;
+  border-radius: 50%;
+  margin-right: 15px;
+  transition: 200ms ease-in-out;
+}
+
+.sidebar .dashboard-link:hover .circle,
+.sidebar .dashboard-link.active .circle {
+  background-color: cornsilk;
+}

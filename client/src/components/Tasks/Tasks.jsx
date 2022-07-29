@@ -1,5 +1,8 @@
 import { useContext, useState } from "react";
-import { getCard, crossTask, deleteTask, editTask } from "../../api";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  getCard, crossTask, deleteTask, editTask,
+} from "../../api";
 import CardContext from "../../contexts/CardContext";
 import ModalContext from "../../contexts/ModalContext";
 
@@ -11,7 +14,8 @@ import "./Tasks.css";
 export default function Tasks({
   tasks, taskDone,
 }) {
-  const { selectedCardId, selectedDateId, setCardData } = useContext(CardContext);
+  const { selectedDateId, setCardData } = useContext(CardContext);
+  const { cardId } = useParams();
 
   const [selectedTaskId, setSelectedTaskId] = useState(false);
   const [showForm, setShowForm] = useState(false);
@@ -35,9 +39,9 @@ export default function Tasks({
 
     try {
       // function has too many params, hard to read
-      await crossTask(selectedCardId, taskId, selectedDateId, { taskDone: !taskDone });
+      await crossTask(cardId, taskId, selectedDateId, { taskDone: !taskDone });
 
-      const res = await getCard(selectedCardId);
+      const res = await getCard(cardId);
       setCardData(res.data);
     } catch (err) {
       console.log(err);
@@ -55,9 +59,9 @@ export default function Tasks({
     const taskId = getTaskId(e.target);
 
     try {
-      await deleteTask(selectedCardId, taskId);
+      await deleteTask(cardId, taskId);
 
-      const res = await getCard(selectedCardId);
+      const res = await getCard(cardId);
       setCardData(res.data);
     } catch (err) {
       console.log(err);
@@ -78,9 +82,9 @@ export default function Tasks({
     if (!taskText) return setShowInfoModal([true, "Fill all fields"]);
 
     try {
-      await editTask(selectedCardId, selectedTaskId, { taskText });
+      await editTask(cardId, selectedTaskId, { taskText });
 
-      const res = await getCard(selectedCardId);
+      const res = await getCard(cardId);
       setCardData(res.data);
 
       setShowForm(false);
@@ -102,7 +106,7 @@ export default function Tasks({
             // inputValue: cardData.cardName,
           },
         ]}
-        submitBtnText="Edit card"
+        submitBtnText="Edit task"
         onSubmit={handleEditTaskForm}
         setShowForm={setShowForm}
       />
