@@ -8,6 +8,8 @@ import Form from "../Form/Form";
 import CardListing from "../CardListing/CardListing";
 
 import addIcon from "../../assets/icons/add.svg";
+import menuIcon from "../../assets/icons/menu.svg";
+import archiveIcon from "../../assets/icons/archive.svg";
 
 import { getCards, postCard } from "../../api";
 
@@ -92,9 +94,13 @@ function Sidebar() {
       )}
 
       <div className="dashboard-menu">
-        <Link to="/dashboard" className="dashboard-link">
-          <span className="clickable circle" />
-          Dashboard
+        <Link to="/dashboard" className="dashboard-link active">
+          <img className="clickable" src={menuIcon} />
+          <p>Dashboard</p>
+        </Link>
+        <Link to="/archives" className="dashboard-link">
+          <img className="clickable" src={archiveIcon} />
+          <p>Archived</p>
         </Link>
       </div>
 
