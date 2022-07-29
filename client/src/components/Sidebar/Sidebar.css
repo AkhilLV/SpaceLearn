@@ -4,6 +4,15 @@
   height: 100vh;
 }
 
+.sidebar .add-card-btn {
+  /* why does this work? */
+  background-color: transparent;
+}
+
+.sidebar .add-card-btn img {
+  width: 45px;
+}
+
 .sidebar .no-card-dialog {
   flex-direction: column;
   width: 200px;

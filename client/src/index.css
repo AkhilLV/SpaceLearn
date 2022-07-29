@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@300;400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@300;400;700&display=swap");
 
 * {
   margin: 0;
@@ -9,7 +9,7 @@
 :root {
   --space-green: #12ec50;
   --transition: 250ms ease-in-out;
-  --shadow: 0px 10px 30px rgba(0,0,0,0.8);
+  --shadow: 0px 10px 30px rgba(0, 0, 0, 0.8);
 }
 
 body {
@@ -68,7 +68,7 @@ button {
   border-radius: 3px;
   font-size: 17px;
 
-  background: var(--space-green);  
+  background: var(--space-green);
 
   text-align: center;
 }

@@ -64,7 +64,7 @@ function Sidebar() {
       <button
         type="button"
         title="Add new card"
-        className="circle"
+        className="add-card-btn"
         onClick={() => setShowForm(true)}
       >
         <img src={addIcon} alt="" />
