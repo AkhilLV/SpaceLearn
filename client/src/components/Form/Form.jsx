@@ -2,16 +2,22 @@ import { useState } from "react";
 
 import "./Form.css";
 import { motion } from "framer-motion";
-import close from "../../assets/close.svg";
+import close from "../../assets/icons/close.svg";
 
 function Form({
-  headerText = "", inputItems = [], submitBtnText = "Submit", onSubmit = () => {}, setShowForm,
+  headerText = "",
+  inputItems = [],
+  submitBtnText = "Submit",
+  onSubmit = () => {},
+  setShowForm,
 }) {
   // set default inputValues
-  const [inputValues, setInputValues] = useState(inputItems.reduce((acc, inputItem) => {
-    acc[inputItem.id] = inputItem.inputValue || "";
-    return acc;
-  }, {}));
+  const [inputValues, setInputValues] = useState(
+    inputItems.reduce((acc, inputItem) => {
+      acc[inputItem.id] = inputItem.inputValue || "";
+      return acc;
+    }, {})
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,7 +35,12 @@ function Form({
 
   return (
     <>
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="overlay overlay-dark" onClick={() => setShowForm(false)} />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="overlay overlay-dark"
+        onClick={() => setShowForm(false)}
+      />
       <motion.div
         initial="hidden"
         animate="visible"
@@ -38,7 +49,12 @@ function Form({
       >
         <div className="header">
           <h3>{headerText}</h3>
-          <img src={close} className="close" alt="close" onClick={() => setShowForm(false)} />
+          <img
+            src={close}
+            className="close"
+            alt="close"
+            onClick={() => setShowForm(false)}
+          />
         </div>
         <form onSubmit={handleSubmit}>
           {inputItems.map((item) => (
@@ -55,7 +71,9 @@ function Form({
             </>
           ))}
 
-          <button className="btn btn-small" type="submit">{submitBtnText}</button>
+          <button className="btn btn-small" type="submit">
+            {submitBtnText}
+          </button>
         </form>
       </motion.div>
     </>

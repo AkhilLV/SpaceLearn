@@ -39,7 +39,8 @@ function Sidebar() {
     const cardName = inputValues[1];
     const cardDate = inputValues[2] && new Date(inputValues[2]);
 
-    if (!(cardName && cardDate)) return setShowInfoModal([true, "Fill all fields"]);
+    if (!(cardName && cardDate))
+      return setShowInfoModal([true, "Fill all fields"]);
 
     const cardDates = generateCardDates(cardDate);
 
@@ -58,27 +59,34 @@ function Sidebar() {
 
   return (
     <div className="sidebar">
-      <button type="button" title="Add new card" className="circle" onClick={() => setShowForm(true)}>+</button>
+      <button
+        type="button"
+        title="Add new card"
+        className="circle"
+        onClick={() => setShowForm(true)}
+      >
+        +
+      </button>
 
       {showForm && (
-      <Form
-        headerText="Add card"
-        inputItems={[
-          {
-            id: 1,
-            labelText: "Card Name",
-            inputType: "text",
-          },
-          {
-            id: 2,
-            labelText: "Card Date",
-            inputType: "date",
-          },
-        ]}
-        submitBtnText="Create card"
-        onSubmit={handleAddCardForm}
-        setShowForm={setShowForm}
-      />
+        <Form
+          headerText="Add card"
+          inputItems={[
+            {
+              id: 1,
+              labelText: "Card Name",
+              inputType: "text",
+            },
+            {
+              id: 2,
+              labelText: "Card Date",
+              inputType: "date",
+            },
+          ]}
+          submitBtnText="Create card"
+          onSubmit={handleAddCardForm}
+          setShowForm={setShowForm}
+        />
       )}
 
       <div className="dashboard-menu">
@@ -88,14 +96,14 @@ function Sidebar() {
         </Link>
       </div>
 
-      {cards.length
-        ? <CardListing />
-        : (
-          <div className="no-card-dialog center">
-            <img src={taskBoard} alt="a task board" />
-            <p>You have no cards. Try adding some!</p>
-          </div>
-        )}
+      {cards.length ? (
+        <CardListing />
+      ) : (
+        <div className="no-card-dialog center">
+          <img src={taskBoard} alt="a task board" />
+          <p>You have no cards. Try adding some!</p>
+        </div>
+      )}
     </div>
   );
 }
