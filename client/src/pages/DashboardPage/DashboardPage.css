@@ -17,7 +17,7 @@
   margin-right: 10px;
 }
 
-#dashboard .dashboard-content span {
+#dashboard .dashboard-content span.circle {
   display: inline-block;
   height: 15px;
   width: 15px;
@@ -51,4 +51,3 @@
   background-color: var(--space-green);
   color: #333;
 }
-

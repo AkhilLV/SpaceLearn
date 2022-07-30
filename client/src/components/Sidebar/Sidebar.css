@@ -51,7 +51,7 @@
 
 .sidebar .dashboard-menu .dashboard-link.active {
   background-color: var(--space-green-light);
-  color: #111;
+  color: var(--dark);
 }
 
 .sidebar .dashboard-menu .dashboard-link.active img {

@@ -9,6 +9,9 @@
 :root {
   --space-green: #12ec50;
   --space-green-light: #72ff66;
+
+  --dark: #141414;
+
   --transition: 250ms ease-in-out;
   --shadow: 0px 10px 30px rgba(0, 0, 0, 0.8);
 
@@ -16,7 +19,7 @@
 }
 
 body {
-  background-color: #141414;
+  background-color: var(--dark);
   font-family: "Inter";
   color: #fff;
 }
@@ -83,7 +86,7 @@ button {
 
 .btn:hover {
   background: #fff;
-  color: #111;
+  color: var(--dark);
   transform: translateY(-2px);
 }
 

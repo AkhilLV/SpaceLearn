@@ -28,7 +28,7 @@
 
 .card-listing .card-listing-item.active,
 .card-listing .card-listing-item:hover {
-  background-color: #141414;
+  background-color: var(--dark);
 }
 
 .card-listing .card-listing-item .circle {
