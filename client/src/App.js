@@ -16,6 +16,7 @@ import DashboardPage from "./pages/DashboardPage/DashboardPage";
 
 import Modal from "./components/Modal/Modal";
 import ModalContext from "./contexts/ModalContext";
+import ArchivePage from "./pages/ArchivePage/ArchivePage";
 
 function App() {
   const { showInfoModal } = useContext(ModalContext);
@@ -23,8 +24,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-
-        {showInfoModal[0] && <Modal /> }
+        {showInfoModal[0] && <Modal />}
 
         <UserProvider>
           <CardProvider>
@@ -33,10 +33,10 @@ function App() {
               <Route path="/auth" element={<AuthPage />} />
               <Route path="/cards/:cardId" element={<CardPage />} />
               <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/archives" element={<ArchivePage />} />
             </Routes>
           </CardProvider>
         </UserProvider>
-
       </div>
     </Router>
   );
