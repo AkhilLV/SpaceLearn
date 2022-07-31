@@ -32,8 +32,16 @@ export default function TaskInput() {
   return (
     <div className="task-input">
       <form onSubmit={handleSubmit}>
-        <input className="input" type="text" placeholder="Ex: Study redox reactions" value={taskText} onChange={(e) => setTaskText(e.target.value)} />
-        <button type="submit" className="circle">+</button>
+        <input
+          className="input"
+          type="text"
+          placeholder="What do you want to learn today?"
+          value={taskText}
+          onChange={(e) => setTaskText(e.target.value)}
+        />
+        <button type="submit" className="circle">
+          +
+        </button>
       </form>
     </div>
   );

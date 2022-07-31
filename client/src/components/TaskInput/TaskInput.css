@@ -1,9 +1,6 @@
 .card .task-input {
-  margin-bottom: 30px;
-}
-
-.card .task-input form {
   margin-top: 20px;
+  margin-bottom: 45px;
 }
 
 .card .task-input form {
@@ -20,11 +17,11 @@
   height: 40px;
   line-height: 40px;
   border-radius: 50%;
-  color: #fff;
+  color: var(--dark);
   text-align: center;
   font-weight: 1000;
   font-size: 20px;
-  background: #02c39a;
+  background: #fff;
   border: none;
   cursor: pointer;
 }
