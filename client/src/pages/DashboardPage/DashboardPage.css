@@ -25,29 +25,25 @@
   border-radius: 50%;
 }
 
-#dashboard p.select-date {
+#dashboard .dashboard-content p.select-date {
   text-decoration: underline;
   margin-bottom: 25px;
 }
 
-#dashboard .box-container {
+#dashboard .dashboard-content .box-container {
   display: flex;
   gap: 20px;
   margin-bottom: 20px;
-}
-
-#dashboard .box-container {
-  display: flex;
   font-size: 25px;
 }
 
-#dashboard .box {
+#dashboard .dashboard-content .box-container .box {
   padding: 40px 30px;
   background-color: rgb(241, 59, 35);
   border-radius: 10px;
 }
 
-#dashboard .box.box-green {
+#dashboard .dashboard-content .box-container .box.box-green {
   background-color: var(--space-green);
   color: #333;
 }

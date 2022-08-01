@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function Hero() {
   return (
-    <div className="hero center">
+    <div className="center" id="hero">
       <h1>
         Up your game with <br /> spaced learning cards
       </h1>

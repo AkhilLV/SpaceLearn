@@ -1,30 +1,30 @@
-.hero {
+#hero {
   flex-direction: column;
   text-align: center;
   margin-bottom: 40px;
 }
 
-.hero h1 {
+#hero h1 {
   margin-bottom: 25px;
 }
 
-.hero p {
+#hero p {
   width: 30%;
   margin-bottom: 35px;
   line-height: 1.4;
 }
 
-.hero button {
+#hero button {
   margin-bottom: 30px;
 }
 
-.hero a.link {
+#hero a.link {
   text-decoration: underline;
   color: #fff;
   margin-bottom: 50px;
 }
 
-.hero .preview-image {
+#hero .preview-image {
   background-image: url("../../assets/preview-image.png");
   height: 400px;
   width: 80%;
@@ -34,21 +34,21 @@
 }
 
 @media (max-width: 840px) {
-  .hero h1 {
+  #hero h1 {
     width: 80%;
   }
 
-  .hero p {
+  #hero p {
     width: 80%;
   }
 }
 
 @media (max-width: 375px) {
-  .hero h1 {
+  #hero h1 {
     width: 100%;
   }
 
-  .hero p {
+  #hero p {
     width: 100%;
   }
 }

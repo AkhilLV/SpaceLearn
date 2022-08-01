@@ -26,7 +26,11 @@ function CardPage() {
   // }, []);
 
   const {
-    setSelectedDateId, setSelectedDate, setCardData, cardData, selectedDate,
+    setSelectedDateId,
+    setSelectedDate,
+    setCardData,
+    cardData,
+    selectedDate,
   } = useContext(CardContext);
 
   const { cardId } = useParams();
@@ -53,39 +57,41 @@ function CardPage() {
   };
 
   return (
-    <div id="dashboard">
+    <div id="card-page">
       <Sidebar />
 
       <AnimatePresence>
         {cardData && (
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-          variants={variants}
-          className="card"
-        >
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            variants={variants}
+            className="card"
+          >
+            <CardHeader />
 
-          <CardHeader />
+            <TaskInput />
 
-          <TaskInput />
+            <DateSelector />
 
-          <DateSelector />
-
-          {cardData.tasks
-            && (
+            {cardData.tasks && (
               <>
                 <Tasks
-                  tasks={cardData.tasks.filter((task) => !task.taskDates[selectedDate])}
+                  tasks={cardData.tasks.filter(
+                    (task) => !task.taskDates[selectedDate]
+                  )}
                   taskDone={false}
                 />
                 <Tasks
-                  tasks={cardData.tasks.filter((task) => task.taskDates[selectedDate])}
+                  tasks={cardData.tasks.filter(
+                    (task) => task.taskDates[selectedDate]
+                  )}
                   taskDone
                 />
               </>
             )}
-        </motion.div>
+          </motion.div>
         )}
       </AnimatePresence>
     </div>

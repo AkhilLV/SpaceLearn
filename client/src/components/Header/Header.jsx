@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function Header() {
   return (
-    <header className="center site-header">
+    <header id="site-header" className="center">
       <Link to="/">
         <h3>space learn</h3>
       </Link>
