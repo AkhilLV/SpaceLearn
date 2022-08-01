@@ -1,0 +1,8 @@
+#not-found-page {
+  height: 100vh;
+  flex-direction: column;
+}
+
+#not-found-page h1 {
+  margin-bottom: 40px;
+}
