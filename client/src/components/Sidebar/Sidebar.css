@@ -1,5 +1,5 @@
 .sidebar {
-  background-color: #1e1e1e;
+  background-color: var(--dark-lighter);
   padding: 20px 30px;
   height: 100vh;
 }
@@ -43,10 +43,10 @@
   padding: 12px 17px;
   margin-bottom: 6px;
   border-radius: 50px;
-  transition: 200ms ease-in-out;
   width: 250px;
   font-size: 15px;
   gap: 15px;
+  transition: var(--transition);
 }
 
 .sidebar .dashboard-menu .dashboard-link.active {
@@ -54,13 +54,11 @@
   color: var(--dark);
 }
 
-.sidebar .dashboard-menu .dashboard-link.active img {
-  filter: none;
-}
-
 .sidebar .dashboard-menu .dashboard-link img {
   width: var(--icon-width);
-  /* Convert svg color to white */
+}
+
+.sidebar .dashboard-menu .dashboard-link.active img {
   filter: invert(92%) sepia(100%) saturate(0%) hue-rotate(202deg)
     brightness(106%) contrast(106%);
 }
