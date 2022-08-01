@@ -1,6 +1,6 @@
 import "./CardListing.css";
 
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useContext, useEffect, useRef } from "react";
 import CardContext from "../../contexts/CardContext";
 
@@ -33,7 +33,6 @@ function CardListing() {
       </header>
       <div ref={cardContainer} className="card-listing-container">
         {cards.map((card) => (
-          // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
           <Link
             to={`/cards/${card.card_id}`}
             className="card-listing-item dashboard-link"
