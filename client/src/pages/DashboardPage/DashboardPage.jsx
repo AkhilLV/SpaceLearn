@@ -23,7 +23,7 @@ function DashboardPage() {
       <div className="dashboard-content">
         <header>
           <h1>Hello Jake</h1>
-          <span className="circle"></span>
+          <span className="circle" />
         </header>
 
         <p className="select-date">Showing tasks for 23 June</p>
@@ -35,7 +35,6 @@ function DashboardPage() {
 
         <h1>Your list</h1>
       </div>
-
     </div>
   );
 }

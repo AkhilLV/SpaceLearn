@@ -13,6 +13,8 @@ import CardPage from "./pages/CardPage/CardPage";
 import LandingPage from "./pages/LandingPage";
 import AuthPage from "./pages/AuthPage";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
+import ArchivePage from "./pages/ArchivePage/ArchivePage";
+import NotFound from "./pages/NotFound/NotFound";
 
 import Modal from "./components/Modal/Modal";
 import ModalContext from "./contexts/ModalContext";
@@ -23,8 +25,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-
-        {showInfoModal[0] && <Modal /> }
+        {showInfoModal[0] && <Modal />}
 
         <UserProvider>
           <CardProvider>
@@ -33,10 +34,11 @@ function App() {
               <Route path="/auth" element={<AuthPage />} />
               <Route path="/cards/:cardId" element={<CardPage />} />
               <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/archives" element={<ArchivePage />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </CardProvider>
         </UserProvider>
-
       </div>
     </Router>
   );

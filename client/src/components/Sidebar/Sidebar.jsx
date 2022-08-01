@@ -95,11 +95,11 @@ function Sidebar() {
 
       <div className="dashboard-menu">
         <Link to="/dashboard" className="dashboard-link active">
-          <img className="clickable" src={menuIcon} />
+          <img src={menuIcon} />
           <p>Dashboard</p>
         </Link>
         <Link to="/archives" className="dashboard-link">
-          <img className="clickable" src={archiveIcon} />
+          <img src={archiveIcon} />
           <p>Archived</p>
         </Link>
       </div>

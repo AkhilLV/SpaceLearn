@@ -1,3 +1,7 @@
+#card-page {
+  display: flex;
+}
+
 .card {
   padding: 40px 40px;
 }
