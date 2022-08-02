@@ -1,5 +1,7 @@
 import Sidebar from "../../components/Sidebar/Sidebar";
 
+import "./ArchivePage.css";
+
 function ArchivePage() {
   return (
     <div id="archive-page">

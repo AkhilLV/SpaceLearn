@@ -11,11 +11,12 @@
   --space-green-light: #72ff66;
 
   --dark: #141414;
+  --dark-lighter: #1e1e1e;
 
-  --transition: 250ms ease-in-out;
+  --transition: all 250ms ease-in-out;
   --shadow: 0px 10px 30px rgba(0, 0, 0, 0.8);
 
-  --icon-width: 22px;
+  --icon-width: 17px;
 }
 
 body {

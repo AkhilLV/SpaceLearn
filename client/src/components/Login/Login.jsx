@@ -1,7 +1,7 @@
 import "./Login.css";
 
 import { useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 
 import { login, register } from "../../api";
 import UserContext from "../../contexts/UserContext";
@@ -19,34 +19,48 @@ function Login() {
 
   const navigate = useNavigate();
 
+  async function loginUser(username, password) {
+    await login({ username, password });
+    setIsLoggedIn(true);
+
+    localStorage.setItem("username", username);
+    localStorage.setItem("password", password);
+
+    navigate("/dashboard");
+  }
+
+  const loggedInUsername = localStorage.getItem("username");
+  if (loggedInUsername) {
+    loginUser(loggedInUsername, localStorage.getItem("password"));
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!username.trim() || !password) return setShowInfoModal([true, "Fill all fields"]);
-
-    async function loginUser() {
-      await login({ username, password });
-      setIsLoggedIn(true);
-      navigate("/dashboard");
+    if (!username.trim() || !password) {
+      return setShowInfoModal([true, "Fill all fields"]);
     }
 
     try {
       if (action === "login") {
         setIsLoading(true);
-        await loginUser();
+        await loginUser(username, password);
         // eslint-disable-next-line consistent-return
         return;
       }
 
       if (password.split("").length < 8) {
-        return setShowInfoModal([true, "Password should be 8 characters or more"]);
+        return setShowInfoModal([
+          true,
+          "Password should be 8 characters or more",
+        ]);
       }
 
       setIsLoading(true);
       await register({ username, password });
       setShowInfoModal([true, "User registered"]);
 
-      await loginUser();
+      await loginUser(username, password);
     } catch (err) {
       console.log(err);
       if (err.response.data.message === "user_exists") {
@@ -70,14 +84,30 @@ function Login() {
     <div className="login-form">
       <form onSubmit={handleSubmit}>
         <h1>{action === "login" ? "Login" : "Register"}</h1>
-        <a href="#" type="button" onClick={changeChoice}>{action === "login" ? "Sign up instead" : "Sign in instead"}</a>
+        <a href="#" type="button" onClick={changeChoice}>
+          {action === "login" ? "Sign up instead" : "Sign in instead"}
+        </a>
         <label>Username:</label>
-        <input className="input" onChange={(e) => setUsername(e.target.value)} value={username} type="text" placeholder="Ex: John Doe" />
+        <input
+          className="input"
+          onChange={(e) => setUsername(e.target.value)}
+          value={username}
+          type="text"
+          placeholder="Ex: John Doe"
+        />
 
         <label>Password:</label>
-        <input className="input" onChange={(e) => setPassword(e.target.value)} value={password} type="password" placeholder="Ex: 12345" />
+        <input
+          className="input"
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+          type="password"
+          placeholder="Ex: 12345"
+        />
 
-        <button className="btn" type="submit">{isLoading ? <div className="loader" /> : action}</button>
+        <button className="btn" type="submit">
+          {isLoading ? <div className="loader" /> : action}
+        </button>
       </form>
     </div>
   );

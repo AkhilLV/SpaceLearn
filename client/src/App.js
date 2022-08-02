@@ -14,6 +14,7 @@ import LandingPage from "./pages/LandingPage";
 import AuthPage from "./pages/AuthPage";
 import DashboardPage from "./pages/DashboardPage/DashboardPage";
 import ArchivePage from "./pages/ArchivePage/ArchivePage";
+import SettingsPage from "./pages/SettingsPage/SettingsPage";
 import NotFound from "./pages/NotFound/NotFound";
 
 import Modal from "./components/Modal/Modal";
@@ -35,6 +36,7 @@ function App() {
               <Route path="/cards/:cardId" element={<CardPage />} />
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/archives" element={<ArchivePage />} />
+              <Route path="/settings" element={<SettingsPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </CardProvider>

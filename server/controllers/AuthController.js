@@ -23,14 +23,32 @@ module.exports = {
 
     const encryptedPassword = await bcrypt.hash(password, 10);
 
-    pool.query("SELECT username FROM users WHERE username = $1", [username], (err, result) => {
-      if (err) throw err;
-      if (result.rows.length) return next(ApiError.badRequest({ message: "user_exists" }));
-
-      pool.query("INSERT INTO users (username, password) VALUES ($1, $2)", [username, encryptedPassword], (err) => {
+    pool.query(
+      "SELECT username FROM users WHERE username = $1",
+      [username],
+      (err, result) => {
         if (err) throw err;
-        res.send({ message: "user_added" });
-      });
+        if (result.rows.length)
+          return next(ApiError.badRequest({ message: "user_exists" }));
+
+        pool.query(
+          "INSERT INTO users (username, password) VALUES ($1, $2)",
+          [username, encryptedPassword],
+          (err) => {
+            if (err) throw err;
+            res.send({ message: "user_added" });
+          }
+        );
+      }
+    );
+  },
+  logout: (req, res, next) => {
+    req.logout((err) => {
+      if (err) {
+        return next(ApiError.internal({ errors: err }));
+      }
     });
+
+    res.send("logged out");
   },
 };
