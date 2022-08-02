@@ -19,7 +19,7 @@ router.post(
     }
 
     controller.login(req, res, next);
-  },
+  }
 );
 
 router.post(
@@ -35,7 +35,11 @@ router.post(
     }
 
     controller.register(req, res, next);
-  },
+  }
 );
+
+router.post("/logout", (req, res, next) => {
+  controller.logout(req, res, next);
+});
 
 module.exports = router;

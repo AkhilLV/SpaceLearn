@@ -1,7 +1,7 @@
 import "./Login.css";
 
 import { useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 
 import { login, register } from "../../api";
 import UserContext from "../../contexts/UserContext";
@@ -19,6 +19,21 @@ function Login() {
 
   const navigate = useNavigate();
 
+  async function loginUser(username, password) {
+    await login({ username, password });
+    setIsLoggedIn(true);
+
+    localStorage.setItem("username", username);
+    localStorage.setItem("password", password);
+
+    navigate("/dashboard");
+  }
+
+  const loggedInUsername = localStorage.getItem("username");
+  if (loggedInUsername) {
+    loginUser(loggedInUsername, localStorage.getItem("password"));
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -26,16 +41,10 @@ function Login() {
       return setShowInfoModal([true, "Fill all fields"]);
     }
 
-    async function loginUser() {
-      await login({ username, password });
-      setIsLoggedIn(true);
-      navigate("/dashboard");
-    }
-
     try {
       if (action === "login") {
         setIsLoading(true);
-        await loginUser();
+        await loginUser(username, password);
         // eslint-disable-next-line consistent-return
         return;
       }
@@ -51,7 +60,7 @@ function Login() {
       await register({ username, password });
       setShowInfoModal([true, "User registered"]);
 
-      await loginUser();
+      await loginUser(username, password);
     } catch (err) {
       console.log(err);
       if (err.response.data.message === "user_exists") {
