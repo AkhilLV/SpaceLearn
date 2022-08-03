@@ -17,7 +17,7 @@
   padding: 10px 0;
 
   background: #fff;
-  color: #333;
+  color: var(--dark-lighter-2);
 }
 
 .card .menu .dropdown button:first-child {
