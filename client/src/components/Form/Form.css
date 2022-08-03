@@ -10,7 +10,7 @@
 }
 
 .input-modal .header {
-  border-bottom: #333 3px solid;
+  border-bottom: var(--dark-lighter-2) 3px solid;
   display: flex;
   justify-content: space-between;
   align-items: center;

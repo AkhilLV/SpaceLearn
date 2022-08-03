@@ -12,7 +12,7 @@
   padding: 10px 10px;
   cursor: pointer;
   transition: 250ms;
-  background: #333;
+  background: var(--dark-lighter-2);
 }
 
 .card .date-selector .date.active {
