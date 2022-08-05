@@ -20,35 +20,22 @@ module.exports = {
 
   post: async (req, res, next) => {
     const userId = req.user.user_id;
-    const { cardName, cardDates } = req.body;
-
-    const client = await pool.connect();
+    const { cardName, cardColor } = req.body;
 
     try {
-      await client.query("BEGIN");
-      const cardId = await client.query(
-        "INSERT INTO cards (user_id, card_name) VALUES ($1, $2) RETURNING card_id",
-        [userId, cardName]
+      const card = await pool.query(
+        "INSERT INTO cards (user_id, card_name, card_color) VALUES ($1, $2, $3) RETURNING card_id, card_name, card_color",
+        [userId, cardName, cardColor]
       );
 
-      cardDates.forEach(async (cardDate) => {
-        await client.query(
-          "INSERT INTO card_dates (card_id, card_date) VALUES ($1, $2)",
-          [cardId.rows[0].card_id, cardDate]
-        );
-      });
-
-      await client.query("COMMIT");
       res.send({
-        card: { cardId: cardId.rows[0].card_id },
+        data: {
+          card: card.rows[0],
+        },
         message: "card added",
       });
     } catch (err) {
-      await client.query("ROLLBACK");
       next(ApiError.internal({ errors: err }));
-      throw err;
-    } finally {
-      client.release();
     }
   },
 
@@ -59,9 +46,9 @@ module.exports = {
       "SELECT card_id FROM cards WHERE user_id = $1 AND card_id = $2",
       [req.user.user_id, cardId]
     );
-    if (result.rows.length === 0)
+    if (result.rows.length === 0) {
       return next(ApiError.unauthorised({ errors: "unauthorised" }));
-
+    }
     const client = await pool.connect();
 
     try {
