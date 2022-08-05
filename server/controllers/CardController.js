@@ -18,62 +18,6 @@ module.exports = {
     }
   },
 
-  getAllByDate: async (req, res, next) => {
-    const userId = req.user.user_id;
-    const { cardDate } = req.query;
-
-    try {
-      const cards = await pool.query(
-        `
-        SELECT
-          json_agg(
-            json_build_object(
-              'cardId', cards.card_id,
-              'cardName', cards.card_name,
-              'tasks', 
-              (
-                SELECT json_agg((json_build_object(
-                  'taskId', tasks.task_id,
-                  'cardId', tasks.card_id,
-                  'taskText', tasks.task_text,
-                  'taskDates', (
-                    SELECT json_object_agg(
-                      card_dates.card_date, task_status.task_done
-                    )
-                    FROM (cards
-                    INNER JOIN card_dates
-                    ON cards.card_id = card_dates.card_id)
-                    INNER JOIN task_status
-                    ON (task_status.task_id = tasks.task_id AND task_status.card_date_id = card_dates.card_date_id)
-                    GROUP BY cards.card_name
-                      )
-                    )
-                  ))
-                FROM (cards
-                INNER JOIN tasks
-                ON tasks.card_id = cards.card_id)
-                INNER JOIN card_dates ON cards.card_id = card_dates.card_id
-                WHERE card_dates.card_date = $2
-              )
-            )
-          )
-        FROM
-          cards 
-          INNER JOIN card_dates ON cards.card_id = card_dates.card_id
-        WHERE 
-          cards.user_id = $1 
-          AND card_dates.card_date = $2
-      `,
-        [userId, cardDate]
-      );
-
-      res.json(cards.rows[0].json_agg);
-    } catch (err) {
-      next(ApiError.internal({ errors: err }));
-      throw err;
-    }
-  },
-
   post: async (req, res, next) => {
     const userId = req.user.user_id;
     const { cardName, cardDates } = req.body;

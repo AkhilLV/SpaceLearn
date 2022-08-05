@@ -1,6 +1,10 @@
 const express = require("express");
 const {
-  body, check, param, query, validationResult,
+  body,
+  check,
+  param,
+  query,
+  validationResult,
 } = require("express-validator");
 
 const ApiError = require("../error/ApiError");
@@ -8,24 +12,13 @@ const ApiError = require("../error/ApiError");
 const router = express.Router();
 const controller = require("../controllers/CardController");
 
-router.get(
-  "/",
-  query("cardDate").optional().isISO8601(),
-  (req, res, next) => {
-    const errors = validationResult(req);
+router.get("/", query("cardDate").optional().isISO8601(), (req, res, next) => {
+  const errors = validationResult(req);
 
-    if (!errors.isEmpty()) {
-      next(ApiError.badRequest({ errors: errors.array() }));
-      return;
-    }
-
-    if (req.query.cardDate) {
-      controller.getAllByDate(req, res, next);
-    } else {
-      controller.getAll(req, res, next);
-    }
-  },
-);
+  if (!errors.isEmpty()) {
+    next(ApiError.badRequest({ errors: errors.array() }));
+  }
+});
 
 router.post(
   "/",
@@ -41,23 +34,19 @@ router.post(
     }
 
     controller.post(req, res, next);
-  },
+  }
 );
 
-router.get(
-  "/:cardId",
-  param("cardId").isInt(),
-  (req, res, next) => {
-    const errors = validationResult(req);
+router.get("/:cardId", param("cardId").isInt(), (req, res, next) => {
+  const errors = validationResult(req);
 
-    if (!errors.isEmpty()) {
-      next(ApiError.badRequest({ errors: errors.array() }));
-      return;
-    }
+  if (!errors.isEmpty()) {
+    next(ApiError.badRequest({ errors: errors.array() }));
+    return;
+  }
 
-    controller.get(req, res, next);
-  },
-);
+  controller.get(req, res, next);
+});
 
 router.patch(
   "/:cardId",
@@ -75,22 +64,18 @@ router.patch(
     }
 
     controller.patch(req, res, next);
-  },
+  }
 );
 
-router.delete(
-  "/:cardId",
-  param("cardId").isInt(),
-  (req, res, next) => {
-    const errors = validationResult(req);
+router.delete("/:cardId", param("cardId").isInt(), (req, res, next) => {
+  const errors = validationResult(req);
 
-    if (!errors.isEmpty()) {
-      next(ApiError.badRequest({ errors: errors.array() }));
-      return;
-    }
+  if (!errors.isEmpty()) {
+    next(ApiError.badRequest({ errors: errors.array() }));
+    return;
+  }
 
-    controller.delete(req, res, next);
-  },
-);
+  controller.delete(req, res, next);
+});
 
 module.exports = router;
