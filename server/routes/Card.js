@@ -18,6 +18,8 @@ router.get("/", query("cardDate").optional().isISO8601(), (req, res, next) => {
   if (!errors.isEmpty()) {
     next(ApiError.badRequest({ errors: errors.array() }));
   }
+
+  controller.getAll(req, res, next);
 });
 
 router.post(

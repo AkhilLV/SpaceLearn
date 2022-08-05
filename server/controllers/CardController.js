@@ -11,7 +11,11 @@ module.exports = {
         "SELECT card_id, card_name, card_color FROM cards WHERE user_id = $1",
         [userId]
       );
-      res.send(cards.rows);
+      res.send({
+        data: {
+          cards: cards.rows,
+        },
+      });
     } catch (err) {
       next(ApiError.internal({ errors: err }));
       throw err;
