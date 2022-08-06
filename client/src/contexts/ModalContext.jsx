@@ -6,11 +6,13 @@ export function ModalProvider({ children }) {
   const [showInfoModal, setShowInfoModal] = useState([false, ""]);
 
   return (
-    <ModalContext.Provider value={{
-      showInfoModal, setShowInfoModal,
-    }}
+    <ModalContext.Provider
+      value={{
+        showInfoModal,
+        setShowInfoModal,
+      }}
     >
-      { children }
+      {children}
     </ModalContext.Provider>
   );
 }

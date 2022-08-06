@@ -7,4 +7,10 @@ import { ModalProvider } from "./contexts/ModalContext";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
-root.render(<React.StrictMode><ModalProvider><App /></ModalProvider></React.StrictMode>);
+root.render(
+  <React.StrictMode>
+    <ModalProvider>
+      <App />
+    </ModalProvider>
+  </React.StrictMode>
+);

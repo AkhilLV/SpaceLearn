@@ -9,21 +9,22 @@ export function CardProvider({ children }) {
   const [selectedDate, setSelectedDate] = useState(false);
 
   return (
-    <CardContext.Provider value={{
-      cards,
-      setCards,
+    <CardContext.Provider
+      value={{
+        cards,
+        setCards,
 
-      cardData,
-      setCardData,
+        cardData,
+        setCardData,
 
-      selectedDateId,
-      setSelectedDateId,
+        selectedDateId,
+        setSelectedDateId,
 
-      selectedDate,
-      setSelectedDate,
-    }}
+        selectedDate,
+        setSelectedDate,
+      }}
     >
-      { children }
+      {children}
     </CardContext.Provider>
   );
 }

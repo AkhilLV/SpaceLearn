@@ -1,8 +1,6 @@
 import { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  getCard, crossTask, deleteTask, editTask,
-} from "../../api";
+import { getCard, crossTask, deleteTask, editTask } from "../../api";
 import CardContext from "../../contexts/CardContext";
 import ModalContext from "../../contexts/ModalContext";
 
@@ -11,9 +9,7 @@ import Form from "../Form/Form";
 
 import "./Tasks.css";
 
-export default function Tasks({
-  tasks, taskDone,
-}) {
+export default function Tasks({ tasks, taskDone }) {
   const { selectedDateId, setCardData } = useContext(CardContext);
   const { cardId } = useParams();
 
@@ -23,7 +19,7 @@ export default function Tasks({
   const { setShowInfoModal } = useContext(ModalContext);
 
   const handleClick = async (e) => {
-    if (!(e.target.matches(".clickable"))) return;
+    if (!e.target.matches(".clickable")) return;
 
     let task = e.target;
 
@@ -96,44 +92,50 @@ export default function Tasks({
   return (
     <>
       {showForm && (
-      <Form
-        headerText="Edit task"
-        inputItems={[
-          {
-            id: 1,
-            labelText: "Task Name",
-            inputType: "text",
-            // inputValue: cardData.cardName,
-          },
-        ]}
-        submitBtnText="Edit task"
-        onSubmit={handleEditTaskForm}
-        setShowForm={setShowForm}
-      />
+        <Form
+          headerText="Edit task"
+          inputItems={[
+            {
+              id: 1,
+              labelText: "Task Name",
+              inputType: "text",
+              // inputValue: cardData.cardName,
+            },
+          ]}
+          submitBtnText="Edit task"
+          onSubmit={handleEditTaskForm}
+          setShowForm={setShowForm}
+        />
       )}
-      <div className={`tasks ${taskDone && "completed-tasks"}`} onClick={handleClick}>
+      <div
+        className={`tasks ${taskDone && "completed-tasks"}`}
+        onClick={handleClick}
+      >
         {tasks.map((task) => (
-          <div key={task.taskId} data-taskid={task.taskId} className="clickable task">
+          <div
+            key={task.taskId}
+            data-taskid={task.taskId}
+            className="clickable task"
+          >
             <div className="clickable center-vertical">
               <div className="clickable circle" />
               <span className="clickable task-text">{task.taskText}</span>
             </div>
-            <DropdownMenu buttons={[
-              {
-                buttonName: "Delete",
-                handler: handleDelete,
-              },
-              {
-                buttonName: "Edit",
-                handler: handleEdit,
-              },
-            ]}
+            <DropdownMenu
+              buttons={[
+                {
+                  buttonName: "Delete",
+                  handler: handleDelete,
+                },
+                {
+                  buttonName: "Edit",
+                  handler: handleEdit,
+                },
+              ]}
             />
           </div>
         ))}
       </div>
-
     </>
-
   );
 }

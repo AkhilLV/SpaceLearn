@@ -6,7 +6,9 @@ export function UserProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
-    <UserContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>{ children }</UserContext.Provider>
+    <UserContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+      {children}
+    </UserContext.Provider>
   );
 }
 

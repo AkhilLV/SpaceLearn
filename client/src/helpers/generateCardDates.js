@@ -1,11 +1,13 @@
-const addDaysToDate = (dateObject, daysToAdd) => { // Date, number
+const addDaysToDate = (dateObject, daysToAdd) => {
+  // Date, number
   const date = new Date(dateObject);
   date.setDate(date.getDate() + daysToAdd);
 
   return date;
 };
 
-const generateCardDates = (startDate) => { // Date
+const generateCardDates = (startDate) => {
+  // Date
   const cardDates = [
     startDate,
     addDaysToDate(startDate, 1),
