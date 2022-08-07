@@ -29,7 +29,7 @@ function CardListing() {
     <div className="card-listing">
       <header>
         <h3>All Cards</h3>
-        <img src={searchIcon} alt="" />
+        <img src={searchIcon} alt="search" />
       </header>
       <div ref={cardContainer} className="card-listing-container">
         {cards.map((card) => (

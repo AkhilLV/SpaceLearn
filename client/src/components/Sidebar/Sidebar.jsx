@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 
 import "./Sidebar.css";
-import { useNavigate, Link, NavLink } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import taskBoard from "../../assets/task-board.svg";
 
 import Form from "../Form/Form";
@@ -71,7 +71,7 @@ function Sidebar() {
         className="add-card-btn"
         onClick={() => setShowForm(true)}
       >
-        <img src={addIcon} alt="" />
+        <img src={addIcon} alt="add" />
       </button>
 
       {showForm && (
@@ -97,15 +97,15 @@ function Sidebar() {
 
       <div className="dashboard-menu">
         <NavLink to="/dashboard" className="dashboard-link">
-          <img src={menuIcon} />
+          <img src={menuIcon} alt="menu" />
           <p>Dashboard</p>
         </NavLink>
         <NavLink to="/archives" className="dashboard-link">
-          <img src={archiveIcon} />
+          <img src={archiveIcon} alt="archive" />
           <p>Archived</p>
         </NavLink>
         <NavLink to="/settings" className="dashboard-link">
-          <img src={settingsIcon} />
+          <img src={settingsIcon} alt="settings" />
           <p>Settings</p>
         </NavLink>
       </div>

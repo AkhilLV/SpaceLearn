@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/jsx-one-expression-per-line */
 import "./Hero.css";
 import { Link } from "react-router-dom";
@@ -10,7 +11,7 @@ function Hero() {
       </h1>
       <p>
         After seven days of learning something new, <br />
-        you forget almost 90% of it. Let's fix that!
+        you forget almost 90% of it. Let&apos;s fix that!
       </p>
       <Link to="/auth">
         <button className="btn" type="button">

@@ -1,7 +1,7 @@
 import "./Login.css";
 
 import { useNavigate } from "react-router-dom";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 
 import { login, register } from "../../api";
 import UserContext from "../../contexts/UserContext";
@@ -19,6 +19,7 @@ function Login() {
 
   const navigate = useNavigate();
 
+  // eslint-disable-next-line no-shadow
   async function loginUser(username, password) {
     await login({ username, password });
     setIsLoggedIn(true);
@@ -45,7 +46,6 @@ function Login() {
       if (action === "login") {
         setIsLoading(true);
         await loginUser(username, password);
-        // eslint-disable-next-line consistent-return
         return;
       }
 
@@ -84,9 +84,9 @@ function Login() {
     <div className="login-form">
       <form onSubmit={handleSubmit}>
         <h1>{action === "login" ? "Login" : "Register"}</h1>
-        <a href="#" type="button" onClick={changeChoice}>
+        <button type="button" onClick={changeChoice}>
           {action === "login" ? "Sign up instead" : "Sign in instead"}
-        </a>
+        </button>
         <label>Username:</label>
         <input
           className="input"

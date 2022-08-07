@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { getCard, crossTask, deleteTask, editTask } from "../../api";
 import CardContext from "../../contexts/CardContext";
 import ModalContext from "../../contexts/ModalContext";
