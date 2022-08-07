@@ -49,12 +49,9 @@ function Form({
       >
         <div className="header">
           <h3>{headerText}</h3>
-          <img
-            src={close}
-            className="close"
-            alt="close"
-            onClick={() => setShowForm(false)}
-          />
+          <button type="button" onClick={() => setShowForm(false)}>
+            <img src={close} alt="close" />
+          </button>
         </div>
         <form onSubmit={handleSubmit}>
           {inputItems.map((item) => (

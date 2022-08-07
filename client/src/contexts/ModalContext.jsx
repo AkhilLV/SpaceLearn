@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-constructed-context-values */
 import { createContext, useState } from "react";
 
 const ModalContext = createContext();

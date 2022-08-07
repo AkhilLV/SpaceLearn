@@ -18,13 +18,6 @@
   margin-bottom: 5px;
 }
 
-.input-modal .header .close {
-  font-weight: 1000;
-  text-decoration: none;
-  color: #fff;
-  cursor: pointer;
-}
-
 .input-modal form {
   padding: 20px 50px;
   padding-bottom: 30px;
