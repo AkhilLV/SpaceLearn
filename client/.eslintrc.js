@@ -23,6 +23,7 @@ module.exports = {
     "react/prop-types": "off",
     "consistent-return": "off",
     "jsx-a11y/label-has-associated-control": "off",
+    "no-console": "off",
     "prettier/prettier": ["error"],
   },
 };
