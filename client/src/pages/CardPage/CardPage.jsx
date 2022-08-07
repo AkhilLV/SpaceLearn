@@ -1,8 +1,7 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useContext } from "react";
 
 import { AnimatePresence, motion } from "framer-motion";
-import UserContext from "../../contexts/UserContext";
 import CardContext from "../../contexts/CardContext";
 
 import { getCard } from "../../api";
@@ -17,14 +16,6 @@ import TaskInput from "../../components/TaskInput/TaskInput";
 import Tasks from "../../components/Tasks/Tasks";
 
 function CardPage() {
-  const { isLoggedIn } = useContext(UserContext);
-
-  const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (!isLoggedIn) return navigate("/auth");
-  // }, []);
-
   const {
     setSelectedDateId,
     setSelectedDate,

@@ -56,6 +56,7 @@ export default function CardHeader() {
 
     const cardDates = generateCardDates(cardDate);
 
+    // eslint-disable-next-line no-shadow
     const cardDatesWithIds = cardData.cardDates.map((cardDate, i) => ({
       cardDate: cardDates[i],
       cardDateId: cardDate.cardDateId,
