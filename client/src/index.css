@@ -66,6 +66,8 @@ button {
   cursor: pointer;
   font-family: "Inter";
 
+  background-color: transparent;
+
   transition: var(--transition);
 }
 
@@ -90,6 +92,12 @@ button {
   background: #fff;
   color: var(--dark);
   transform: translateY(-2px);
+}
+
+.link-btn {
+  text-decoration: underline;
+  background-color: transparent;
+  color: #fff;
 }
 
 /* Inputs */

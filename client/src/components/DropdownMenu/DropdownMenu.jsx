@@ -8,11 +8,9 @@ export default function DropdownMenu({ buttons }) {
 
   return (
     <div className="menu">
-      <img
-        src={moreMenu}
-        alt="more options"
-        onClick={() => setShowDropdownMenu(true)}
-      />
+      <button type="button" onClick={() => setShowDropdownMenu(true)}>
+        <img src={moreMenu} alt="more options" />
+      </button>
 
       {showDropdownMenu && (
         <div className="overlay" onClick={() => setShowDropdownMenu(false)} />
@@ -31,6 +29,7 @@ export default function DropdownMenu({ buttons }) {
               <motion.button
                 key={button.buttonName}
                 type="button"
+                className="btn-dropdown"
                 onClick={(e) => {
                   button.handler(e, setShowDropdownMenu);
                 }}

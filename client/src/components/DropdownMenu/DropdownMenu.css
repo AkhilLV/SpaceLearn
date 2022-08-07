@@ -10,7 +10,7 @@
   z-index: 1000;
 }
 
-.card .menu .dropdown button {
+.card .menu .dropdown .btn-dropdown {
   font-size: 17px;
 
   width: 100px;
@@ -20,21 +20,17 @@
   color: var(--dark-lighter-2);
 }
 
-.card .menu .dropdown button:first-child {
+.card .menu .dropdown .btn-dropdown:first-child {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   border-bottom: 2px #ccc solid;
 }
 
-.card .menu .dropdown button:last-child {
+.card .menu .dropdown .btn-dropdown:last-child {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
 
-.card .menu .dropdown button:hover {
+.card .menu .dropdown .btn-dropdown:hover {
   background: #eee;
-}
-
-.card .menu img {
-  cursor: pointer;
 }

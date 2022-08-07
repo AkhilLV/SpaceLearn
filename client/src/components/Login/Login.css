@@ -9,10 +9,11 @@
   margin-bottom: 24px;
 }
 
-.login-form form a {
+.login-form form .link-btn {
   color: #fff;
   display: block;
   margin-bottom: 30px;
+  font-size: 17px;
 }
 
 .login-form form label {
@@ -27,7 +28,7 @@
   font-size: 16px;
 }
 
-.login-form form button {
+.login-form form .btn {
   padding: 10px 40px;
   margin-bottom: 15px;
   display: flex;
