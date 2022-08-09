@@ -26,10 +26,12 @@ Prerequisites:
    npm start
    ```
 
-2. ```bash
-   cd server
-   npm install
-   npm run start
+2. Run server locally:
+
+   ```bash
+         cd server
+         npm install
+         npm start
    ```
 
 3. Set up postgres database:
