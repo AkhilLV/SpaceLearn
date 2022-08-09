@@ -13,11 +13,27 @@ A glorified todo-list. Create spaced learning cards for your tasks!
 
 ### How to run:
 
-1. `cd client ~ npm install ~ npm start`
-2. `cd server ~ npm install ~ npm run start`
+Prerequisites:
+
+- Node.js
+- PostgreSQL
+
+1. Run client locally:
+
+   ```bash
+   cd client
+   npm install
+   npm start
+   ```
+
+2. ```bash
+   cd server
+   npm install
+   npm run start
+   ```
 
 3. Set up postgres database:
-   ```shell
+   ```bash
    cd server/scripts
    chmod 700 reset-database.sh
    ./reset-database.sh
