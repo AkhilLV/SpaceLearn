@@ -20,11 +20,7 @@ router.get("/", query("cardDate").optional().isISO8601(), (req, res, next) => {
     return;
   }
 
-  if (req.query.cardDate) {
-    controller.getAllByDate(req, res, next);
-  } else {
-    controller.getAll(req, res, next);
-  }
+  controller.getAll(req, res, next);
 });
 
 router.post(
