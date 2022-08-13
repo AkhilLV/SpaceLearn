@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 
+require("dotenv").config();
+
 const passport = require("passport");
 const passportLocal = require("passport-local").Strategy;
 
@@ -9,8 +11,6 @@ const session = require("express-session");
 
 const PgSession = require("connect-pg-simple")(session);
 const pool = require("./db/db");
-
-require("dotenv").config();
 
 const isLoggedIn = require("./middleware/isLoggedIn");
 
@@ -30,7 +30,7 @@ app.use(
   cors({
     origin: process.env.CLIENT_URL,
     credentials: true,
-  }),
+  })
 );
 
 app.use(
@@ -39,7 +39,7 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: true,
-  }),
+  })
 );
 
 app.use(cookieParser(process.env.COOKIE_SECRET));
