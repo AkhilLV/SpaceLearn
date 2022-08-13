@@ -20,35 +20,23 @@ module.exports = {
 
   post: async (req, res, next) => {
     const userId = req.user.user_id;
-    const { cardName, cardDates } = req.body;
-
-    const client = await pool.connect();
+    const { cardName } = req.body;
 
     try {
-      await client.query("BEGIN");
-      const cardId = await client.query(
-        "INSERT INTO cards (user_id, card_name) VALUES ($1, $2) RETURNING card_id",
+      const newCard = await pool.query(
+        "INSERT INTO cards (user_id, card_name) VALUES ($1, $2) RETURNING card_id, card_name",
         [userId, cardName]
       );
 
-      cardDates.forEach(async (cardDate) => {
-        await client.query(
-          "INSERT INTO card_dates (card_id, card_date) VALUES ($1, $2)",
-          [cardId.rows[0].card_id, cardDate]
-        );
-      });
-
-      await client.query("COMMIT");
       res.send({
-        card: { cardId: cardId.rows[0].card_id },
+        data: {
+          card: newCard.rows[0],
+        },
         message: "card added",
       });
     } catch (err) {
-      await client.query("ROLLBACK");
       next(ApiError.internal({ errors: err }));
       throw err;
-    } finally {
-      client.release();
     }
   },
 
@@ -125,33 +113,28 @@ module.exports = {
     }
   },
 
-  // update card name and card dates together
-  patch: async (req, res, next) => {
+  updateCardName: async (req, res, next) => {
     const { cardId } = req.params;
-    const { cardName, cardDates } = req.body;
+    const { cardName } = req.body;
 
-    const client = await pool.connect();
     try {
-      await client.query("BEGIN");
-      await client.query("UPDATE cards SET card_name = $1 WHERE card_id = $2", [
+      await pool.query("UPDATE cards SET card_name = $1 WHERE card_id = $2", [
         cardName,
         cardId,
       ]);
 
-      cardDates.forEach(async (cardDate) => {
-        await client.query(
-          "UPDATE card_dates SET card_date = $1 WHERE card_date_id = $2 ",
-          [cardDate.cardDate, cardDate.cardDateId]
-        );
+      res.send({
+        data: {
+          card: {
+            cardId,
+            cardName,
+          },
+        },
+        message: "card name updated",
       });
-
-      await client.query("COMMIT");
-      res.send({ message: "card updated" });
     } catch (err) {
       next(ApiError.internal({ errors: err }));
       throw err;
-    } finally {
-      client.release();
     }
   },
 
