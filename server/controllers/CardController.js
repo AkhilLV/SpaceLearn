@@ -125,7 +125,7 @@ module.exports = {
     }
   },
 
-  // in dev
+  // update card name and card dates together
   patch: async (req, res, next) => {
     const { cardId } = req.params;
     const { cardName, cardDates } = req.body;

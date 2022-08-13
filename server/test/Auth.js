@@ -11,7 +11,8 @@ chai.use(chaiHttp);
 describe("Auth", () => {
   describe("/POST login", () => {
     it("should log in", (done) => {
-      chai.request(server)
+      chai
+        .request(server)
         .post("/auth/login")
         .send({
           username: "test_user",
@@ -24,7 +25,8 @@ describe("Auth", () => {
     });
 
     it("should not log in", (done) => {
-      chai.request(server)
+      chai
+        .request(server)
         .post("/auth/login")
         .send({
           password: "123232124212",
@@ -36,7 +38,8 @@ describe("Auth", () => {
     });
 
     it("should not log in", (done) => {
-      chai.request(server)
+      chai
+        .request(server)
         .post("/auth/login")
         .send({
           username: "my_non_existent_user",
