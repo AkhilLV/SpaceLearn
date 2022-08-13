@@ -85,7 +85,9 @@ function Login() {
       <form onSubmit={handleSubmit}>
         <h1>{action === "login" ? "Login" : "Register"}</h1>
         <button className="link-btn" type="button" onClick={changeChoice}>
-          {action === "login" ? "Sign up instead" : "Sign in instead"}
+          {action === "login"
+            ? "Don't have an account? Sign up instead"
+            : "Have an account already? Sign in instead"}
         </button>
         <label>Username:</label>
         <input
