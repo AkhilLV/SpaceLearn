@@ -30,7 +30,10 @@ module.exports = {
 
       res.send({
         data: {
-          card: newCard.rows[0],
+          card: {
+            cardId: newCard.rows[0].card_id,
+            cardName,
+          },
         },
         message: "card added",
       });
