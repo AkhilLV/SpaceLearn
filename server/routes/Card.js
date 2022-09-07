@@ -23,6 +23,17 @@ router.get("/", (req, res, next) => {
   controller.getAll(req, res, next);
 });
 
+router.get("/:cardId", param("cardId").isInt(), (req, res, next) => {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    next(ApiError.badRequest({ errors: errors.array() }));
+    return;
+  }
+
+  controller.get(req, res, next);
+});
+
 router.post(
   "/",
   body("cardName").isString().isLength({ min: 1 }),
@@ -39,17 +50,6 @@ router.post(
     controller.post(req, res, next);
   }
 );
-
-router.get("/:cardId", param("cardId").isInt(), (req, res, next) => {
-  const errors = validationResult(req);
-
-  if (!errors.isEmpty()) {
-    next(ApiError.badRequest({ errors: errors.array() }));
-    return;
-  }
-
-  controller.get(req, res, next);
-});
 
 router.patch(
   "/:cardId",

@@ -16,6 +16,21 @@ module.exports = {
     }
   },
 
+  getAll: async (req, res) => {
+    const { cardId } = req.params;
+
+    try {
+      const tasks = await pool.query(
+        "SELECT task_id, task_text FROM tasks WHERE card_id = $1",
+        [cardId]
+      );
+      res.send(tasks.rows);
+    } catch (err) {
+      res.status(500).send({ message: "tasks not fetched" });
+      throw err;
+    }
+  },
+
   post: async (req, res) => {
     const { cardId } = req.params;
     const { taskText, taskDates } = req.body;
