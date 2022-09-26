@@ -28,6 +28,7 @@ function SettingsPage() {
       <Sidebar />
 
       <div id="settings-page-content">
+        <h1>Settings</h1>
         <button type="button" onClick={handleClick} className="btn">
           Logout
         </button>

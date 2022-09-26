@@ -52,6 +52,8 @@ function Sidebar() {
 
     try {
       const postRes = await postCard({ cardName, cardDates });
+      console.log(postRes.data);
+      console.log(postRes.data.card);
       navigate(`/cards/${postRes.data.card.cardId}`);
 
       const res = await getCards();
@@ -59,6 +61,7 @@ function Sidebar() {
       setShowForm(false);
     } catch (err) {
       console.log(err);
+      setShowForm(false);
       setShowInfoModal([true, "Oops. Something went wrong"]);
     }
   };

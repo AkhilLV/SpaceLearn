@@ -30,6 +30,7 @@ function CardPage() {
     (async () => {
       try {
         const res = await getCard(cardId);
+        console.log(res.data);
 
         setSelectedDateId(res.data.cardDates[0].cardDateId);
         setSelectedDate(res.data.cardDates[0].cardDate);

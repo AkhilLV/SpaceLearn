@@ -38,9 +38,7 @@ module.exports = {
                 'taskDate', task_dates.task_date,
                 'isTaskDone', task_dates.task_done
               ))
-              FROM tasks
-              INNER JOIN task_dates
-              ON tasks.task_id = task_dates.task_id
+              FROM task_dates
             )
           ))
           FROM cards

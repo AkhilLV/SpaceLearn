@@ -33,6 +33,8 @@ app.use(
   })
 );
 
+app.use(cookieParser(process.env.COOKIE_SECRET));
+
 app.use(
   session({
     store: new PgSession({ pool }),
@@ -41,8 +43,6 @@ app.use(
     saveUninitialized: true,
   })
 );
-
-app.use(cookieParser(process.env.COOKIE_SECRET));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -54,6 +54,8 @@ CardRoute.use("/:cardId/tasks", isLoggedIn, TaskRoute);
 
 app.use(apiErrorHandler);
 
-app.listen(PORT, () => console.log(`Server is running at PORT: ${PORT}`));
+app.listen(PORT, () =>
+  console.log(`Server is running at http://localhost:${PORT}/`)
+);
 
 module.exports = app; // for testing
