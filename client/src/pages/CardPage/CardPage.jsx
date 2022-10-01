@@ -30,10 +30,9 @@ function CardPage() {
     (async () => {
       try {
         const res = await getCard(cardId);
-        console.log(res.data);
 
-        setSelectedDateId(res.data.cardDates[0].cardDateId);
-        setSelectedDate(res.data.cardDates[0].cardDate);
+        // setSelectedDateId(res.data.data.cardDates[0].cardDateId);
+        // setSelectedDate(res.data.data.cardDates[0].cardDate);
 
         setCardData(res.data);
       } catch (err) {
@@ -65,7 +64,7 @@ function CardPage() {
 
             <TaskInput />
 
-            <DateSelector />
+            {/* <DateSelector /> */}
 
             {cardData.tasks && (
               <>

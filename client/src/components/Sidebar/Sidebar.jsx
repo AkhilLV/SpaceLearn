@@ -52,9 +52,7 @@ function Sidebar() {
 
     try {
       const postRes = await postCard({ cardName, cardDates });
-      console.log(postRes.data);
-      console.log(postRes.data.card);
-      navigate(`/cards/${postRes.data.card.cardId}`);
+      navigate(`/cards/${postRes.data.data.card.cardId}`);
 
       const res = await getCards();
       setCards(res.data);

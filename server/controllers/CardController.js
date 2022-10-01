@@ -46,7 +46,7 @@ module.exports = {
           ON cards.card_id = tasks.card_id
           WHERE cards.card_id = $1
         )
-      )
+      ) AS data
       FROM cards
       WHERE cards.card_id = $1
     `,

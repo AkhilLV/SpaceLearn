@@ -47,23 +47,13 @@ export default function CardHeader() {
   const handleEditCardForm = async (e, inputValues) => {
     // maybe dont send a request at all if values have not changed
     const cardName = inputValues[1] || cardData.cardName;
-    const cardDate =
-      (inputValues[2] && new Date(inputValues[2])) ||
-      cardData.cardDates[0].cardDate;
 
-    if (!cardName || !cardDate)
-      return setShowInfoModal([true, "Fill all fields"]);
-
-    const cardDates = generateCardDates(cardDate);
+    if (!cardName) return setShowInfoModal([true, "Fill all fields"]);
 
     // eslint-disable-next-line no-shadow
-    const cardDatesWithIds = cardData.cardDates.map((cardDate, i) => ({
-      cardDate: cardDates[i],
-      cardDateId: cardDate.cardDateId,
-    }));
 
     try {
-      await editCard(cardId, { cardName, cardDates: cardDatesWithIds });
+      await editCard(cardId, { cardName });
 
       const resCard = await getCard(cardId);
       setCardData(resCard.data);
@@ -88,12 +78,6 @@ export default function CardHeader() {
               inputType: "text",
               inputValue: cardData.cardName,
             },
-            {
-              id: 2,
-              labelText: "Card Date",
-              inputType: "date",
-              inputValue: cardData.cardDates[0].cardDate,
-            },
           ]}
           submitBtnText="Edit card"
           onSubmit={handleEditCardForm}
@@ -101,7 +85,7 @@ export default function CardHeader() {
         />
       )}
 
-      <h2>{cardData.cardName}</h2>
+      <h2>{cardData.data.cardName}</h2>
 
       <DropdownMenu
         buttons={[
