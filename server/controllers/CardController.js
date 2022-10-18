@@ -62,12 +62,12 @@ module.exports = {
 
   post: async (req, res, next) => {
     const userId = req.user.user_id;
-    const { cardName } = req.body;
+    const { cardName, cardColor } = req.body;
 
     try {
       const newCard = await pool.query(
-        "INSERT INTO cards (user_id, card_name) VALUES ($1, $2) RETURNING card_id, card_name",
-        [userId, cardName]
+        "INSERT INTO cards (user_id, card_name, card_color) VALUES ($1, $2, $3) RETURNING card_id, card_name, card_color",
+        [userId, cardName, cardColor]
       );
 
       res.send({
@@ -75,6 +75,7 @@ module.exports = {
           card: {
             cardId: newCard.rows[0].card_id,
             cardName,
+            cardColor,
           },
         },
         message: "card added",

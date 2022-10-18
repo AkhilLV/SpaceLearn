@@ -8,6 +8,7 @@ export function CardProvider({ children }) {
   const [cardData, setCardData] = useState(false);
   const [selectedDateId, setSelectedDateId] = useState(false);
   const [selectedDate, setSelectedDate] = useState(false);
+  const [selectedColor, setSelectedColor] = useState(false);
 
   return (
     <CardContext.Provider
@@ -23,6 +24,9 @@ export function CardProvider({ children }) {
 
         selectedDate,
         setSelectedDate,
+
+        selectedColor,
+        setSelectedColor,
       }}
     >
       {children}

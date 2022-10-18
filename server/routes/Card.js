@@ -37,7 +37,7 @@ router.get("/:cardId", param("cardId").isInt(), (req, res, next) => {
 router.post(
   "/",
   body("cardName").isString().isLength({ min: 1 }),
-  // body("cardDates").isArray({ min: 1 }),
+  body("cardColor").isHexColor(),
   // check("cardDates.*").isISO8601(),
   (req, res, next) => {
     const errors = validationResult(req);

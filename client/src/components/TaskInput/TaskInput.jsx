@@ -3,12 +3,17 @@ import { useContext, useState } from "react";
 import "./TaskInput.css";
 import { useParams } from "react-router-dom";
 import { addTask, getCard } from "../../api";
+
+import Form from "../Form/Form";
+
 import CardContext from "../../contexts/CardContext";
 import ModalContext from "../../contexts/ModalContext";
 
 export default function TaskInput() {
   const { setCardData } = useContext(CardContext);
   const { setShowInfoModal } = useContext(ModalContext);
+
+  const [showForm, setShowForm] = useState(false);
 
   const { cardId } = useParams();
 
@@ -29,9 +34,31 @@ export default function TaskInput() {
     }
   };
 
+  const handleAddTaskForm = () => {};
+
   return (
     <div className="task-input">
-      <form onSubmit={handleSubmit}>
+      {showForm && (
+        <Form
+          headerText="Add task"
+          inputItems={[
+            {
+              id: 1,
+              labelText: "Task Name",
+              inputType: "text",
+            },
+            {
+              id: 2,
+              labelText: "Card Date",
+              inputType: "date",
+            },
+          ]}
+          submitBtnText="Create task"
+          onSubmit={handleAddTaskForm}
+          setShowForm={setShowForm}
+        />
+      )}
+      <form onClick={() => setShowForm(true)} className="task-input-form">
         <input
           className="input"
           type="text"

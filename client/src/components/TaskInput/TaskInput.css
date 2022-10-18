@@ -3,16 +3,16 @@
   margin-bottom: 45px;
 }
 
-.card .task-input form {
+.card .task-input .task-input-form {
   display: flex;
   gap: 10px;
 }
 
-.card .task-input form input {
+.card .task-input .task-input-form input {
   min-width: 300px;
 }
 
-.card .task-input form button.circle {
+.card .task-input .task-input-form button.circle {
   min-width: 40px;
   height: 40px;
   line-height: 40px;

@@ -1,0 +1,17 @@
+.color-selector {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.color-selector div {
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: #333;
+}
+
+.color-selector div.active {
+  border: #fff solid 3px;
+}

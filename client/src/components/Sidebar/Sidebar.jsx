@@ -17,13 +17,12 @@ import { getCards, postCard } from "../../api";
 import CardContext from "../../contexts/CardContext";
 import ModalContext from "../../contexts/ModalContext";
 
-import generateCardDates from "../../helpers/generateCardDates";
-
 function Sidebar() {
   const [showForm, setShowForm] = useState(false);
 
   const { setShowInfoModal } = useContext(ModalContext);
-  const { setCards, cards } = useContext(CardContext);
+  const { setCards, cards, selectedColor, setSelectedColor } =
+    useContext(CardContext);
 
   const navigate = useNavigate();
 
@@ -43,20 +42,17 @@ function Sidebar() {
 
   const handleAddCardForm = async (e, inputValues) => {
     const cardName = inputValues[1];
-    const cardDate = inputValues[2] && new Date(inputValues[2]);
 
-    if (!(cardName && cardDate))
-      return setShowInfoModal([true, "Fill all fields"]);
-
-    const cardDates = generateCardDates(cardDate);
+    if (!cardName) return setShowInfoModal([true, "Fill all fields"]);
 
     try {
-      const postRes = await postCard({ cardName, cardDates });
+      const postRes = await postCard({ cardName, cardColor: selectedColor });
       navigate(`/cards/${postRes.data.data.card.cardId}`);
 
       const res = await getCards();
       setCards(res.data);
       setShowForm(false);
+      setSelectedColor("ffffff");
     } catch (err) {
       console.log(err);
       setShowForm(false);
@@ -86,8 +82,8 @@ function Sidebar() {
             },
             {
               id: 2,
-              labelText: "Card Date",
-              inputType: "date",
+              labelText: "Card Color",
+              inputType: "ColorSelector",
             },
           ]}
           submitBtnText="Create card"

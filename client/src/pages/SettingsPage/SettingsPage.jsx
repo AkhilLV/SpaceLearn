@@ -29,6 +29,8 @@ function SettingsPage() {
 
       <div id="settings-page-content">
         <h1>Settings</h1>
+        <label>Reset password</label>
+        <input className="input" type="text" placeholder="Enter new password" />
         <button type="button" onClick={handleClick} className="btn">
           Logout
         </button>

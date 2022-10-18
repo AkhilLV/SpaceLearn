@@ -6,6 +6,10 @@
   padding: 40px;
 }
 
+#settings-page-content h1 {
+  margin-bottom: 20px;
+}
+
 #settings-page-content .btn {
   background-color: rgb(214, 31, 31);
   color: #fff;

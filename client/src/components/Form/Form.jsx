@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./Form.css";
 import { motion } from "framer-motion";
 import close from "../../assets/icons/close.svg";
+import ColorSelector from "../ColorSelector/ColorSelector";
 
 function Form({
   headerText = "",
@@ -11,6 +12,8 @@ function Form({
   onSubmit = () => {},
   setShowForm,
 }) {
+  const customInputTypes = ["ColorSelector"];
+
   // set default inputValues
   const [inputValues, setInputValues] = useState(
     inputItems.reduce((acc, inputItem) => {
@@ -58,13 +61,17 @@ function Form({
             <>
               <label>{item.labelText}</label>
 
-              <input
-                key={item.id}
-                className="input"
-                type={item.inputType}
-                value={inputValues[item.id]}
-                onChange={onChange(item.id)}
-              />
+              {!customInputTypes.includes(item.inputType) ? (
+                <input
+                  key={item.id}
+                  className="input"
+                  type={item.inputType}
+                  value={inputValues[item.id]}
+                  onChange={onChange(item.id)}
+                />
+              ) : (
+                <ColorSelector />
+              )}
             </>
           ))}
 
