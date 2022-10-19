@@ -55,6 +55,7 @@ router.patch(
   "/:cardId",
   param("cardId").isInt(),
   body("cardName").isString().isLength({ min: 1 }),
+  body("cardColor").isHexColor(),
   // body("cardDates").isArray({ min: 1 }),
   // check("cardDates.*.cardDateId").isInt(),
   // check("cardDates.*.cardDate").isISO8601(),
@@ -66,7 +67,7 @@ router.patch(
       return;
     }
 
-    controller.updateCardName(req, res, next);
+    controller.updateCard(req, res, next);
   }
 );
 

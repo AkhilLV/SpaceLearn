@@ -86,15 +86,15 @@ module.exports = {
     }
   },
 
-  updateCardName: async (req, res, next) => {
+  updateCard: async (req, res, next) => {
     const { cardId } = req.params;
-    const { cardName } = req.body;
+    const { cardName, cardColor } = req.body;
 
     try {
-      await pool.query("UPDATE cards SET card_name = $1 WHERE card_id = $2", [
-        cardName,
-        cardId,
-      ]);
+      await pool.query(
+        "UPDATE cards SET card_name = $1, card_color = $2 WHERE card_id = $3",
+        [cardName, cardColor, cardId]
+      );
 
       res.send({
         data: {
