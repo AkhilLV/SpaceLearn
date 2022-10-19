@@ -15,7 +15,8 @@ import DropdownMenu from "../DropdownMenu/DropdownMenu";
 import ModalContext from "../../contexts/ModalContext";
 
 export default function CardHeader() {
-  const { setCards, cardData, setCardData } = useContext(CardContext);
+  const { setCards, cardData, setCardData, selectedColor, setSelectedColor } =
+    useContext(CardContext);
   const { cardId } = useParams();
 
   const navigate = useNavigate();
@@ -53,7 +54,8 @@ export default function CardHeader() {
     // eslint-disable-next-line no-shadow
 
     try {
-      await editCard(cardId, { cardName });
+      await editCard(cardId, { cardName, cardColor: selectedColor });
+      setSelectedColor("ffffff"); // reset to default value. any other way within the component?
 
       const resCard = await getCard(cardId);
       setCardData(resCard.data);
@@ -77,6 +79,11 @@ export default function CardHeader() {
               labelText: "Card Name",
               inputType: "text",
               inputValue: cardData.cardName,
+            },
+            {
+              id: 2,
+              labelText: "Card Color",
+              inputType: "ColorSelector",
             },
           ]}
           submitBtnText="Edit card"

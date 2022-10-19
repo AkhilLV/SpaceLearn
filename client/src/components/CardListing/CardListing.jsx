@@ -39,7 +39,10 @@ function CardListing() {
             key={card.card_id}
             data-id={card.card_id}
           >
-            <span className="circle" />
+            <span
+              className="circle"
+              style={{ backgroundColor: `#${card.card_color}` }}
+            />
             {card.card_name}
           </Link>
         ))}

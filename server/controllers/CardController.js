@@ -8,7 +8,7 @@ module.exports = {
 
     try {
       const cards = await pool.query(
-        "SELECT card_id, card_name FROM cards WHERE user_id = $1",
+        "SELECT card_id, card_name, card_color FROM cards WHERE user_id = $1",
         [userId]
       );
       res.send(cards.rows);
