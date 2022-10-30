@@ -1,0 +1,36 @@
+.input-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #222;
+  border-radius: 5px;
+  width: 450px;
+  z-index: 100000;
+}
+
+.input-modal .header {
+  border-bottom: var(--dark-lighter-2) 3px solid;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  margin-bottom: 5px;
+}
+
+.input-modal form {
+  padding: 20px 50px;
+  padding-bottom: 30px;
+}
+
+.input-modal label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 100;
+}
+
+.input-modal input {
+  width: 100%;
+  margin-bottom: 30px;
+}

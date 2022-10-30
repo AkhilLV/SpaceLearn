@@ -12,7 +12,7 @@ function Form({
   onSubmit = () => {},
   setShowForm,
 }) {
-  const customInputTypes = ["ColorSelector"];
+  const customInputTypes = ["ColorSelector", "DatePicker"];
 
   // set default inputValues
   const [inputValues, setInputValues] = useState(
