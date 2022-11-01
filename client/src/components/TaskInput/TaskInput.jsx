@@ -19,16 +19,17 @@ export default function TaskInput() {
   const handleAddTaskForm = async (e, inputValues) => {
     e.preventDefault();
 
-    console.log(inputValues);
+    const [taskText, taskDates] = inputValues;
 
-    if (!inputValues.taskText || inputValues.taskDates.length === 0)
+    if (!taskText || taskDates.length === 0)
       return setShowInfoModal([true, "Enter a new task"]);
 
     try {
-      await addTask(cardId, { taskText });
+      await addTask(cardId, { taskText, taskDates });
       const res = await getCard(cardId);
-      setTaskText("");
       setCardData(res.data);
+      setShowInfoModal([true, "Task added"]);
+      setShowForm(false);
     } catch (err) {
       console.log(err);
     }
