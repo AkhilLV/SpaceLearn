@@ -48,7 +48,7 @@ export default function TaskInput() {
           type="text"
           placeholder="What do you want to learn today?"
         />
-        <button type="submit" className="circle">
+        <button type="button" className="circle">
           +
         </button>
       </form>
