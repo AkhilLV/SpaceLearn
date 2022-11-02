@@ -27,6 +27,7 @@ export default function TaskInput() {
     try {
       await addTask(cardId, { taskText, taskDates });
       const res = await getCard(cardId);
+      console.log(res.data);
       setCardData(res.data);
       setShowInfoModal([true, "Task added"]);
       setShowForm(false);

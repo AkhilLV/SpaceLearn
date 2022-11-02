@@ -4,7 +4,8 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import { deleteCard, getCards, editCard, getCard } from "../../api";
 
-import generateCardDates from "../../helpers/generateCardDates";
+import editIcon from "../../assets/icons/edit.svg";
+import deleteIcon from "../../assets/icons/delete.svg";
 
 import "./CardHeader.css";
 
@@ -98,10 +99,12 @@ export default function CardHeader() {
         buttons={[
           {
             buttonName: "Delete",
+            buttonIcon: deleteIcon,
             handler: handleDeleteClick,
           },
           {
             buttonName: "Edit",
+            buttonIcon: editIcon,
             handler: handleEditClick,
           },
         ]}

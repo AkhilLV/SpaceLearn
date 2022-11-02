@@ -11,13 +11,19 @@
 }
 
 .card .menu .dropdown .btn-dropdown {
+  display: flex;
   font-size: 17px;
 
-  width: 100px;
-  padding: 10px 0;
+  width: 130px;
+  padding: 10px 20px;
 
   background: #fff;
   color: var(--dark-lighter-2);
+}
+
+.card .menu .dropdown .btn-dropdown img {
+  width: 23px;
+  margin-right: 10px;
 }
 
 .card .menu .dropdown .btn-dropdown:first-child {
