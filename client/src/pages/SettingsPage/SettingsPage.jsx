@@ -8,6 +8,8 @@ import ModalContext from "../../contexts/ModalContext";
 
 import { logout } from "../../api";
 
+import logoutIcon from "../../assets/icons/logout.svg";
+
 function SettingsPage() {
   const navigate = useNavigate();
 
@@ -29,9 +31,25 @@ function SettingsPage() {
 
       <div id="settings-page-content">
         <h1>Settings</h1>
-        <label>Reset password</label>
-        <input className="input" type="text" placeholder="Enter new password" />
-        <button type="button" onClick={handleClick} className="btn">
+        <div className="group">
+          <label>Reset password</label>
+          <input
+            className="input"
+            type="text"
+            placeholder="Enter new password"
+          />
+          <button
+            type="button"
+            onClick={handleClick}
+            className="btn btn-primary"
+          >
+            Reset
+          </button>
+        </div>
+
+        <h3>Others</h3>
+        <button type="button" onClick={handleClick} className="btn btn-red">
+          <img src={logoutIcon} alt="logout" />
           Logout
         </button>
       </div>

@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-import "./Form.css";
+import "../Form.css";
 
 import "./TaskInputForm.css";
 import { motion } from "framer-motion";
 import DatePicker from "react-multi-date-picker";
-import close from "../../assets/icons/close.svg";
+import close from "../../../assets/icons/close.svg";
 
 function TaskInputForm({ onSubmit = () => {}, setShowForm }) {
   // set default taskName

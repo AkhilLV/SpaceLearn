@@ -75,7 +75,7 @@ button {
   display: inline-block;
   padding: 12px 25px;
 
-  border-radius: 3px;
+  border-radius: 30px;
   font-size: 17px;
 
   background: var(--space-green);

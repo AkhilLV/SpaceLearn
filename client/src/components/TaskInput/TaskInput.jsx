@@ -6,7 +6,7 @@ import { addTask, getCard } from "../../api";
 
 import CardContext from "../../contexts/CardContext";
 import ModalContext from "../../contexts/ModalContext";
-import TaskInputForm from "../TaskInputForm/TaskInputForm";
+import TaskInputForm from "../Form/TaskInputForm/TaskInputForm";
 
 export default function TaskInput() {
   const { setCardData } = useContext(CardContext);
