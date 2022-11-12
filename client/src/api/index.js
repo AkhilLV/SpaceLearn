@@ -23,4 +23,5 @@ export const editTask = (cardId, taskId, data) =>
 
 export const login = (data) => API.post("/auth/login", data);
 export const register = (data) => API.post("/auth/register", data);
+export const reset = (data) => API.post("/auth/reset", data);
 export const logout = () => API.post("/auth/logout");

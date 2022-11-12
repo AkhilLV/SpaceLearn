@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -6,7 +6,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import "./SettingsPage.css";
 import ModalContext from "../../contexts/ModalContext";
 
-import { logout } from "../../api";
+import { logout, reset } from "../../api";
 
 import logoutIcon from "../../assets/icons/logout.svg";
 
@@ -15,7 +15,9 @@ function SettingsPage() {
 
   const { setShowInfoModal } = useContext(ModalContext);
 
-  const handleClick = async () => {
+  const [newPassword, setNewPassword] = useState("");
+
+  const handleLogoutClick = async () => {
     localStorage.removeItem("username");
     localStorage.removeItem("password");
 
@@ -23,6 +25,23 @@ function SettingsPage() {
 
     setShowInfoModal([true, "Successfully logged out"]);
     navigate("/");
+  };
+
+  const handleResetClick = async () => {
+    if (newPassword.split("").length < 8) {
+      return setShowInfoModal([
+        true,
+        "Password should be 8 characters or more",
+      ]);
+    }
+
+    try {
+      await reset({ newPassword });
+      localStorage.setItem("password", newPassword);
+      setShowInfoModal([true, "Password reset"]);
+    } catch (err) {
+      setShowInfoModal([true, "Server error. Try again"]);
+    }
   };
 
   return (
@@ -34,13 +53,14 @@ function SettingsPage() {
         <div className="group">
           <label>Reset password</label>
           <input
+            onChange={(e) => setNewPassword(e.target.value)}
             className="input"
             type="text"
             placeholder="Enter new password"
           />
           <button
             type="button"
-            onClick={handleClick}
+            onClick={handleResetClick}
             className="btn btn-primary"
           >
             Reset
@@ -48,7 +68,11 @@ function SettingsPage() {
         </div>
 
         <h3>Others</h3>
-        <button type="button" onClick={handleClick} className="btn btn-red">
+        <button
+          type="button"
+          onClick={handleLogoutClick}
+          className="btn btn-red"
+        >
           <img src={logoutIcon} alt="logout" />
           Logout
         </button>

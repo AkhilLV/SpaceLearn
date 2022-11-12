@@ -28,8 +28,9 @@ module.exports = {
       [username],
       (err, result) => {
         if (err) throw err;
-        if (result.rows.length)
+        if (result.rows.length) {
           return next(ApiError.badRequest({ message: "user_exists" }));
+        }
 
         pool.query(
           "INSERT INTO users (username, password) VALUES ($1, $2)",
@@ -41,6 +42,24 @@ module.exports = {
         );
       }
     );
+  },
+  reset: async (req, res, next) => {
+    const { newPassword } = req.body;
+
+    const encryptedPassword = await bcrypt.hash(newPassword, 10);
+
+    try {
+      pool.query("UPDATE users SET password = $1 WHERE user_id = $2", [
+        encryptedPassword,
+        req.user.user_id,
+      ]);
+      res.send({
+        message: "password updated",
+      });
+    } catch (err) {
+      next(ApiError.internal({ errors: err }));
+      throw err;
+    }
   },
   logout: (req, res, next) => {
     req.logout((err) => {

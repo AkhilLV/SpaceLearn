@@ -38,6 +38,21 @@ router.post(
   }
 );
 
+router.post(
+  "/reset",
+  body("newPassword").isString().isLength({ min: 8 }),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      next(ApiError.badRequest({ errors: errors.array() }));
+      return;
+    }
+
+    controller.reset(req, res, next);
+  }
+);
+
 router.post("/logout", (req, res, next) => {
   controller.logout(req, res, next);
 });
