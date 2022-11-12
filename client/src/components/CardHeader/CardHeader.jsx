@@ -50,7 +50,7 @@ export default function CardHeader() {
     // maybe dont send a request at all if values have not changed
     const cardName = inputValues[1] || cardData.cardName;
 
-    if (!cardName) return setShowInfoModal([true, "Fill all fields"]);
+    if (!cardName) return setShowInfoModal("Fill all fields");
 
     // eslint-disable-next-line no-shadow
 

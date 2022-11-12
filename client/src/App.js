@@ -26,7 +26,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {showInfoModal[0] && <Modal />}
+        {showInfoModal !== false && <Modal />}
 
         <UserProvider>
           <CardProvider>

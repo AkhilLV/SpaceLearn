@@ -39,7 +39,7 @@ function Login() {
     e.preventDefault();
 
     if (!username.trim() || !password) {
-      return setShowInfoModal([true, "Fill all fields"]);
+      return setShowInfoModal("Fill all fields");
     }
 
     try {
@@ -50,23 +50,20 @@ function Login() {
       }
 
       if (password.split("").length < 8) {
-        return setShowInfoModal([
-          true,
-          "Password should be 8 characters or more",
-        ]);
+        return setShowInfoModal("Password should be 8 characters or more");
       }
 
       setIsLoading(true);
       await register({ username, password });
-      setShowInfoModal([true, "User registered"]);
+      setShowInfoModal("User registered");
 
       await loginUser(username, password);
     } catch (err) {
       console.log(err);
       if (err.response.data.message === "user_exists") {
-        setShowInfoModal([true, "User exists"]);
+        setShowInfoModal("User exists");
       } else if (err.response.data.message === "user_not_found") {
-        setShowInfoModal([true, "Check your username or password"]);
+        setShowInfoModal("Check your username or password");
       }
       setIsLoading(false);
     }

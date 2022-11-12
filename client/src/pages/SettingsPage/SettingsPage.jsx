@@ -23,24 +23,21 @@ function SettingsPage() {
 
     await logout();
 
-    setShowInfoModal([true, "Successfully logged out"]);
+    setShowInfoModal("Successfully logged out");
     navigate("/");
   };
 
   const handleResetClick = async () => {
     if (newPassword.split("").length < 8) {
-      return setShowInfoModal([
-        true,
-        "Password should be 8 characters or more",
-      ]);
+      return setShowInfoModal("Password should be 8 characters or more");
     }
 
     try {
       await reset({ newPassword });
       localStorage.setItem("password", newPassword);
-      setShowInfoModal([true, "Password reset"]);
+      setShowInfoModal("Password reset");
     } catch (err) {
-      setShowInfoModal([true, "Server error. Try again"]);
+      setShowInfoModal("Server error. Try again");
     }
   };
 

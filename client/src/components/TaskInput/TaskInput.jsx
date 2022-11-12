@@ -22,14 +22,14 @@ export default function TaskInput() {
     const [taskText, taskDates] = inputValues;
 
     if (!taskText || taskDates.length === 0)
-      return setShowInfoModal([true, "Enter a new task"]);
+      return setShowInfoModal("Enter a new task");
 
     try {
       await addTask(cardId, { taskText, taskDates });
       const res = await getCard(cardId);
       console.log(res.data);
       setCardData(res.data);
-      setShowInfoModal([true, "Task added"]);
+      setShowInfoModal("Task added");
       setShowForm(false);
     } catch (err) {
       console.log(err);

@@ -8,13 +8,13 @@ function Modal() {
 
   useEffect(() => {
     setTimeout(() => {
-      setShowInfoModal([false, ""]);
+      setShowInfoModal(false);
     }, 3000);
   }, []);
 
   return (
     <div className="modal">
-      <p>{showInfoModal[1]}</p>
+      <p>{showInfoModal}</p>
     </div>
   );
 }

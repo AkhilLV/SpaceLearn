@@ -43,7 +43,7 @@ function Sidebar() {
   const handleAddCardForm = async (e, inputValues) => {
     const cardName = inputValues[1];
 
-    if (!cardName) return setShowInfoModal([true, "Fill all fields"]);
+    if (!cardName) return setShowInfoModal("Fill all fields");
 
     try {
       const postRes = await postCard({ cardName, cardColor: selectedColor });
@@ -56,7 +56,7 @@ function Sidebar() {
     } catch (err) {
       console.log(err);
       setShowForm(false);
-      setShowInfoModal([true, "Oops. Something went wrong"]);
+      setShowInfoModal("Oops. Something went wrong");
     }
   };
 

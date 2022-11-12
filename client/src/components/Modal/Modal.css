@@ -4,10 +4,10 @@
   left: 50%;
 
   transform: translate(-50%, -50%);
-  
+
   background-color: rgba(63, 63, 63, 0.9);
   padding: 15px 30px;
-  border-radius: 5px;
+  border-radius: 40px;
   display: block;
 
   z-index: 10000;

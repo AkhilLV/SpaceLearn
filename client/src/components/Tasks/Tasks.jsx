@@ -75,7 +75,7 @@ export default function Tasks({ tasks, taskDone }) {
   const handleEditTaskForm = async (e, inputValues) => {
     const taskText = inputValues[1];
 
-    if (!taskText) return setShowInfoModal([true, "Fill all fields"]);
+    if (!taskText) return setShowInfoModal("Fill all fields");
 
     try {
       await editTask(cardId, selectedTaskId, { taskText });
