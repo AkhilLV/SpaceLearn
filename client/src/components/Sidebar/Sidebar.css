@@ -4,10 +4,15 @@
   height: 100vh;
 }
 
-.sidebar .add-card-btn {
-  /* why does this work? */
-  background-color: transparent;
-  margin-bottom: 15px;
+.sidebar .flex {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.sidebar .flex p {
+  font-weight: bold;
 }
 
 .sidebar .add-card-btn img {

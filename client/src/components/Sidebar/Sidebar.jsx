@@ -20,6 +20,8 @@ import ModalContext from "../../contexts/ModalContext";
 function Sidebar() {
   const [showForm, setShowForm] = useState(false);
 
+  const username = localStorage.getItem("username");
+
   const { setShowInfoModal } = useContext(ModalContext);
   const { setCards, cards, selectedColor, setSelectedColor } =
     useContext(CardContext);
@@ -62,14 +64,18 @@ function Sidebar() {
 
   return (
     <div className="sidebar">
-      <button
-        type="button"
-        title="Add new card"
-        className="add-card-btn"
-        onClick={() => setShowForm(true)}
-      >
-        <img src={addIcon} alt="add" />
-      </button>
+      <div className="flex">
+        <button
+          type="button"
+          title="Add new card"
+          className="add-card-btn"
+          onClick={() => setShowForm(true)}
+        >
+          <img src={addIcon} alt="add" />
+        </button>
+
+        <p>{username}</p>
+      </div>
 
       {showForm && (
         <Form
