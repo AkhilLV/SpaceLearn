@@ -38,9 +38,8 @@ module.exports = {
                 'taskDate', task_dates.task_date,
                 'isTaskDone', task_dates.task_done
               ))
-              FROM tasks
-              INNER JOIN task_dates
-              ON tasks.task_id = task_dates.task_id
+              FROM task_dates
+              WHERE task_dates.task_id = tasks.task_id
             )
           ))
           FROM cards
@@ -50,7 +49,7 @@ module.exports = {
         )
       ) AS data
       FROM cards
-        WHERE cards.card_id = $id        
+        WHERE cards.card_id = $1
     `,
         [cardId]
       );
