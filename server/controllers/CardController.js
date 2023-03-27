@@ -50,7 +50,7 @@ module.exports = {
         )
       ) AS data
       FROM cards
-      WHERE cards.card_id = $1
+        WHERE cards.card_id = $id        
     `,
         [cardId]
       );
