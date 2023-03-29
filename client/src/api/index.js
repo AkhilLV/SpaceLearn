@@ -12,10 +12,15 @@ export const postCard = (data) => API.post("/cards", data);
 
 export const editCard = (cardId, data) => API.patch(`/cards/${cardId}`, data);
 
+export const getCardTasksByDate = (cardId, date) =>
+  API.get(`/cards/${cardId}/tasks/?date=${date}`);
+
 export const addTask = (cardId, data) =>
   API.post(`/cards/${cardId}/tasks`, data);
-export const crossTask = (cardId, taskId, cardDateId, data) =>
-  API.patch(`/cards/${cardId}/tasks/${taskId}/${cardDateId}`, data);
+export const crossTask = (cardId, taskId, taskDateId, taskDone) =>
+  API.put(
+    `/cards/${cardId}/tasks/${taskId}/${taskDateId}?taskDone=${taskDone}`
+  );
 export const deleteTask = (cardId, taskId) =>
   API.delete(`/cards/${cardId}/tasks/${taskId}`);
 export const editTask = (cardId, taskId, data) =>

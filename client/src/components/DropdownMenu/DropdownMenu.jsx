@@ -34,7 +34,7 @@ export default function DropdownMenu({ buttons }) {
                   button.handler(e, setShowDropdownMenu);
                 }}
               >
-                <img src={button.buttonIcon} />
+                <img src={button.buttonIcon} alt="dropdown" />
                 <p>{button.buttonName}</p>
               </motion.button>
             ))}

@@ -6,6 +6,8 @@ const CardContext = createContext();
 export function CardProvider({ children }) {
   const [cards, setCards] = useState(false);
   const [cardData, setCardData] = useState(false);
+
+  const [tasks, setTasks] = useState(false);
   const [selectedDateId, setSelectedDateId] = useState(false);
   const [selectedDate, setSelectedDate] = useState(false);
   const [selectedColor, setSelectedColor] = useState("ffffff");
@@ -18,6 +20,9 @@ export function CardProvider({ children }) {
 
         cardData,
         setCardData,
+
+        tasks,
+        setTasks,
 
         selectedDateId,
         setSelectedDateId,

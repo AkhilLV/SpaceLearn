@@ -15,6 +15,11 @@ router.get("/", param("cardId").isInt(), (req, res, next) => {
     return;
   }
 
+  if (req.query.date) {
+    controller.getTasksByDate(req, res);
+    return;
+  }
+
   controller.get(req, res);
 });
 
@@ -37,21 +42,15 @@ router.post(
 );
 
 router.patch(
-  "/:taskId",
+  "/:taskId/",
   param("cardId").isInt(),
   param("taskId").isInt(),
-  body("taskText").isString().isLength({ min: 1 }),
-  // body("taskDates").isArray({ min: 1 }),
-  // check("taskDates.*").isISO8601(),
   (req, res, next) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
       next(ApiError.badRequest({ errors: errors.array() }));
-      return;
     }
-
-    controller.updateTask(req, res);
   }
 );
 
@@ -60,7 +59,6 @@ router.put(
   param("cardId").isInt(),
   param("taskId").isInt(),
   param("taskDateId").isInt(),
-  body("isTaskDone").isBoolean(),
   (req, res, next) => {
     const errors = validationResult(req);
 
@@ -69,7 +67,7 @@ router.put(
       return;
     }
 
-    controller.updateStatus(req, res);
+    controller.crossTask(req, res);
   }
 );
 

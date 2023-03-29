@@ -16,6 +16,23 @@ module.exports = {
     }
   },
 
+  getTasksByDate: async (req, res) => {
+    const { cardId } = req.params;
+
+    try {
+      const tasks = await pool.query(
+        `SELECT tasks.task_id AS "taskId", task_date_id AS "taskDateId", task_text AS "taskText", task_done AS "taskDone" FROM tasks
+        INNER JOIN task_dates ON tasks.task_id = task_dates.task_id
+        WHERE tasks.card_id = $1 AND task_date = $2`,
+        [cardId, req.query.date]
+      );
+      res.send(tasks.rows);
+    } catch (err) {
+      res.status(500).send({ message: "tasks not fetched" });
+      throw err;
+    }
+  },
+
   getAll: async (req, res) => {
     const { cardId } = req.params;
 
@@ -102,14 +119,14 @@ module.exports = {
     }
   },
 
-  updateStatus: async (req, res) => {
+  crossTask: async (req, res) => {
     const { taskDateId } = req.params;
-    const { isTaskDone } = req.body;
+    const { taskDone } = req.query;
 
     try {
       await pool.query(
         "UPDATE task_dates SET task_done = $1 WHERE task_date_id = $2",
-        [isTaskDone, taskDateId]
+        [taskDone, taskDateId]
       );
       res.send({ message: "task status updated" });
     } catch (err) {

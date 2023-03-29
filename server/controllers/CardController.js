@@ -33,7 +33,6 @@ module.exports = {
             'taskText', tasks.task_text,
             'taskDates', (
               SELECT json_agg(json_build_object(
-                'taskId', task_dates.task_id,
                 'taskDateId', task_dates.task_date_id,
                 'taskDate', task_dates.task_date,
                 'isTaskDone', task_dates.task_done
@@ -42,10 +41,8 @@ module.exports = {
               WHERE task_dates.task_id = tasks.task_id
             )
           ))
-          FROM cards
-          INNER JOIN tasks
-          ON cards.card_id = tasks.card_id
-          WHERE cards.card_id = $1
+          FROM tasks
+          WHERE tasks.card_id = $1
         )
       ) AS data
       FROM cards

@@ -27,6 +27,7 @@ function ColorSelector() {
     <div className="color-selector">
       {colors.map((color) => (
         <div
+          key={color}
           style={{ background: `#${color}` }}
           data-value={color}
           onClick={setAsSelected}

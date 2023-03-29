@@ -1,6 +1,12 @@
 import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getCard, crossTask, deleteTask, editTask } from "../../api";
+import {
+  getCard,
+  crossTask,
+  deleteTask,
+  editTask,
+  getCardTasksByDate,
+} from "../../api";
 import CardContext from "../../contexts/CardContext";
 import ModalContext from "../../contexts/ModalContext";
 
@@ -10,7 +16,7 @@ import Form from "../Form/Form";
 import "./Tasks.css";
 
 export default function Tasks({ tasks, taskDone }) {
-  const { selectedDateId, setCardData } = useContext(CardContext);
+  const { selectedDateId, setCardData, setTasks } = useContext(CardContext);
   const { cardId } = useParams();
 
   const [selectedTaskId, setSelectedTaskId] = useState(false);
@@ -32,13 +38,14 @@ export default function Tasks({ tasks, taskDone }) {
     }
 
     const taskId = task.dataset.taskid;
+    const taskDateId = task.dataset.taskdateid;
 
     try {
       // function has too many params, hard to read
-      await crossTask(cardId, taskId, selectedDateId, { taskDone: !taskDone });
+      await crossTask(cardId, taskId, taskDateId, !taskDone);
 
-      const res = await getCard(cardId);
-      setCardData(res.data);
+      const res = await getCardTasksByDate(cardId, "2023-03-29");
+      setTasks(res.data);
     } catch (err) {
       console.log(err);
     }
@@ -115,6 +122,7 @@ export default function Tasks({ tasks, taskDone }) {
           <div
             key={task.taskId}
             data-taskid={task.taskId}
+            data-taskdateid={task.taskDateId}
             className="clickable task"
           >
             <div className="clickable center-vertical">

@@ -4,7 +4,7 @@ import { useEffect, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import CardContext from "../../contexts/CardContext";
 
-import { getCard } from "../../api";
+import { getCard, getCardTasksByDate } from "../../api";
 
 import "./CardPage.css";
 
@@ -20,6 +20,8 @@ function CardPage() {
     setSelectedDateId,
     setSelectedDate,
     setCardData,
+    setTasks,
+    tasks,
     cardData,
     selectedDate,
   } = useContext(CardContext);
@@ -35,6 +37,9 @@ function CardPage() {
         // setSelectedDate(res.data.data.cardDates[0].cardDate);
 
         setCardData(res.data);
+        const resTasks = await getCardTasksByDate(cardId, "2023-03-29");
+        setTasks(resTasks.data);
+        console.log(resTasks);
       } catch (err) {
         console.log(err);
       }
@@ -66,20 +71,14 @@ function CardPage() {
 
             {/* <DateSelector /> */}
 
-            {cardData.tasks && (
+            {tasks && (
               <>
+                <h2>Your tasks for today</h2>
                 <Tasks
-                  tasks={cardData.tasks.filter(
-                    (task) => !task.taskDates[selectedDate]
-                  )}
+                  tasks={tasks.filter((task) => !task.taskDone)}
                   taskDone={false}
                 />
-                <Tasks
-                  tasks={cardData.tasks.filter(
-                    (task) => task.taskDates[selectedDate]
-                  )}
-                  taskDone
-                />
+                <Tasks tasks={tasks.filter((task) => task.taskDone)} taskDone />
               </>
             )}
           </motion.div>
