@@ -20,6 +20,11 @@ router.get("/", (req, res, next) => {
     return;
   }
 
+  if (req.query.date) {
+    controller.getAllByDate(req, res, next);
+    return;
+  }
+
   controller.getAll(req, res, next);
 });
 

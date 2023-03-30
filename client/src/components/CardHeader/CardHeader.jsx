@@ -93,7 +93,7 @@ export default function CardHeader() {
         />
       )}
 
-      <h2>{cardData.data.cardName}</h2>
+      <h2>{cardData.cardName}</h2>
 
       <DropdownMenu
         buttons={[

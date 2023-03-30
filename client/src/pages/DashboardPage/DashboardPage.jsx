@@ -1,8 +1,23 @@
+import { useContext, useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import Tasks from "../../components/Tasks/Tasks";
+import CardContext from "../../contexts/CardContext";
 
 import "./DashboardPage.css";
+import { getAllTasksByDate } from "../../api/index";
 
 function DashboardPage() {
+  const { selectedDate } = useContext(CardContext);
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const res = await getAllTasksByDate(selectedDate);
+      console.log(res);
+      setTasks(res.data);
+    })();
+  }, []);
+
   return (
     <div id="dashboard">
       <Sidebar />
@@ -21,6 +36,11 @@ function DashboardPage() {
         </div>
 
         <h1>Your list</h1>
+
+        <Tasks
+          tasks={tasks.filter((task) => !task.taskDone)}
+          taskDone={false}
+        />
       </div>
     </div>
   );

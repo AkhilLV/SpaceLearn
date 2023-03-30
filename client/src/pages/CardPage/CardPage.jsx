@@ -11,13 +11,11 @@ import "./CardPage.css";
 import Sidebar from "../../components/Sidebar/Sidebar";
 
 import CardHeader from "../../components/CardHeader/CardHeader";
-import DateSelector from "../../components/DateSelector/DateSelector";
 import TaskInput from "../../components/TaskInput/TaskInput";
 import Tasks from "../../components/Tasks/Tasks";
 
 function CardPage() {
   const {
-    setSelectedDateId,
     setSelectedDate,
     setCardData,
     setTasks,
@@ -33,18 +31,14 @@ function CardPage() {
       try {
         const res = await getCard(cardId);
 
-        // setSelectedDateId(res.data.data.cardDates[0].cardDateId);
-        // setSelectedDate(res.data.data.cardDates[0].cardDate);
-
-        setCardData(res.data);
-        const resTasks = await getCardTasksByDate(cardId, "2023-03-29");
+        setCardData(res.data.data);
+        const resTasks = await getCardTasksByDate(cardId, selectedDate);
         setTasks(resTasks.data);
-        console.log(resTasks);
       } catch (err) {
         console.log(err);
       }
     })();
-  }, [cardId]);
+  }, [cardId, selectedDate]);
 
   const variants = {
     hidden: { scale: 0.9 },
@@ -73,7 +67,14 @@ function CardPage() {
 
             {tasks && (
               <>
-                <h2>Your tasks for today</h2>
+                <h2>
+                  Your tasks for today{" "}
+                  <input
+                    type="date"
+                    value={selectedDate}
+                    onChange={(e) => setSelectedDate(e.target.value)}
+                  />
+                </h2>
                 <Tasks
                   tasks={tasks.filter((task) => !task.taskDone)}
                   taskDone={false}

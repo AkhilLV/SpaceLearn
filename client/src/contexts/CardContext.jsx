@@ -8,9 +8,15 @@ export function CardProvider({ children }) {
   const [cardData, setCardData] = useState(false);
 
   const [tasks, setTasks] = useState(false);
-  const [selectedDateId, setSelectedDateId] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(false);
   const [selectedColor, setSelectedColor] = useState("ffffff");
+
+  const date = new Date();
+
+  const currentDate = `${date.getFullYear()}-${
+    date.getMonth() + 1
+  }-${date.getDate()}`;
+
+  const [selectedDate, setSelectedDate] = useState(currentDate);
 
   return (
     <CardContext.Provider
@@ -23,9 +29,6 @@ export function CardProvider({ children }) {
 
         tasks,
         setTasks,
-
-        selectedDateId,
-        setSelectedDateId,
 
         selectedDate,
         setSelectedDate,

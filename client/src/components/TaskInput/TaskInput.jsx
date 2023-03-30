@@ -2,14 +2,14 @@ import { useContext, useState } from "react";
 
 import "./TaskInput.css";
 import { useParams } from "react-router-dom";
-import { addTask, getCard } from "../../api";
+import { addTask, getCardTasksByDate } from "../../api";
 
 import CardContext from "../../contexts/CardContext";
 import ModalContext from "../../contexts/ModalContext";
 import TaskInputForm from "../Form/TaskInputForm/TaskInputForm";
 
 export default function TaskInput() {
-  const { setCardData } = useContext(CardContext);
+  const { selectedDate, setTasks } = useContext(CardContext);
   const { setShowInfoModal } = useContext(ModalContext);
 
   const [showForm, setShowForm] = useState(false);
@@ -19,16 +19,15 @@ export default function TaskInput() {
   const handleAddTaskForm = async (e, inputValues) => {
     e.preventDefault();
 
-    const [taskText, taskDates] = inputValues;
+    const [taskText, newDateValues] = inputValues;
 
-    if (!taskText || taskDates.length === 0)
+    if (!taskText || newDateValues.length === 0)
       return setShowInfoModal("Enter a new task");
 
     try {
-      await addTask(cardId, { taskText, taskDates });
-      const res = await getCard(cardId);
-      console.log(res.data.data);
-      setCardData(res.data.data);
+      await addTask(cardId, { taskText, taskDates: newDateValues });
+      const res = await getCardTasksByDate(cardId, selectedDate);
+      setTasks(res.data);
       setShowInfoModal("Task added");
       setShowForm(false);
     } catch (err) {
@@ -42,7 +41,7 @@ export default function TaskInput() {
         <TaskInputForm onSubmit={handleAddTaskForm} setShowForm={setShowForm} />
       )}
 
-      <form onClick={() => setShowForm(true)} className="task-input-form">
+      <div onClick={() => setShowForm(true)} className="task-input-form">
         <input
           className="input"
           type="text"
@@ -51,7 +50,7 @@ export default function TaskInput() {
         <button type="button" className="circle">
           +
         </button>
-      </form>
+      </div>
     </div>
   );
 }

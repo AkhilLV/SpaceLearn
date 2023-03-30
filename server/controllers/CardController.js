@@ -58,6 +58,22 @@ module.exports = {
     }
   },
 
+  getAllByDate: async (req, res, next) => {
+    try {
+      const tasks = await pool.query(
+        `SELECT tasks.task_id AS "taskId", task_date_id AS "taskDateId", task_text AS "taskText", task_done AS "taskDone" FROM tasks
+      INNER JOIN task_dates ON tasks.task_id = task_dates.task_id
+      WHERE task_date = $1`,
+        [req.query.date]
+      );
+
+      res.json(tasks.rows);
+    } catch (err) {
+      next(ApiError.internal({ errors: err }));
+      throw err;
+    }
+  },
+
   post: async (req, res, next) => {
     const userId = req.user.user_id;
     const { cardName, cardColor } = req.body;

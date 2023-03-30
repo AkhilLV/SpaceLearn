@@ -1,16 +1,16 @@
-.card .menu {
+.menu {
   position: relative;
   display: flex;
 }
 
-.card .menu .dropdown {
+.menu .dropdown {
   position: absolute;
   top: 0;
   left: 25px;
   z-index: 1000;
 }
 
-.card .menu .dropdown .btn-dropdown {
+.menu .dropdown .btn-dropdown {
   display: flex;
   font-size: 17px;
 
@@ -21,22 +21,22 @@
   color: var(--dark-lighter-2);
 }
 
-.card .menu .dropdown .btn-dropdown img {
+.menu .dropdown .btn-dropdown img {
   width: 23px;
   margin-right: 10px;
 }
 
-.card .menu .dropdown .btn-dropdown:first-child {
+.menu .dropdown .btn-dropdown:first-child {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   border-bottom: 2px #ccc solid;
 }
 
-.card .menu .dropdown .btn-dropdown:last-child {
+.menu .dropdown .btn-dropdown:last-child {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
 
-.card .menu .dropdown .btn-dropdown:hover {
+.menu .dropdown .btn-dropdown:hover {
   background: #eee;
 }

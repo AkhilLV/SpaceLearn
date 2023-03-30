@@ -15,6 +15,8 @@ export const editCard = (cardId, data) => API.patch(`/cards/${cardId}`, data);
 export const getCardTasksByDate = (cardId, date) =>
   API.get(`/cards/${cardId}/tasks/?date=${date}`);
 
+export const getAllTasksByDate = (date) => API.get(`/cards?date=${date}`);
+
 export const addTask = (cardId, data) =>
   API.post(`/cards/${cardId}/tasks`, data);
 export const crossTask = (cardId, taskId, taskDateId, taskDone) =>

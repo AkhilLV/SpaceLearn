@@ -9,9 +9,7 @@ import close from "../../../assets/icons/close.svg";
 
 function TaskInputForm({ onSubmit = () => {}, setShowForm }) {
   // set default taskName
-  const [taskName, setTaskName] = useState({
-    taskName: "",
-  });
+  const [taskName, setTaskName] = useState("");
 
   const [dateValues, setDateValues] = useState([]);
 
@@ -19,6 +17,7 @@ function TaskInputForm({ onSubmit = () => {}, setShowForm }) {
     e.preventDefault();
 
     const newDateValues = dateValues.map((date) => date.toDate());
+    console.log(newDateValues);
     onSubmit(e, [taskName, newDateValues]);
   };
 

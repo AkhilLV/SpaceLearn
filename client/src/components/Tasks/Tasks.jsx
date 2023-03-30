@@ -16,7 +16,7 @@ import Form from "../Form/Form";
 import "./Tasks.css";
 
 export default function Tasks({ tasks, taskDone }) {
-  const { selectedDateId, setCardData, setTasks } = useContext(CardContext);
+  const { selectedDate, setCardData, setTasks } = useContext(CardContext);
   const { cardId } = useParams();
 
   const [selectedTaskId, setSelectedTaskId] = useState(false);
@@ -44,7 +44,7 @@ export default function Tasks({ tasks, taskDone }) {
       // function has too many params, hard to read
       await crossTask(cardId, taskId, taskDateId, !taskDone);
 
-      const res = await getCardTasksByDate(cardId, "2023-03-29");
+      const res = await getCardTasksByDate(cardId, selectedDate);
       setTasks(res.data);
     } catch (err) {
       console.log(err);

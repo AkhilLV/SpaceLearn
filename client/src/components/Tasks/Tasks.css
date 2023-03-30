@@ -1,8 +1,8 @@
-.card .tasks {
+.tasks {
   margin-top: 30px;
 }
 
-.card .tasks .task {
+.tasks .task {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -12,13 +12,13 @@
   transition: 250ms;
 }
 
-.card .tasks .task:hover {
+.tasks .task:hover {
   text-decoration: line-through;
   cursor: pointer;
   background: #555;
 }
 
-.card .tasks .circle {
+.tasks .circle {
   display: inline-block;
   border-radius: 50%;
   margin-right: 15px;
@@ -28,19 +28,19 @@
   transition: 250ms ease-in-out;
 }
 
-.card .completed-tasks .task:hover .circle {
+.completed-tasks .task:hover .circle {
   background-color: #fff;
 }
 
-.card .completed-tasks .circle {
+.completed-tasks .circle {
   background-color: #555;
 }
 
-.card .completed-tasks .task {
+.completed-tasks .task {
   color: #555;
   text-decoration: line-through;
 }
 
-.card .completed-tasks .task:hover {
+.completed-tasks .task:hover {
   color: #fff;
 }

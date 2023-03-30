@@ -52,6 +52,8 @@ module.exports = {
     const { cardId } = req.params;
     const { taskText, taskDates } = req.body;
 
+    console.log(req.params, req.body);
+
     const client = await pool.connect();
 
     try {
