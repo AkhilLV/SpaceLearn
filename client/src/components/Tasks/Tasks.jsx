@@ -6,6 +6,7 @@ import {
   deleteTask,
   editTask,
   getCardTasksByDate,
+  getAllTasksByDate,
 } from "../../api";
 import CardContext from "../../contexts/CardContext";
 import ModalContext from "../../contexts/ModalContext";
@@ -15,7 +16,7 @@ import Form from "../Form/Form";
 
 import "./Tasks.css";
 
-export default function Tasks({ tasks, taskDone }) {
+export default function Tasks({ tasks, taskDone, isDashboard = false }) {
   const { selectedDate, setCardData, setTasks } = useContext(CardContext);
   const { cardId } = useParams();
 
@@ -39,13 +40,24 @@ export default function Tasks({ tasks, taskDone }) {
 
     const taskId = task.dataset.taskid;
     const taskDateId = task.dataset.taskdateid;
+    const clickedTasksCardId = task.dataset.cardid;
 
     try {
       // function has too many params, hard to read
-      await crossTask(cardId, taskId, taskDateId, !taskDone);
+      await crossTask(
+        cardId || clickedTasksCardId, // clickedTasksCardId is defined only when this compoment is used by DashboardPage
+        taskId,
+        taskDateId,
+        !taskDone
+      );
 
-      const res = await getCardTasksByDate(cardId, selectedDate);
-      setTasks(res.data);
+      if (!isDashboard) {
+        const res = await getCardTasksByDate(cardId, selectedDate);
+        setTasks(res.data);
+      } else {
+        const res = await getAllTasksByDate(selectedDate);
+        setTasks(res.data);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -123,11 +135,17 @@ export default function Tasks({ tasks, taskDone }) {
             key={task.taskId}
             data-taskid={task.taskId}
             data-taskdateid={task.taskDateId}
+            data-cardid={task.cardId}
             className="clickable task"
           >
             <div className="clickable center-vertical">
               <div className="clickable circle" />
-              <span className="clickable task-text">{task.taskText}</span>
+              <span className="clickable task-text">
+                {task.taskText}{" "}
+                {isDashboard && (
+                  <span className="task-card-name">{task.cardName}</span>
+                )}
+              </span>
             </div>
             <DropdownMenu
               buttons={[

@@ -4,9 +4,6 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import { deleteCard, getCards, editCard, getCard } from "../../api";
 
-import editIcon from "../../assets/icons/edit.svg";
-import deleteIcon from "../../assets/icons/delete.svg";
-
 import "./CardHeader.css";
 
 import CardContext from "../../contexts/CardContext";
@@ -95,16 +92,13 @@ export default function CardHeader() {
 
       <h2>{cardData.cardName}</h2>
 
+      {/* Refactor this to be simpler */}
       <DropdownMenu
         buttons={[
           {
-            buttonName: "Delete",
-            buttonIcon: deleteIcon,
             handler: handleDeleteClick,
           },
           {
-            buttonName: "Edit",
-            buttonIcon: editIcon,
             handler: handleEditClick,
           },
         ]}

@@ -28,6 +28,14 @@
   transition: 250ms ease-in-out;
 }
 
+.tasks .task-card-name {
+  margin-left: 15px;
+  background: #fff;
+  color: #000;
+  padding: 2px 10px 2px 10px;
+  border-radius: 50px;
+}
+
 .completed-tasks .task:hover .circle {
   background-color: #fff;
 }

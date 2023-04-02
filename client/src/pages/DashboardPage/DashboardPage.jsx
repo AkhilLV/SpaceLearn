@@ -1,22 +1,37 @@
 import { useContext, useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Tasks from "../../components/Tasks/Tasks";
+import Upcoming from "../../components/Upcoming/Upcoming";
+
 import CardContext from "../../contexts/CardContext";
 
 import "./DashboardPage.css";
-import { getAllTasksByDate } from "../../api/index";
+import { getAllTasksByDate, getTasksBetweenDates } from "../../api/index";
+
+const addDays = (date, days) => {
+  const result = new Date(date);
+  result.setDate(result.getDate() + days);
+  return result;
+};
 
 function DashboardPage() {
-  const { selectedDate } = useContext(CardContext);
-  const [tasks, setTasks] = useState([]);
+  const { selectedDate, tasks, setTasks, setSelectedDate } =
+    useContext(CardContext);
 
+  const [upcomingTasks, setUpcomingTasks] = useState([]);
   useEffect(() => {
     (async () => {
       const res = await getAllTasksByDate(selectedDate);
-      console.log(res);
       setTasks(res.data);
+
+      const resUpcoming = await getTasksBetweenDates(
+        addDays(selectedDate, 1).toISOString().substring(0, 10),
+        addDays(selectedDate, 6).toISOString().substring(0, 10)
+      );
+      console.log(resUpcoming.data);
+      setUpcomingTasks(resUpcoming.data);
     })();
-  }, []);
+  }, [selectedDate]);
 
   return (
     <div id="dashboard">
@@ -28,20 +43,32 @@ function DashboardPage() {
           <span className="circle" />
         </header>
 
-        <p className="select-date">Showing tasks for 23 June</p>
+        <h1>
+          Your list for{" "}
+          <input
+            type="date"
+            value={selectedDate}
+            onChange={(e) => setSelectedDate(e.target.value)}
+          />
+        </h1>
 
         <div className="box-container">
-          <div className="box">3 tasks left</div>
-          <div className="box box-green">7 tasks completed</div>
+          <div className="box">
+            {tasks.filter((task) => !task.taskDone).length} tasks left
+          </div>
+          <div className="box box-green">
+            {tasks.filter((task) => task.taskDone).length} tasks completed
+          </div>
         </div>
-
-        <h1>Your list</h1>
 
         <Tasks
           tasks={tasks.filter((task) => !task.taskDone)}
           taskDone={false}
+          isDashboard
         />
       </div>
+
+      <Upcoming upcomingTasks={upcomingTasks} />
     </div>
   );
 }

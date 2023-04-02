@@ -7,16 +7,11 @@ export function CardProvider({ children }) {
   const [cards, setCards] = useState(false);
   const [cardData, setCardData] = useState(false);
 
-  const [tasks, setTasks] = useState(false);
+  const [tasks, setTasks] = useState([]);
   const [selectedColor, setSelectedColor] = useState("ffffff");
 
-  const date = new Date();
-
-  const currentDate = `${date.getFullYear()}-${
-    date.getMonth() + 1
-  }-${date.getDate()}`;
-
-  const [selectedDate, setSelectedDate] = useState(currentDate);
+  const currentDateAsYYYYMMDD = new Date().toISOString().substring(0, 10);
+  const [selectedDate, setSelectedDate] = useState(currentDateAsYYYYMMDD);
 
   return (
     <CardContext.Provider

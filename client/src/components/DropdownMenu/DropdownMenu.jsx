@@ -3,6 +3,9 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import moreMenu from "../../assets/icons/more-menu.svg";
 
+import editIcon from "../../assets/icons/edit.svg";
+import deleteIcon from "../../assets/icons/delete.svg";
+
 export default function DropdownMenu({ buttons }) {
   const [showDropdownMenu, setShowDropdownMenu] = useState(false);
 
@@ -25,19 +28,27 @@ export default function DropdownMenu({ buttons }) {
             animate={{ scale: 1 }}
             exit={{ scale: 0 }}
           >
-            {buttons.map((button) => (
-              <motion.button
-                key={button.buttonName}
-                type="button"
-                className="btn-dropdown"
-                onClick={(e) => {
-                  button.handler(e, setShowDropdownMenu);
-                }}
-              >
-                <img src={button.buttonIcon} alt="dropdown" />
-                <p>{button.buttonName}</p>
-              </motion.button>
-            ))}
+            <motion.button
+              type="button"
+              className="btn-dropdown"
+              onClick={(e) => {
+                buttons[0].handler(e, setShowDropdownMenu);
+              }}
+            >
+              <img src={deleteIcon} alt="dropdown" />
+              <p>Delete</p>
+            </motion.button>
+
+            <motion.button
+              type="button"
+              className="btn-dropdown"
+              onClick={(e) => {
+                buttons[1].handler(e, setShowDropdownMenu);
+              }}
+            >
+              <img src={editIcon} alt="dropdown" />
+              <p>Edit</p>
+            </motion.button>
           </motion.div>
         )}
       </AnimatePresence>

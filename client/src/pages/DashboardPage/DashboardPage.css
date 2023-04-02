@@ -4,6 +4,7 @@
 
 #dashboard .dashboard-content {
   padding: 40px;
+  flex: 2;
 }
 
 #dashboard .dashboard-content header {
