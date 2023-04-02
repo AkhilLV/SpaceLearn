@@ -10,12 +10,17 @@
 #dashboard .dashboard-content header {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 #dashboard .dashboard-content h1 {
   font-size: 25px;
   margin-right: 10px;
+  font-weight: 900;
+}
+
+#dashboard .dashboard-content h2 {
+  margin-bottom: 35px;
 }
 
 #dashboard .dashboard-content span.circle {
@@ -26,11 +31,6 @@
   border-radius: 50%;
 }
 
-#dashboard .dashboard-content p.select-date {
-  text-decoration: underline;
-  margin-bottom: 25px;
-}
-
 #dashboard .dashboard-content .box-container {
   display: flex;
   gap: 20px;
@@ -39,9 +39,18 @@
 }
 
 #dashboard .dashboard-content .box-container .box {
-  padding: 40px 30px;
+  padding: 40px 70px;
   background-color: rgb(241, 59, 35);
-  border-radius: 10px;
+  border-radius: 100px;
+  text-align: center;
+}
+
+#dashboard .dashboard-content .box-container .box .number {
+  font-weight: 900;
+}
+
+#dashboard .dashboard-content .box-container .box .text {
+  font-size: 1.2rem;
 }
 
 #dashboard .dashboard-content .box-container .box.box-green {

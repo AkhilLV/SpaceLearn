@@ -23,8 +23,6 @@ function formatDate(date) {
 }
 
 export default function Upcoming({ upcomingTasks }) {
-  console.log("Upcoming");
-  console.log(upcomingTasks);
   return (
     <div className="upcoming">
       <h1>Upcoming tasks</h1>
@@ -35,8 +33,10 @@ export default function Upcoming({ upcomingTasks }) {
             {taskContainer.tasks.map((task) => (
               <>
                 {" "}
-                <p>{task.taskText}</p>
-                <span>{task.cardName}</span>
+                <p>
+                  {task.taskText}
+                  <span>{task.cardName}</span>
+                </p>
               </>
             ))}
           </div>

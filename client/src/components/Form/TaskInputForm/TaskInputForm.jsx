@@ -17,7 +17,6 @@ function TaskInputForm({ onSubmit = () => {}, setShowForm }) {
     e.preventDefault();
 
     const newDateValues = dateValues.map((date) => date.toDate());
-    console.log(newDateValues);
     onSubmit(e, [taskName, newDateValues]);
   };
 

@@ -30,7 +30,6 @@ router.post(
   body("taskDates").isArray({ min: 1 }),
   check("taskDates.*").isISO8601(),
   (req, res, next) => {
-    console.log(req.params, req.body);
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {

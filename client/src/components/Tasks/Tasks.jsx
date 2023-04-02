@@ -77,7 +77,7 @@ export default function Tasks({ tasks, taskDone, isDashboard = false }) {
       await deleteTask(cardId, taskId);
 
       const res = await getCard(cardId);
-      setCardData(res.data);
+      setCardData(res.data.data);
     } catch (err) {
       console.log(err);
     }
@@ -100,7 +100,7 @@ export default function Tasks({ tasks, taskDone, isDashboard = false }) {
       await editTask(cardId, selectedTaskId, { taskText });
 
       const res = await getCard(cardId);
-      setCardData(res.data);
+      setCardData(res.data.data);
 
       setShowForm(false);
     } catch (err) {

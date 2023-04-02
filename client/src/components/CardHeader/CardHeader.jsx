@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -22,6 +22,10 @@ export default function CardHeader() {
   const { setShowInfoModal } = useContext(ModalContext);
 
   const [showForm, setShowForm] = useState(false);
+
+  useEffect(() => {
+    console.log("ran");
+  }, [cardData]);
 
   const handleDeleteClick = async (e, setShowDropdownMenu) => {
     setShowDropdownMenu(false);
@@ -56,7 +60,7 @@ export default function CardHeader() {
       setSelectedColor("ffffff"); // reset to default value. any other way within the component?
 
       const resCard = await getCard(cardId);
-      setCardData(resCard.data);
+      setCardData(resCard.data.data); // in some places this is resCard.data.data, other places resCard.data. make this consistent
 
       const res = await getCards();
       setCards(res.data);

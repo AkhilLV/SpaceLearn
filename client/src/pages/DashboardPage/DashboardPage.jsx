@@ -28,7 +28,6 @@ function DashboardPage() {
         addDays(selectedDate, 1).toISOString().substring(0, 10),
         addDays(selectedDate, 6).toISOString().substring(0, 10)
       );
-      console.log(resUpcoming.data);
       setUpcomingTasks(resUpcoming.data);
     })();
   }, [selectedDate]);
@@ -43,21 +42,27 @@ function DashboardPage() {
           <span className="circle" />
         </header>
 
-        <h1>
+        <h2>
           Your list for{" "}
           <input
             type="date"
             value={selectedDate}
             onChange={(e) => setSelectedDate(e.target.value)}
           />
-        </h1>
+        </h2>
 
         <div className="box-container">
           <div className="box">
-            {tasks.filter((task) => !task.taskDone).length} tasks left
+            <p className="number">
+              {tasks.filter((task) => !task.taskDone).length}
+            </p>
+            <p className="text">tasks left</p>
           </div>
           <div className="box box-green">
-            {tasks.filter((task) => task.taskDone).length} tasks completed
+            <p className="number">
+              {tasks.filter((task) => task.taskDone).length}
+            </p>
+            <p className="text">tasks completed</p>
           </div>
         </div>
 

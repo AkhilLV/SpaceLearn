@@ -5,7 +5,7 @@ const CardContext = createContext();
 
 export function CardProvider({ children }) {
   const [cards, setCards] = useState(false);
-  const [cardData, setCardData] = useState(false);
+  const [cardData, setCardData] = useState({});
 
   const [tasks, setTasks] = useState([]);
   const [selectedColor, setSelectedColor] = useState("ffffff");
