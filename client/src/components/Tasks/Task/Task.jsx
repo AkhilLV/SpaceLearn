@@ -11,19 +11,20 @@ import CardContext from "../../../contexts/CardContext";
 import ModalContext from "../../../contexts/ModalContext";
 
 import DropdownMenu from "../../DropdownMenu/DropdownMenu";
+import Form from "../../Form/Form";
 
-export default function Task({ task }) {
+export default function Task({ cardPageId, task, isDashboard }) {
   const { selectedDate, setTasks } = useContext(CardContext);
   const { cardId } = useParams();
 
-  const [selectedTaskId, setSelectedTaskId] = useState(false);
+  const [showForm, setShowForm] = useState(false);
 
   const { setShowInfoModal } = useContext(ModalContext);
 
   const handleClick = async (e) => {
     try {
       await crossTask(
-        cardId || clickedTasksCardId, // clickedTasksCardId is defined only when this compoment is used by DashboardPage
+        task.cardId || cardPageId, // cardId is defined only when this compoment is used by CardPage
         task.taskId,
         task.taskDateId,
         !task.taskDone
@@ -52,10 +53,7 @@ export default function Task({ task }) {
     }
   };
 
-  const handleEdit = (e, setShowDropdownMenu, task) => {
-    const taskId = getTaskId(e.target);
-    setSelectedTaskId(taskId);
-
+  const handleEdit = (e, setShowDropdownMenu) => {
     setShowDropdownMenu(false);
     setShowForm(true);
   };
@@ -66,7 +64,7 @@ export default function Task({ task }) {
     if (!taskText) return setShowInfoModal("Fill all fields");
 
     try {
-      await editTask(cardId, selectedTaskId, { taskText });
+      await editTask(cardId, task.taskId, { taskText });
       setShowForm(false);
     } catch (err) {
       console.log(err);
@@ -83,7 +81,7 @@ export default function Task({ task }) {
               id: 1,
               labelText: "Task Name",
               inputType: "text",
-              // inputValue: cardData.cardName,
+              inputValue: task.taskText,
             },
           ]}
           submitBtnText="Edit task"
@@ -105,13 +103,11 @@ export default function Task({ task }) {
           buttons={[
             {
               buttonName: "Delete",
-              handler: handleDelete(),
+              handler: handleDelete,
             },
             {
               buttonName: "Edit",
-              handler: (e, setShowDropdownMenu) => {
-                handleEdit(e, setShowDropdownMenu);
-              },
+              handler: handleEdit,
             },
           ]}
         />

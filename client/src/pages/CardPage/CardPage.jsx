@@ -78,8 +78,13 @@ function CardPage() {
                 <Tasks
                   tasks={tasks.filter((task) => !task.taskDone)}
                   taskDone={false}
+                  cardId={cardId}
                 />
-                <Tasks tasks={tasks.filter((task) => task.taskDone)} taskDone />
+                <Tasks
+                  tasks={tasks.filter((task) => task.taskDone)}
+                  taskDone
+                  cardId={cardId}
+                />
               </>
             )}
           </motion.div>
