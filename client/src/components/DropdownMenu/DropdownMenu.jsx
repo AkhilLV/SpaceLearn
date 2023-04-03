@@ -10,7 +10,12 @@ export default function DropdownMenu({ buttons }) {
   const [showDropdownMenu, setShowDropdownMenu] = useState(false);
 
   return (
-    <div className="menu">
+    <div
+      className="menu"
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
+    >
       <button type="button" onClick={() => setShowDropdownMenu(true)}>
         <img src={moreMenu} alt="more options" />
       </button>

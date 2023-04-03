@@ -26,21 +26,9 @@ export default function Tasks({ tasks, taskDone, isDashboard = false }) {
   const { setShowInfoModal } = useContext(ModalContext);
 
   const handleClick = async (e) => {
-    if (!e.target.matches(".clickable")) return;
-
-    let task = e.target;
-
-    // access id when user clicks on nested elements
-    if (e.target.matches(".circle") || e.target.matches(".task-text")) {
-      task = e.target.parentNode.parentNode;
-    }
-    if (e.target.matches(".center-vertical")) {
-      task = e.target.parentNode;
-    }
-
-    const taskId = task.dataset.taskid;
-    const taskDateId = task.dataset.taskdateid;
-    const clickedTasksCardId = task.dataset.cardid;
+    const taskId = e.currentTarget.dataset.taskid;
+    const taskDateId = e.currentTarget.dataset.taskdateid;
+    const clickedTasksCardId = e.currentTarget.dataset.cardid;
 
     try {
       // function has too many params, hard to read
@@ -63,27 +51,20 @@ export default function Tasks({ tasks, taskDone, isDashboard = false }) {
     }
   };
 
-  const getTaskId = (el) => {
-    const task = el.parentNode.parentNode.parentNode; // go up from button to task div
-    const taskId = task.dataset.taskid;
-
-    return taskId;
-  };
-
-  const handleDelete = async (e) => {
-    const taskId = getTaskId(e.target);
-
+  const handleDelete = async (e, task) => {
     try {
-      await deleteTask(cardId, taskId);
+      await deleteTask(cardId, task.taskId);
 
-      const res = await getCard(cardId);
-      setCardData(res.data.data);
+      // stop sending get requests after delete and just chanhge the state
+
+      const resTasks = await getCardTasksByDate(cardId, selectedDate);
+      setTasks(resTasks.data);
     } catch (err) {
       console.log(err);
     }
   };
 
-  const handleEdit = (e, setShowDropdownMenu) => {
+  const handleEdit = (e, setShowDropdownMenu, task) => {
     const taskId = getTaskId(e.target);
     setSelectedTaskId(taskId);
 
@@ -126,21 +107,19 @@ export default function Tasks({ tasks, taskDone, isDashboard = false }) {
           setShowForm={setShowForm}
         />
       )}
-      <div
-        className={`tasks ${taskDone && "completed-tasks"}`}
-        onClick={handleClick}
-      >
+      <div className={`tasks ${taskDone && "completed-tasks"}`}>
         {tasks.map((task) => (
           <div
             key={task.taskId}
             data-taskid={task.taskId}
             data-taskdateid={task.taskDateId}
             data-cardid={task.cardId}
-            className="clickable task"
+            onClick={handleClick}
+            className="task"
           >
-            <div className="clickable center-vertical">
-              <div className="clickable circle" />
-              <span className="clickable task-text">
+            <div className="center-vertical">
+              <div className="circle" />
+              <span className="task-text">
                 {task.taskText}{" "}
                 {isDashboard && (
                   <span className="task-card-name">{task.cardName}</span>
@@ -151,11 +130,15 @@ export default function Tasks({ tasks, taskDone, isDashboard = false }) {
               buttons={[
                 {
                   buttonName: "Delete",
-                  handler: handleDelete,
+                  handler: (e) => {
+                    handleDelete(e, task);
+                  },
                 },
                 {
                   buttonName: "Edit",
-                  handler: handleEdit,
+                  handler: (e, setShowDropdownMenu) => {
+                    handleEdit(e, setShowDropdownMenu);
+                  },
                 },
               ]}
             />

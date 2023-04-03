@@ -23,10 +23,6 @@ export default function CardHeader() {
 
   const [showForm, setShowForm] = useState(false);
 
-  useEffect(() => {
-    console.log("ran");
-  }, [cardData]);
-
   const handleDeleteClick = async (e, setShowDropdownMenu) => {
     setShowDropdownMenu(false);
 
