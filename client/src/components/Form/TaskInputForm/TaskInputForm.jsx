@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import "../Form.css";
 
@@ -7,9 +7,12 @@ import { motion } from "framer-motion";
 import DatePicker from "react-multi-date-picker";
 import close from "../../../assets/icons/close.svg";
 
+import generateCardDates from "../../../helpers/generateCardDates";
+
 function TaskInputForm({ onSubmit = () => {}, setShowForm }) {
   // set default taskName
   const [taskName, setTaskName] = useState("");
+  const [isChecked, setIsChecked] = useState(false);
 
   const [dateValues, setDateValues] = useState([]);
 
@@ -19,6 +22,14 @@ function TaskInputForm({ onSubmit = () => {}, setShowForm }) {
     const newDateValues = dateValues.map((date) => date.toDate());
     onSubmit(e, [taskName, newDateValues]);
   };
+
+  useEffect(() => {
+    if (isChecked) {
+      setDateValues(generateCardDates());
+    } else {
+      setDateValues([]);
+    }
+  }, [isChecked]);
 
   const variants = {
     hidden: { scale: 0.9, x: "-50%", y: "-50%" },
@@ -57,6 +68,13 @@ function TaskInputForm({ onSubmit = () => {}, setShowForm }) {
 
           <label>Task Dates: </label>
 
+          <label>Check this box to select the default dates</label>
+          <input
+            defaultChecked={isChecked}
+            type="checkbox"
+            onChange={() => setIsChecked(!isChecked)}
+          />
+
           <DatePicker
             className="calender"
             value={dateValues}
@@ -75,5 +93,3 @@ function TaskInputForm({ onSubmit = () => {}, setShowForm }) {
 }
 
 export default TaskInputForm;
-
-// a loader for button

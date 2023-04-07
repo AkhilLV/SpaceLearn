@@ -31,7 +31,7 @@ export const crossTask = (cardId, taskId, taskDateId, taskDone) =>
 export const deleteTask = (cardId, taskId) =>
   API.delete(`/cards/${cardId}/tasks/${taskId}`);
 export const editTask = (cardId, taskId, data) =>
-  API.put(`/cards/${cardId}/tasks/${taskId}`, data);
+  API.patch(`/cards/${cardId}/tasks/${taskId}`, data);
 
 // CRUD for AUTh
 

@@ -8,11 +8,7 @@ import CardContext from "../../contexts/CardContext";
 import "./DashboardPage.css";
 import { getAllTasksByDate, getTasksBetweenDates } from "../../api/index";
 
-const addDays = (date, days) => {
-  const result = new Date(date);
-  result.setDate(result.getDate() + days);
-  return result;
-};
+import { addDaysToDate } from "../../helpers/generateCardDates";
 
 function DashboardPage() {
   const { selectedDate, tasks, setTasks, setSelectedDate } =
@@ -25,8 +21,8 @@ function DashboardPage() {
       setTasks(res.data);
 
       const resUpcoming = await getTasksBetweenDates(
-        addDays(selectedDate, 1).toISOString().substring(0, 10),
-        addDays(selectedDate, 6).toISOString().substring(0, 10)
+        addDaysToDate(selectedDate, 1).toISOString().substring(0, 10),
+        addDaysToDate(selectedDate, 6).toISOString().substring(0, 10)
       );
       setUpcomingTasks(resUpcoming.data);
     })();

@@ -64,8 +64,8 @@ module.exports = {
         `SELECT cards.card_name AS "cardName", tasks.card_id AS "cardId", tasks.task_id AS "taskId", task_date_id AS "taskDateId", task_text AS "taskText", task_done AS "taskDone" FROM tasks
       INNER JOIN task_dates ON tasks.task_id = task_dates.task_id
       INNER JOIN cards ON tasks.card_id = cards.card_id
-      WHERE task_date = $1`,
-        [req.query.date]
+      WHERE task_date = $1 AND cards.user_id = $2`,
+        [req.query.date, req.user.user_id]
       );
 
       res.json(tasks.rows);
@@ -77,7 +77,6 @@ module.exports = {
 
   getAllBetweenDates: async (req, res, next) => {
     const { startDate, endDate } = req.query;
-
     try {
       const tasks = await pool.query(
         `SELECT 
@@ -95,10 +94,11 @@ module.exports = {
       WHERE 
         task_dates.task_date BETWEEN $1 AND $2
         AND task_dates.task_done = FALSE
-      GROUP BY 
+        AND cards.user_id = $3
+      GROUP BY
         task_dates.task_date
       `,
-        [startDate, endDate]
+        [startDate, endDate, req.user.user_id]
       );
 
       res.json(tasks.rows);

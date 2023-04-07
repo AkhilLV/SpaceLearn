@@ -1,4 +1,6 @@
-const addDaysToDate = (dateObject, daysToAdd) => {
+import { DateObject } from "react-multi-date-picker";
+
+export const addDaysToDate = (dateObject, daysToAdd) => {
   // Date, number
   const date = new Date(dateObject);
   date.setDate(date.getDate() + daysToAdd);
@@ -6,13 +8,15 @@ const addDaysToDate = (dateObject, daysToAdd) => {
   return date;
 };
 
-const generateCardDates = (startDate) => {
+const generateCardDates = () => {
   // Date
+  const startDate = new Date();
+
   const cardDates = [
-    startDate,
-    addDaysToDate(startDate, 1),
-    addDaysToDate(startDate, 4),
-    addDaysToDate(startDate, 9),
+    new DateObject(startDate),
+    new DateObject(addDaysToDate(startDate, 1)),
+    new DateObject(addDaysToDate(startDate, 4)),
+    new DateObject(addDaysToDate(startDate, 9)),
   ];
 
   return cardDates;

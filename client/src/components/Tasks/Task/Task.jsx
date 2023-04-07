@@ -13,9 +13,14 @@ import ModalContext from "../../../contexts/ModalContext";
 import DropdownMenu from "../../DropdownMenu/DropdownMenu";
 import Form from "../../Form/Form";
 
-export default function Task({ cardPageId, task, isDashboard }) {
+export default function Task({ task, isDashboard }) {
   const { selectedDate, setTasks } = useContext(CardContext);
-  const { cardId } = useParams();
+  let { cardId } = useParams();
+
+  if (!cardId) {
+    // cardId will be difined only a CardPage
+    cardId = task.cardId;
+  }
 
   const [showForm, setShowForm] = useState(false);
 
@@ -23,12 +28,7 @@ export default function Task({ cardPageId, task, isDashboard }) {
 
   const handleClick = async (e) => {
     try {
-      await crossTask(
-        task.cardId || cardPageId, // cardId is defined only when this compoment is used by CardPage
-        task.taskId,
-        task.taskDateId,
-        !task.taskDone
-      );
+      await crossTask(cardId, task.taskId, task.taskDateId, !task.taskDone);
 
       if (!isDashboard) {
         const res = await getCardTasksByDate(cardId, selectedDate);
@@ -46,8 +46,13 @@ export default function Task({ cardPageId, task, isDashboard }) {
     try {
       await deleteTask(cardId, task.taskId);
 
-      const resTasks = await getCardTasksByDate(cardId, selectedDate);
-      setTasks(resTasks.data);
+      if (isDashboard) {
+        const res = await getAllTasksByDate(selectedDate);
+        setTasks(res.data);
+      } else {
+        const res = await getCardTasksByDate(cardId, selectedDate);
+        setTasks(res.data);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -66,6 +71,14 @@ export default function Task({ cardPageId, task, isDashboard }) {
     try {
       await editTask(cardId, task.taskId, { taskText });
       setShowForm(false);
+
+      if (isDashboard) {
+        const res = await getAllTasksByDate(selectedDate);
+        setTasks(res.data);
+      } else {
+        const res = await getCardTasksByDate(cardId, selectedDate);
+        setTasks(res.data);
+      }
     } catch (err) {
       console.log(err);
     }

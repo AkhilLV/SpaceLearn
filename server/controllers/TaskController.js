@@ -106,15 +106,31 @@ module.exports = {
         taskId,
       ]);
 
+      res.send({ message: "task text updated" });
+    } catch (err) {
+      res.status(500).send({ message: "task text not updated" });
+      throw err;
+    }
+  },
+
+  patch: async (req, res) => {
+    const { taskId } = req.params;
+    const { taskText } = req.body;
+    try {
+      await pool.query("UPDATE tasks SET task_text = $1 WHERE task_id = $2", [
+        taskText,
+        taskId,
+      ]);
+
       // TODO
 
       // we want keep the taskDates that are already in the database,
       // but remove the ones that are not in the request
       // also add the ones that are in the request but not in the database
 
-      res.send({ message: "task text updated" });
+      res.send({ message: "task status updated" });
     } catch (err) {
-      res.status(500).send({ message: "task text not updated" });
+      res.status(500).send({ message: "task status not updated" });
       throw err;
     }
   },
