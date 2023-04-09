@@ -42,7 +42,7 @@ export default function Task({ task, isDashboard }) {
     }
   };
 
-  const handleDelete = async (e) => {
+  const handleDelete = async () => {
     try {
       await deleteTask(cardId, task.taskId);
 
