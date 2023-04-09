@@ -14,6 +14,8 @@ function DashboardPage() {
   const { selectedDate, tasks, setTasks, setSelectedDate } =
     useContext(CardContext);
 
+  const username = localStorage.getItem("username");
+
   const [upcomingTasks, setUpcomingTasks] = useState([]);
   useEffect(() => {
     (async () => {
@@ -34,7 +36,7 @@ function DashboardPage() {
 
       <div className="dashboard-content">
         <header>
-          <h1>Hello Jake</h1>
+          <h1>Hey {username}!</h1>
           <span className="circle" />
         </header>
 

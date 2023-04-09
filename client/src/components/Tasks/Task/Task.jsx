@@ -26,7 +26,7 @@ export default function Task({ task, isDashboard }) {
 
   const { setShowInfoModal } = useContext(ModalContext);
 
-  const handleClick = async (e) => {
+  const handleClick = async () => {
     try {
       await crossTask(cardId, task.taskId, task.taskDateId, !task.taskDone);
 
