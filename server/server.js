@@ -55,7 +55,7 @@ CardRoute.use("/:cardId/tasks", isLoggedIn, TaskRoute);
 app.use(apiErrorHandler);
 
 app.listen(PORT, () =>
-  console.log("Server is running at http://0.0.0.0:$PORT/")
+  console.log(`Server is running at http://0.0.0.0:${PORT}/`)
 );
 
 module.exports = app; // for testing
