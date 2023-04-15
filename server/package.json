@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
+    "dev": "npm start",
     "test": "mocha --timeout 1000"
   },
   "keywords": [],
