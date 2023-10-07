@@ -1,6 +1,6 @@
 # SpaceLearn
 
-A glorified todo-list. Create spaced learning cards for your tasks!
+Turn your to-do list into a powerful task manager with spaced learning cards. This method not only helps you manage your tasks effectively but also enhances your retention and learning of the material involved.
 
 ### Features:
 
